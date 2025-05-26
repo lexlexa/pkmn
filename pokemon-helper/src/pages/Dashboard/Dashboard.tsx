@@ -5,17 +5,6 @@ import { DashBoardItem } from "./DashboardItem/DashboardItem";
 import { $dashboardData, loadDashboardFx } from "./store";
 import { useUnit } from "effector-react";
 
-const data = [
-  {
-    title: "Test",
-    slug: "sv1",
-    all: { count: 100, max: 200 },
-    normal: { count: 100, max: 200 },
-    reverse: { count: 100, max: 200 },
-    normalHolo: { count: 100, max: 200 },
-  },
-];
-
 export const Dashboard = withLayout(() => {
   const dashboardData = useUnit($dashboardData);
   useEffect(() => {

@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createEffect, createStore } from "effector";
+import { ApiInstance } from "../../helpers/api";
 
 type DashboardItem = {
   slug: string;
@@ -10,7 +10,7 @@ type DashboardItem = {
 };
 
 export const loadDashboardFx = createEffect(async () => {
-  const response = await axios.get("/api/dashboard");
+  const response = await ApiInstance.get("/api/dashboard");
   return response.data;
 });
 

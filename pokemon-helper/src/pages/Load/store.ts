@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createEffect, createStore } from "effector";
+import { ApiInstance } from "../../helpers/api";
 
 type DuplicateButton = {
   name: string;
@@ -7,7 +7,7 @@ type DuplicateButton = {
 };
 
 export const loadDuplicatesButtonsFx = createEffect(async () => {
-  const response = await axios.get("/api/duplicates/buttons");
+  const response = await ApiInstance.get("/api/duplicates/buttons");
   return response.data as DuplicateButton[];
 });
 

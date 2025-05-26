@@ -6,8 +6,11 @@ import { Sync } from "./Sync/Sync";
 import { Load } from "./Load/Load";
 import { Collection } from "./Collection/Collection";
 import { Utils } from "./Utils/Utils";
+import { useUnit } from "effector-react";
+import { $token } from "./Auth/store";
+import { Auth } from "./Auth/Auth";
 
-export const AppRoutes = [
+const AppRoutes = [
   {
     path: "/",
     Component: Dashboard,
@@ -41,5 +44,10 @@ export const AppRoutes = [
 const router = createBrowserRouter(AppRoutes);
 
 export const EntryPoint = () => {
+  const token = useUnit($token);
+  if (!token) {
+    return <Auth />;
+  }
+
   return <RouterProvider router={router} />;
 };

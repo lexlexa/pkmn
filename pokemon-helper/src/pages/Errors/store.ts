@@ -1,6 +1,6 @@
-import axios from "axios";
 import { createEffect, createStore } from "effector";
 import type { CardRarities, CardVariants } from "../../constants";
+import { ApiInstance } from "../../helpers/api";
 
 export type TError = {
   number: string;
@@ -21,7 +21,7 @@ export type TErrorByExpansion = {
 };
 
 export const loadErrorsFx = createEffect(async () => {
-  const response = await axios.get("/api/errors");
+  const response = await ApiInstance.get("/api/errors");
   return Object.entries(response.data).map(([expansion, errors]) => ({
     expansion,
     errors,
