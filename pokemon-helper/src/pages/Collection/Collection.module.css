@@ -1,0 +1,11 @@
+
+.container {
+  display: flex;
+  gap: 16px;
+}
+
+
+.filters {
+  width: 250px;
+  background-color: red;
+}

@@ -1,0 +1,11 @@
+
+
+.text {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.img {
+  height: 12px;
+}

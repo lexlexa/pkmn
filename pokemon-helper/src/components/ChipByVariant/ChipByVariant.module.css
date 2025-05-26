@@ -1,0 +1,43 @@
+
+
+.item {
+  box-sizing: border-box;
+  padding: 4px;
+  font-size: 13px;
+  background-color: rgb(233, 233, 233) !important;
+  border-radius: 16px;
+  text-align: center;
+  font-weight: 700;
+  width: 100px;
+  padding: 4px 8px;
+  box-shadow: 1px 1px 5px 0 rgb(155, 155, 155);
+}
+
+
+.normalHolo, .reverseHolo {
+  background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow_animation 6s ease-in-out infinite;
+  background-size: 400% 100%;
+}
+
+.reverseHolo {
+  background-clip: unset;
+  color: white
+}
+
+.normalHolo {
+  border: 1px solid rgb(74, 74, 74);
+}
+
+@keyframes rainbow_animation {
+  0%,100% {
+      background-position: 0 0;
+  }
+
+  50% {
+      background-position: 100% 0;
+  }
+}
