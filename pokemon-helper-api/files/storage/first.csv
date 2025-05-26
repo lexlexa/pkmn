@@ -233,7 +233,7 @@ International,"Prismatic Evolutions",002/131,2,Exeggutor,Uncommon,Normal,English
 International,"Prismatic Evolutions",002/131,2,Exeggutor,Uncommon,"Reverse Holo",English,Unspecified,,2
 International,"Prismatic Evolutions",003/131,3,Pinsir,Common,Normal,English,Unspecified,,3
 International,"Prismatic Evolutions",003/131,3,Pinsir,Common,"Reverse Holo",English,Unspecified,,1
-International,"Prismatic Evolutions",004/131,4,Budew,Common,Normal,English,Unspecified,,4
+International,"Prismatic Evolutions",004/131,4,Budew,Common,Normal,English,Unspecified,,1
 International,"Prismatic Evolutions",004/131,4,Budew,Common,"Master Ball Holo",English,Unspecified,,1
 International,"Prismatic Evolutions",005/131,5,Leafeon,Rare,"Normal Holo",English,Unspecified,,1
 International,"Prismatic Evolutions",005/131,5,Leafeon,Rare,"Reverse Holo",English,Unspecified,,1
@@ -316,7 +316,7 @@ International,"Prismatic Evolutions",076/131,76,"Snorlax ex","Double Rare","Norm
 International,"Prismatic Evolutions",077/131,77,Hoothoot,Common,Normal,English,Unspecified,,3
 International,"Prismatic Evolutions",077/131,77,Hoothoot,Common,"Reverse Holo",English,Unspecified,,1
 International,"Prismatic Evolutions",078/131,78,Noctowl,Rare,"Normal Holo",English,Unspecified,,1
-International,"Prismatic Evolutions",078/131,78,Noctowl,Rare,"Reverse Holo",English,Unspecified,,2
+International,"Prismatic Evolutions",078/131,78,Noctowl,Rare,"Reverse Holo",English,Unspecified,,1
 International,"Prismatic Evolutions",079/131,79,Dunsparce,Common,Normal,English,Unspecified,,4
 International,"Prismatic Evolutions",079/131,79,Dunsparce,Common,"Reverse Holo",English,Unspecified,,1
 International,"Prismatic Evolutions",080/131,80,Dudunsparce,Rare,"Normal Holo",English,Unspecified,,1
@@ -345,7 +345,7 @@ International,"Prismatic Evolutions",097/131,97,"Black Belt's Training",Common,N
 International,"Prismatic Evolutions",098/131,98,"Black Belt's Training",Common,Normal,English,Unspecified,,2
 International,"Prismatic Evolutions",099/131,99,"Black Belt's Training",Common,Normal,English,Unspecified,,3
 International,"Prismatic Evolutions",100/131,100,Briar,Uncommon,Normal,English,Unspecified,,5
-International,"Prismatic Evolutions",101/131,101,"Buddy-Buddy Poffin",Uncommon,Normal,English,Unspecified,,3
+International,"Prismatic Evolutions",101/131,101,"Buddy-Buddy Poffin",Uncommon,Normal,English,Unspecified,,1
 International,"Prismatic Evolutions",102/131,102,"Bug Catching Set",Uncommon,Normal,English,Unspecified,,4
 International,"Prismatic Evolutions",102/131,102,"Bug Catching Set",Uncommon,"Reverse Holo",English,Unspecified,,1
 International,"Prismatic Evolutions",103/131,103,Carmine,Uncommon,Normal,English,Unspecified,,1
@@ -354,7 +354,7 @@ International,"Prismatic Evolutions",103/131,103,Carmine,Uncommon,"Poké Ball Ho
 International,"Prismatic Evolutions",104/131,104,"Ciphermaniac's Codebreaking",Uncommon,Normal,English,Unspecified,,3
 International,"Prismatic Evolutions",104/131,104,"Ciphermaniac's Codebreaking",Uncommon,"Reverse Holo",English,Unspecified,,1
 International,"Prismatic Evolutions",105/131,105,Crispin,Uncommon,Normal,English,Unspecified,,2
-International,"Prismatic Evolutions",106/131,106,"Earthen Vessel",Uncommon,Normal,English,Unspecified,,2
+International,"Prismatic Evolutions",106/131,106,"Earthen Vessel",Uncommon,Normal,English,Unspecified,,1
 International,"Prismatic Evolutions",107/131,107,"Explorer's Guidance",Uncommon,Normal,English,Unspecified,,1
 International,"Prismatic Evolutions",108/131,108,"Festival Grounds",Uncommon,Normal,English,Unspecified,,3
 International,"Prismatic Evolutions",108/131,108,"Festival Grounds",Uncommon,"Reverse Holo",English,Unspecified,,1
@@ -819,7 +819,7 @@ International,"Stellar Crown",111/142,111,"Raging Bolt",Rare,"Reverse Holo",Engl
 International,"Stellar Crown",112/142,112,Tauros,Common,Normal,English,Unspecified,,4
 International,"Stellar Crown",112/142,112,Tauros,Common,"Reverse Holo",English,Unspecified,,1
 International,"Stellar Crown",113/142,113,Eevee,Common,Normal,English,Unspecified,,5
-International,"Stellar Crown",114/142,114,Hoothoot,Common,Normal,English,Unspecified,,8
+International,"Stellar Crown",114/142,114,Hoothoot,Common,Normal,English,Unspecified,,6
 International,"Stellar Crown",114/142,114,Hoothoot,Common,"Reverse Holo",English,Unspecified,,1
 International,"Stellar Crown",115/142,115,Noctowl,Rare,"Normal Holo",English,Unspecified,,2
 International,"Stellar Crown",115/142,115,Noctowl,Rare,"Reverse Holo",English,Unspecified,,2
@@ -1539,7 +1539,7 @@ International,"Temporal Forces",141/162,141,"Awakening Drum","ACE SPEC Rare","No
 International,"Temporal Forces",142/162,142,"Bianca's Devotion",Uncommon,Normal,English,Unspecified,,4
 International,"Temporal Forces",143/162,143,"Boxed Order",Uncommon,Normal,English,Unspecified,,5
 International,"Temporal Forces",143/162,143,"Boxed Order",Uncommon,"Reverse Holo",English,Unspecified,,1
-International,"Temporal Forces",144/162,144,"Buddy-Buddy Poffin",Uncommon,Normal,English,Unspecified,,6
+International,"Temporal Forces",144/162,144,"Buddy-Buddy Poffin",Uncommon,Normal,English,Unspecified,,1
 International,"Temporal Forces",145/162,145,"Ciphermaniac's Codebreaking",Uncommon,Normal,English,Unspecified,,6
 International,"Temporal Forces",146/162,146,Eri,Uncommon,Normal,English,Unspecified,,5
 International,"Temporal Forces",146/162,146,Eri,Uncommon,"Reverse Holo",English,Unspecified,,1
@@ -1853,8 +1853,8 @@ International,"Paradox Rift",160/182,160,"Counter Catcher",Uncommon,Normal,Engli
 International,"Paradox Rift",161/182,161,"Cursed Duster",Uncommon,Normal,English,Unspecified,,1
 International,"Paradox Rift",161/182,161,"Cursed Duster",Uncommon,"Reverse Holo",English,Unspecified,,2
 International,"Paradox Rift",162/182,162,"Defiance Vest",Uncommon,Normal,English,Unspecified,,3
-International,"Paradox Rift",163/182,163,"Earthen Vessel",Uncommon,Normal,English,Unspecified,,3
-International,"Paradox Rift",163/182,163,"Earthen Vessel",Uncommon,"Reverse Holo",English,Unspecified,,2
+International,"Paradox Rift",163/182,163,"Earthen Vessel",Uncommon,Normal,English,Unspecified,,1
+International,"Paradox Rift",163/182,163,"Earthen Vessel",Uncommon,"Reverse Holo",English,Unspecified,,1
 International,"Paradox Rift",164/182,164,"Future Booster Energy Capsule",Uncommon,Normal,English,Unspecified,,7
 International,"Paradox Rift",164/182,164,"Future Booster Energy Capsule",Uncommon,"Reverse Holo",English,Unspecified,,1
 International,"Paradox Rift",165/182,165,Larry,Common,Normal,English,Unspecified,,3
@@ -2959,7 +2959,7 @@ International,"Scarlet & Violet",180/198,180,Nemona,Common,"Battle Academy 2024 
 International,"Scarlet & Violet",180/198,180,Nemona,Common,"Battle Academy 2024 (Pikachu 33)",English,Unspecified,,1
 International,"Scarlet & Violet",180/198,180,Nemona,Common,"Battle Academy 2024 (Pikachu 42)",English,Unspecified,,1
 International,"Scarlet & Violet",180/198,180,Nemona,Common,"Battle Academy 2024 (Pikachu 54)",English,Unspecified,,1
-International,"Scarlet & Violet",181/198,181,"Nest Ball",Uncommon,Normal,English,Unspecified,,19
+International,"Scarlet & Violet",181/198,181,"Nest Ball",Uncommon,Normal,English,Unspecified,,1
 International,"Scarlet & Violet",181/198,181,"Nest Ball",Uncommon,"Reverse Holo",English,Unspecified,,1
 International,"Scarlet & Violet",181/198,181,"Nest Ball",Uncommon,"Battle Academy 2024 (Armarouge 45)",English,Unspecified,,1
 International,"Scarlet & Violet",181/198,181,"Nest Ball",Uncommon,"Battle Academy 2024 (Darkrai)",English,Unspecified,,1
@@ -2970,7 +2970,7 @@ International,"Scarlet & Violet",183/198,183,Penny,Uncommon,"Reverse Holo",Engli
 International,"Scarlet & Violet",184/198,184,"Picnic Basket",Uncommon,Normal,English,Unspecified,,2
 International,"Scarlet & Violet",185/198,185,"Poké Ball",Common,Normal,English,Unspecified,,2
 International,"Scarlet & Violet",185/198,185,"Poké Ball",Common,"Reverse Holo",English,Unspecified,,2
-International,"Scarlet & Violet",186/198,186,"Pokégear 3.0",Common,Normal,English,Unspecified,,7
+International,"Scarlet & Violet",186/198,186,"Pokégear 3.0",Common,Normal,English,Unspecified,,1
 International,"Scarlet & Violet",186/198,186,"Pokégear 3.0",Common,"Reverse Holo",English,Unspecified,,1
 International,"Scarlet & Violet",187/198,187,"Pokémon Catcher",Common,Normal,English,Unspecified,,1
 International,"Scarlet & Violet",187/198,187,"Pokémon Catcher",Common,"Reverse Holo",English,Unspecified,,1

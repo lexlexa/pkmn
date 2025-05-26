@@ -9,7 +9,8 @@ export const check = (first, second) => {
     const secondExpansion = second[expansionKey];
 
     if (!secondExpansion) {
-      notMatch.push(firstExpansion);
+      console.log("not match", firstExpansion);
+      notMatch.push(...Object.values(firstExpansion).flat());
       return;
     }
 

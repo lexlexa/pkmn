@@ -6,20 +6,25 @@ export const Sync = withLayout(() => {
   return (
     <div className={styles.container}>
       <div className={styles.loaders}>
-        <Upload.Dragger>
+        <Upload
+          headers={{ token: localStorage.getItem("token") || "" }}
+          name="first"
+          action="/api/sync/first"
+        >
           <div>
-            <div>Первый файл</div>
+            <Button>Первый файл</Button>
           </div>
-        </Upload.Dragger>
+        </Upload>
 
-        <Upload.Dragger>
+        <Upload
+          headers={{ token: localStorage.getItem("token") || "" }}
+          name="second"
+          action="/api/sync/second"
+        >
           <div>
-            <div>Второй файл</div>
+            <Button>Второй файл</Button>
           </div>
-        </Upload.Dragger>
-      </div>
-      <div className={styles.buttons}>
-        <Button size="large">Загрузить</Button>
+        </Upload>
       </div>
     </div>
   );

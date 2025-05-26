@@ -8,6 +8,7 @@ import { UtilsRoute } from "./routes/utils.js";
 import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
 import jwt from "jsonwebtoken";
+import { SyncRoute } from "./routes/sync.js";
 
 const login = "admin";
 
@@ -66,6 +67,7 @@ ErrorRoute(app);
 DuplicatesRoute(app);
 DashboardRoute(app);
 UtilsRoute(app);
+SyncRoute(app);
 
 app.get("*n", (req, res) => {
   res.send();
