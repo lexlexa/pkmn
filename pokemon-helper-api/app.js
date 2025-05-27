@@ -36,6 +36,7 @@ const whilelist = [
   "/api/auth",
   "/api/utils/prices.csv",
   "/api/utils/cardsNeed.csv",
+  "/api/duplicates/csv",
 ];
 
 app.use((req, res, next) => {

@@ -19,7 +19,7 @@ export const Load = withLayout(() => {
       <div className={styles.buttons}>
         {buttons.map((item) => (
           <Button
-            href={`http://localhost:3000/api/duplicates/csv?q=${encodeURI(
+            href={`/api/duplicates/csv?q=${encodeURI(
               item.name.replace("&", "and")
             )}`}
             size="small"
