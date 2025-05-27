@@ -9,6 +9,11 @@ import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
 import jwt from "jsonwebtoken";
 import { SyncRoute } from "./routes/sync.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const login = "admin";
 
@@ -27,15 +32,15 @@ app.use(fileUpload({}));
 app.use(express.static("public"));
 app.use(express.static("public/assets"));
 
+const whilelist = [
+  "/api/auth",
+  "/api/utils/prices.csv",
+  "/api/utils/cardsNeed.csv",
+];
+
 app.use((req, res, next) => {
-  if (
-    req.path === "/api/auth" ||
-    req.path === "/api/utils/prices.csv" ||
-    req.path === "/api/utils/cardsNeed.csv"
-  ) {
-    next();
-    return;
-  }
+  if (whilelist.includes(req.path)) return next();
+  if (!req.path.includes("api")) return next();
 
   if (!req.headers.token) {
     return res.status(403).send({ error: "Not authorized" });
@@ -74,8 +79,8 @@ DashboardRoute(app);
 UtilsRoute(app);
 SyncRoute(app);
 
-app.get("*n", (req, res) => {
-  res.send();
+app.get("/{*splat}", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
 // Запуск сервера
