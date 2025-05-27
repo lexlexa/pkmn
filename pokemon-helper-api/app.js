@@ -25,9 +25,14 @@ app.use(bodyParser.urlencoded());
 app.use(fileUpload({}));
 
 app.use(express.static("public"));
+app.use(express.static("public/assets"));
 
 app.use((req, res, next) => {
-  if (req.path === "/api/auth") {
+  if (
+    req.path === "/api/auth" ||
+    req.path === "/api/utils/prices.csv" ||
+    req.path === "/api/utils/cardsNeed.csv"
+  ) {
     next();
     return;
   }
@@ -36,7 +41,7 @@ app.use((req, res, next) => {
     return res.status(403).send({ error: "Not authorized" });
   }
   const data = jwt.verify(req.headers.token, secret);
-  console.log("verified", data);
+
   if (data.user === login) {
     next();
     return;
@@ -56,7 +61,7 @@ app.post("/api/auth", async (req, res) => {
 
   if (data.login === login && data.password === password) {
     const token = jwt.sign({ user: login }, secret);
-    console.log(token);
+
     res.send({ token });
     return;
   }

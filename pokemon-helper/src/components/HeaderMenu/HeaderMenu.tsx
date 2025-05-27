@@ -6,7 +6,7 @@ const MenuItems = [
   { key: "/errors", label: "Ошибки" },
   { key: "/statistics", label: "Статистика" },
   // { key: "/collection", label: "Коллекция" },
-  { key: "/sync", label: "Синхфронизация" },
+  { key: "/sync", label: "Синхронизация" },
   { key: "/load", label: "Загрузка" },
   { key: "/utils", label: "Утилиты" },
 ];

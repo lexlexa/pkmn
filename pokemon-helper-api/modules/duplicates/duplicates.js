@@ -11,7 +11,6 @@ export const getDuplicatesButtons = () => {
 
   const buttons = Object.keys(first.byExpansion)
     .map((expansionKey) => {
-      console.log(first.byExpansion[expansionKey]);
       const duplicatesCount = getDuplicatesCount(
         Object.values(first.byExpansion[expansionKey]).flat()
       );

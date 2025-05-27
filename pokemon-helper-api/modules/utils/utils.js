@@ -70,7 +70,6 @@ export const addCardsPrices = (data) => {
       comment,
     ].join(",");
   });
-  console.log(newPricesData.at(-1));
 
   // Добавляем карты которых нет в списке
   const notExistPrices = values

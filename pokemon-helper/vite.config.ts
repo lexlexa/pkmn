@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: "../pokemon-helper-api/public",
+    emptyOutDir: true,
   },
   server: {
     proxy: {

@@ -63,9 +63,7 @@ export const parseCSV = (csv) => {
   const parsed = rows.map((row) => {
     const [fixable, toFix] = fixedStrs.find((i) => row.includes(i[0])) || [];
     if (fixable) {
-      console.log(fixable, row);
       row = row.replace(fixable, toFix);
-      console.log(toFix, row);
     }
 
     const [, expansion, number, , name, rarity, variant, , , , count] =

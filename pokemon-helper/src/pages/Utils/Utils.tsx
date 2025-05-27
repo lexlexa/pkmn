@@ -1,32 +1,47 @@
-import { Button, Upload } from "antd";
+import { Button, Card, Upload } from "antd";
 import { withLayout } from "../../hocs/withLayout";
-
+import styles from "./Utils.module.css";
 export const Utils = withLayout(() => {
   return (
-    <div>
-      <div>
-        <div>Фильтрация нужных нам карт. </div>
-        <div>
-          Формат csv файла: ,Set,Название,Номер карты,Тип,Тип (для
-          скрипта),Комментарий
-        </div>
-        <Upload name="need" action="/api/utils/cardsNeed">
-          <Button>Загрузить</Button>
-        </Upload>
-        <Button href="/api/utils/cardsNeed.csv" download>
-          Загрузить результат
-        </Button>
-      </div>
+    <div className={styles.container}>
+      <Card hoverable>
+        <Card.Meta
+          title="Фильтрация нужных нам карт"
+          description="Поддерживает .csv файл из 'Карты Нужны'"
+        />
+        <div className={styles.actions}>
+          <Upload
+            headers={{ token: localStorage.getItem("token") || "" }}
+            name="need"
+            action="/api/utils/cardsNeed"
+          >
+            <Button>Загрузить</Button>
+          </Upload>
 
-      <div>
-        <div>Обновление цен. </div>
-        <Upload name="prices" action="/api/utils/prices">
-          <Button>Загрузить</Button>
-        </Upload>
-        <Button href="/api/utils/prices.csv" download>
-          Загрузить результат
-        </Button>
-      </div>
+          <Button href="/api/utils/cardsNeed.csv" download>
+            Скачать результат
+          </Button>
+        </div>
+      </Card>
+
+      <Card hoverable>
+        <Card.Meta
+          title="Обновление цен"
+          description="Поддерживает .csv файл"
+        />
+        <div className={styles.actions}>
+          <Upload
+            headers={{ token: localStorage.getItem("token") || "" }}
+            name="prices"
+            action="/api/utils/prices"
+          >
+            <Button>Загрузить</Button>
+          </Upload>
+          <Button href="/api/utils/prices.csv" download>
+            Скачать результат
+          </Button>
+        </div>
+      </Card>
     </div>
   );
 });

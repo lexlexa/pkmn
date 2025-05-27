@@ -1,18 +1,13 @@
-
 .container {
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 8px;
 }
 
-.loaders {
-  height: 250px;
+.actions {
   display: flex;
   gap: 16px;
   margin-top: 16px;
-}
-
-.loaders > * {
-  flex: 1 0 0;
-  height: 100px;
+  justify-content: space-between;
 }

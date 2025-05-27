@@ -1,30 +1,29 @@
 import { withLayout } from "../../hocs/withLayout";
-import { Button, Upload } from "antd";
+import { Upload } from "antd";
 import styles from "./Sync.module.css";
 
 export const Sync = withLayout(() => {
   return (
     <div className={styles.container}>
+      <div>Загрузка файлов для обновления коллекции</div>
+      <div>Поддерживаются файлы .csv из tcgcollector</div>
       <div className={styles.loaders}>
-        <Upload
+        <Upload.Dragger
           headers={{ token: localStorage.getItem("token") || "" }}
           name="first"
           action="/api/sync/first"
+          style={{ height: 100 }}
         >
-          <div>
-            <Button>Первый файл</Button>
-          </div>
-        </Upload>
+          <div>Первый файл</div>
+        </Upload.Dragger>
 
-        <Upload
+        <Upload.Dragger
           headers={{ token: localStorage.getItem("token") || "" }}
           name="second"
           action="/api/sync/second"
         >
-          <div>
-            <Button>Второй файл</Button>
-          </div>
-        </Upload>
+          <div>Второй файл</div>
+        </Upload.Dragger>
       </div>
     </div>
   );
