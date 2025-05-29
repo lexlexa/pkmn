@@ -57,11 +57,6 @@ app.use((req, res, next) => {
 
 await init();
 
-// Простой маршрут
-app.get("/", (req, res) => {
-  res.json({ message: "Добро пожаловать в Express приложение!" });
-});
-
 app.post("/api/auth", async (req, res) => {
   const data = req.body;
 

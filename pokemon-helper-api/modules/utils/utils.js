@@ -45,14 +45,14 @@ export const addCardsPrices = (data) => {
     let comment = "";
     if (!haveCards[expansion] || !haveCards[expansion][number]) {
       count = 0;
-      comment = "Стало 0 карт";
+      comment = "Продано";
     } else {
       const card = haveCards[expansion][number].find(
         (item) => item.variant === variant
       );
       if (!card || card.count === 1) {
         count = 0;
-        comment = "Стало 0 карт";
+        comment = "Продано";
       } else if (Number(card.count) - 1 !== Number(count)) {
         comment = `Количество: ${count} > ${card.count - 1}`;
         count = card.count - 1;
@@ -75,6 +75,9 @@ export const addCardsPrices = (data) => {
   const notExistPrices = values
     .filter((item) => {
       if (!["Normal", "Reverse Holo", "Normal Holo"].includes(item.variant)) {
+        return false;
+      }
+      if (!["Common", "Uncommon", "Rare"].includes(item.rarity)) {
         return false;
       }
       if (item.count <= 1) {
