@@ -9,6 +9,7 @@ const MenuItems = [
   { key: "/sync", label: "Синхронизация" },
   { key: "/load", label: "Загрузка" },
   { key: "/utils", label: "Утилиты" },
+  { key: "/sale", label: "Витрина" },
 ];
 
 export const HeaderMenu = () => {

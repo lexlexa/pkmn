@@ -8,7 +8,7 @@
 
 .content {
   display: flex;
-  padding: 16px;
+  height: calc(100vh - 50px);
 }
 
 .contentContainer {

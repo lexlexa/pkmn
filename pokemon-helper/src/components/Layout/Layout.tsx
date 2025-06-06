@@ -5,9 +5,10 @@ const { Content } = AntdLayout;
 
 type TLayoutProps = {
   children: React.ReactNode;
+  noPadding?: boolean;
 };
 
-export const Layout = ({ children }: TLayoutProps) => {
+export const Layout = ({ children, noPadding }: TLayoutProps) => {
   return (
     <div className={styles.container}>
       <AntdLayout>
@@ -15,7 +16,12 @@ export const Layout = ({ children }: TLayoutProps) => {
           <HeaderMenu />
         </div>
         <Content className={styles.contentContainer}>
-          <div className={styles.content}>{children}</div>
+          <div
+            style={{ padding: noPadding ? "" : 16 }}
+            className={styles.content}
+          >
+            {children}
+          </div>
         </Content>
       </AntdLayout>
     </div>

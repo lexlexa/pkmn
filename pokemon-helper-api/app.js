@@ -1,6 +1,5 @@
 import express from "express";
-import { getFileStorage, init, sync } from "./files/sync.js";
-import { getParsedContent } from "./files/parsing/sync.js";
+import { init } from "./files/sync.js";
 import { ErrorRoute } from "./routes/errors.js";
 import { DuplicatesRoute } from "./routes/duplicates.js";
 import { DashboardRoute } from "./routes/dashboard.js";
@@ -11,6 +10,8 @@ import jwt from "jsonwebtoken";
 import { SyncRoute } from "./routes/sync.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { writeFile, readFile } from "fs/promises";
+import { SaleRoute } from "./routes/sale.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -74,7 +75,7 @@ DuplicatesRoute(app);
 DashboardRoute(app);
 UtilsRoute(app);
 SyncRoute(app);
-
+SaleRoute(app);
 app.get("/{*splat}", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });

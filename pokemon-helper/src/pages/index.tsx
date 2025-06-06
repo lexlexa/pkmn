@@ -9,6 +9,7 @@ import { Utils } from "./Utils/Utils";
 import { useUnit } from "effector-react";
 import { $token } from "./Auth/store";
 import { Auth } from "./Auth/Auth";
+import { Sale } from "./Sale/Sale";
 
 const AppRoutes = [
   {
@@ -38,6 +39,10 @@ const AppRoutes = [
   {
     path: "/utils",
     Component: Utils,
+  },
+  {
+    path: "/sale",
+    Component: Sale,
   },
 ];
 

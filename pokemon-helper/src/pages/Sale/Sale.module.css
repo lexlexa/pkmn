@@ -1,0 +1,64 @@
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 24px;
+}
+
+.aside {
+  width: 400px;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px 0 rgb(162, 162, 162);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions > * {
+  flex-grow: 1;
+}
+
+
+.saleContent {
+
+  width: 600px;
+  height: 700px;
+  border: 1px solid red;
+  padding: 16px;
+}
+
+
+.item {
+  display: flex;
+  gap: 4px
+}
+
+.itemNumber {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+
+.itemPrice {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+
+.itemButton {
+  flex-shrink: 0;
+}
