@@ -89,8 +89,10 @@ export const Sale = withLayout(
           <div className={styles.saleContent}>
             {cards.map((item) => {
               return (
-                <div>
-                  <img src={item.image} />
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}></div>
+                  {/* <img src={item.image} /> */}
+                  <div className={styles.cardPrice}>{item.price}р.</div>
                 </div>
               );
             })}

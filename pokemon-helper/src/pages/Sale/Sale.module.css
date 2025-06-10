@@ -35,10 +35,16 @@
 
 .saleContent {
 
-  width: 600px;
-  height: 700px;
+  width: 1600px;
+  height: 1200px;
   border: 1px solid red;
   padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 115px 261px;
+  gap: 50px;
+  
+
 }
 
 
@@ -62,3 +68,54 @@
 .itemButton {
   flex-shrink: 0;
 }
+
+.card {
+  width: 313px;
+  position: relative;
+  border-radius: 6px;
+  height: 430px;
+  border: 6px solid red;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background: linear-gradient(rgb(190,136,55), rgb(242,234,171));
+  /* box-shadow: 0px 0px 10px 0 rgb(144, 144, 144); */
+}
+
+.card img {
+  width: 100%;
+}
+
+.cardPrice {
+  position: absolute;
+  bottom: -6px;
+  right: -15px;
+  background: linear-gradient(rgb(188,134,52),rgb(218,185,114),rgb(246,233,181),rgb(244,232,165));
+
+  /* position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: rgba(255, 255, 255, 0.804);
+  border-radius: 8px;
+  font-size: 18px;
+  padding: 4px;
+  margin-left: 20px;  */
+  box-sizing: border-box;
+  /* border: 5px solid blue; */
+  width: 150px; 
+  height: 80px;
+  transform: skew(-16deg);
+  /* background: #D4D5DA; */
+}
+
+.cardHeader {
+  position: absolute;
+  top: -35px;
+  left: 0;
+    transform: skew(-16deg);
+  background: #D4D5DA;
+  border: 5px solid blue;
+  width: 310px;
+  height: 38px;
+
+}
+
