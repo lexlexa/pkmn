@@ -1,7 +1,17 @@
-import { Button, Card, Upload } from "antd";
+import { Button, Card, Input, Upload } from "antd";
 import { withLayout } from "../../hocs/withLayout";
 import styles from "./Utils.module.css";
+import { useState } from "react";
+import { useUnit } from "effector-react";
+import { $notExistCards, checkNotExistCardsFx } from "./store";
 export const Utils = withLayout(() => {
+  const [cards, setCards] = useState("");
+  const notExistCards = useUnit($notExistCards);
+
+  const handleCheckNotExist = () => {
+    checkNotExistCardsFx(cards);
+  };
+
   return (
     <div className={styles.container}>
       <Card hoverable>
@@ -41,6 +51,21 @@ export const Utils = withLayout(() => {
             Скачать результат
           </Button>
         </div>
+      </Card>
+
+      <Card hoverable>
+        <Card.Meta
+          title="Проверка карт на наличие"
+          description="Дополнение,Номер,Вариант"
+        />
+        <div className={styles.actions}>
+          <Input.TextArea
+            value={cards}
+            onChange={(e) => setCards(e.target.value)}
+          />
+          <Input.TextArea value={notExistCards} />
+        </div>
+        <Button onClick={handleCheckNotExist}>Сверить</Button>
       </Card>
     </div>
   );

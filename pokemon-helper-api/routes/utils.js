@@ -1,5 +1,9 @@
 import { NEED_CARDS_PATH, PRICES_CARDS_PATH } from "../files/constants.js";
-import { addCardsPrices, filterNeedCards } from "../modules/utils/utils.js";
+import {
+  addCardsPrices,
+  checkNotExistCards,
+  filterNeedCards,
+} from "../modules/utils/utils.js";
 import { writeFile, readFile } from "fs/promises";
 
 export const UtilsRoute = (app) => {
@@ -27,5 +31,9 @@ export const UtilsRoute = (app) => {
     const file = (await readFile(PRICES_CARDS_PATH)).toString();
     res.type("text/csv");
     res.attachment(`need.csv`).send(file);
+  });
+
+  app.post("/api/utils/not_exist", (req, res) => {
+    res.send(checkNotExistCards(req.body.data));
   });
 };

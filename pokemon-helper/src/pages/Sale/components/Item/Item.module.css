@@ -1,0 +1,48 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 0 5px 0 rgb(203, 203, 203);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.itemRow {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+}
+
+.itemNumber {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+
+.itemPrice {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+
+
+.itemButton {
+  flex-shrink: 0;
+}
+
+.itemDescription {
+  flex-grow: 1;
+}
+
+.itemRarity {
+  width: 200px;
+}
+
+.itemPosition {
+  width: 60px;
+}
+
+.cardImage {
+  width: 200px;
+  height: 279px;
+}

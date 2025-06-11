@@ -1,0 +1,13 @@
+
+.container {
+  display: flex;
+  gap: 4px;
+}
+
+.exp {
+  width: 180px;
+}
+
+.number {
+  width: 50px;
+}

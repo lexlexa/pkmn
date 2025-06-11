@@ -10,6 +10,8 @@ import { useUnit } from "effector-react";
 import { $token } from "./Auth/store";
 import { Auth } from "./Auth/Auth";
 import { Sale } from "./Sale/Sale";
+import { useEffect } from "react";
+import { loadDictsFx } from "./store";
 
 const AppRoutes = [
   {
@@ -50,6 +52,11 @@ const router = createBrowserRouter(AppRoutes);
 
 export const EntryPoint = () => {
   const token = useUnit($token);
+
+  useEffect(() => {
+    if (token) loadDictsFx();
+  }, [token]);
+
   if (!token) {
     return <Auth />;
   }

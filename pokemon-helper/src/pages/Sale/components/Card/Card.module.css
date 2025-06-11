@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+.card {
+  width: 313px;
+  position: relative;
+  border-radius: 6px;
+  height: 430px;
+  /* border: 6px solid red; */
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 4px;
+  /* background: linear-gradient(rgb(190,136,55), rgb(242,234,171)); */
+  /* box-shadow: 0px 0px 10px 0 rgb(144, 144, 144); */
+}
+
+.card img {
+  width: 100%;
+}
+
+.cardPrice, .priceText {
+  position: absolute;
+  bottom: -6px;
+  right: -15px;
+  box-sizing: border-box;
+  width: 150px; 
+  height: 80px;
+
+  padding: 16px;
+}
+
+.cardPrice {
+  transform: skew(-16deg);
+}
+
+.priceText {
+    font-family: "Nunito Sans", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 23px;
+}
+
+.cardPrice::before {
+  content: ' ';
+  border: 2px solid black;
+  display: block;
+  width: 100%;
+  height: 100%;
+
+}
+
+.cardHeader {
+  position: absolute;
+  top: -35px;
+  left: 0;
+    transform: skew(-16deg);
+  background: #D4D5DA;
+  /* border: 5px solid blue; */
+  width: 310px;
+  height: 38px;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+}
+
+.cardHeaderFill {
+  flex-grow: 1;
+  height:30px;
+  background-color: red;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.headerTexts {
+  position: absolute;
+  top: -35px;
+  left: 0;
+  /* border: 5px solid blue; */
+  width: 310px;
+  height: 38px;
+  display: flex;
+  gap: 4px;
+}
+
+.headerTexts > div {
+  /* border: 1px solid black; */
+  width: calc(310px / 2 - 2px);
+  height: 100%;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-family: "Nunito Sans", sans-serif;
+  white-space: nowrap;
+}
+
+.sold {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: calc(50% - 40px);
+  left: calc(50% - 125px);
+  width: 250px;
+  height: 80px;
+  color: rgb(0, 0, 0);
+  background-color: #ffffff;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 16px;
+    font-family: "Nunito Sans", sans-serif;
+}

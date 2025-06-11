@@ -116,3 +116,36 @@ export const addCardsPrices = (data) => {
     })
     .join("\n");
 };
+
+export const checkNotExistCards = (cards) => {
+  const parsedCards = cards.split("\n").map((card) => {
+    const [expansion, number, variant] = card.split(",");
+    return { expansion, number, variant };
+  });
+
+  const {
+    first: { byExpansion },
+  } = getParsedContent();
+
+  return parsedCards
+    .filter((item) => {
+      if (!byExpansion[item.expansion]) return true;
+
+      const exCardsCount = Object.keys(byExpansion[item.expansion])[0].split(
+        "/"
+      )[1];
+      const itemNumber = item.number.includes("/")
+        ? item.number
+        : `${item.number.padStart(3, "0")}/${exCardsCount}`;
+
+      if (!byExpansion[item.expansion][itemNumber]) return true;
+      const card = byExpansion[item.expansion][itemNumber];
+      console.log(
+        card,
+        card.some((i) => item.variant == i.variant)
+      );
+      return !card.some((i) => item.variant == i.variant);
+    })
+    .map((item) => [item.expansion, item.number, item.variant].join(","))
+    .join("\n");
+};

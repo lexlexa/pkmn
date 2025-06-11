@@ -1,0 +1,11 @@
+.saleContent {
+  width: 1600px;
+  height: 1200px;;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 115px 261px;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,4 +1,9 @@
-import { getSale, getSaleCards, saveSale } from "../modules/sale/sale.js";
+import {
+  getCard,
+  getSale,
+  getSaleCards,
+  saveSale,
+} from "../modules/sale/sale.js";
 
 export const SaleRoute = (app) => {
   app.get("/api/sale/form", async (req, res) => {
@@ -12,5 +17,15 @@ export const SaleRoute = (app) => {
 
   app.get("/api/sale/cards", async (req, res) => {
     res.send(await getSaleCards());
+  });
+
+  app.get("/api/card/find", async (req, res) => {
+    console.log(req.query);
+    const card = getCard(req.query.exp, req.query.number);
+    if (!card) {
+      return res.status(404).send("");
+    }
+    // res.send(await getSaleCards());
+    res.send(card);
   });
 };
