@@ -4,6 +4,7 @@ import {
   addItemToPage,
   changeItemOnPage,
   deleteItemFromPage,
+  generateUUID,
   setCardPositionOnPage,
   transferItemFromToPage,
 } from "./helpers";
@@ -17,11 +18,11 @@ export type TItem = {
   description: string;
   image: string;
   sold: false;
-  id: ReturnType<typeof crypto.randomUUID>;
+  id: ReturnType<typeof generateUUID>;
 };
 
 export type TPage = {
-  id: ReturnType<typeof crypto.randomUUID>;
+  id: ReturnType<typeof generateUUID>;
   cards: TItem[];
   theme: keyof typeof Themes;
 };
@@ -67,7 +68,7 @@ export const getSaleFx = createEffect(async () => {
 
 export const $items = createStore<TPage[]>([
   {
-    id: crypto.randomUUID(),
+    id: generateUUID(),
     cards: [],
     theme: "GOLD",
   },
@@ -76,7 +77,7 @@ export const $items = createStore<TPage[]>([
     return [
       ...state,
       {
-        id: crypto.randomUUID(),
+        id: generateUUID(),
         cards: [],
         theme: "GOLD",
       },
@@ -85,7 +86,7 @@ export const $items = createStore<TPage[]>([
   .on(addItem, (state, payload) => {
     return addItemToPage(state, payload.page, {
       ...payload.item,
-      id: crypto.randomUUID(),
+      id: generateUUID(),
       sold: false,
     });
   })
@@ -125,7 +126,7 @@ export const $selectedPage = combine(
   ({ page, items }) =>
     items.find((p) => p.id === page) ||
     ({
-      id: crypto.randomUUID(),
+      id: generateUUID(),
       cards: [],
       theme: "GOLD",
     } as TPage)
