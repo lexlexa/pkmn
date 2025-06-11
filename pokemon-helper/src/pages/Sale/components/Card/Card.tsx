@@ -39,14 +39,16 @@ export const Card = ({ item }: CardProps) => {
       </div>
       <img
         className={styles.image}
-        style={{ filter: item.sold ? "opacity(0.3)" : "" }}
+        style={{ opacity: item.sold ? "0.6" : "" }}
         src={item.image}
       />
       <div
         style={{ background: theme.priceBackground }}
         className={styles.cardPrice}
       ></div>
-      <div className={styles.priceText}>{item.price}р.</div>
+      <div style={{ color: theme.priceColor }} className={styles.priceText}>
+        {item.price}р.
+      </div>
     </div>
   );
 };
