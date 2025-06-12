@@ -28,11 +28,11 @@ const red = {
   background:
     "linear-gradient(125deg, rgba(255, 156, 175, 0.56) 0%, rgba(255, 217, 191, 0.67) 52%, rgba(212, 167, 252, 0.57) 100%)",
   cardBackground:
-    "linear-gradient(90deg,rgba(44, 13, 87, 1) 0%, rgba(203, 175, 215,1) 44%, rgba(239, 134, 99, 1) 68%, rgba(207, 53, 94, 1) 100%)",
+    "linear-gradient(180deg,rgba(44, 13, 87, 1) 0%, rgba(203, 175, 215,1) 44%, rgba(239, 134, 99, 1) 68%, rgba(207, 53, 94, 1) 100%)",
   priceBackground:
     "linear-gradient(215deg,rgba(44, 13, 87, 1) 0%, rgba(203, 175, 215, 1) 44%, rgba(239, 134, 99, 1) 68%, rgba(207, 53, 94, 1) 100%)",
   headerBackground:
-    "linear-gradient(90deg,rgba(44, 13, 87, 1) 0%, rgba(203, 175, 215,1) 44%, rgba(239, 134, 99, 1) 68%, rgba(207, 53, 94, 1) 100%)",
+    "linear-gradient(180deg,rgba(44, 13, 87, 1) 0%, rgba(203, 175, 215,1) 44%, rgba(239, 134, 99, 1) 68%, rgba(207, 53, 94, 1) 100%)",
   headerFillBackground: "rgba(255, 217, 191, 1)",
   priceColor: "#000",
 };
