@@ -33,15 +33,13 @@ export const getCard = (slug, number) => {
   )[0];
   if (!expansion || !first.byExpansion[expansion]) return null;
 
-  const cardCountInExpansion = Object.keys(first.byExpansion[expansion])
-    .find((i) => i.includes("/"))
-    .split("/")[1];
+  const expansionNumbers = Object.keys(first.byExpansion[expansion]);
 
-  const fNumber = number.includes("/")
-    ? number
-    : `${number.padStart(3, "0")}/${cardCountInExpansion}`;
+  const num = expansionNumbers.find((item) =>
+    item.startsWith(number.padStart(3, "0"))
+  );
 
-  const card = first.byExpansion[expansion][fNumber][0];
+  const card = first.byExpansion[expansion][num][0];
 
   if (!card) return null;
 
