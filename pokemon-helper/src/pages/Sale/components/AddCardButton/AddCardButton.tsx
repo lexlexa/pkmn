@@ -37,6 +37,8 @@ export const AddCardButton = ({ page }: AddCardButtonProps) => {
           <Select
             value={exp}
             onChange={setExp}
+            showSearch
+            optionFilterProp="label"
             size="small"
             className={styles.exp}
             placeholder="Дополнение"

@@ -4,12 +4,14 @@ import { getParsedContent } from "../../files/parsing/sync.js";
 export const getExpansionsDicts = () => {
   const { first } = getParsedContent();
 
-  const expansions = Object.keys(first.byExpansion).map((key) => {
-    return {
-      name: key,
-      slug: ExpansionsInSDK[key],
-    };
-  });
+  const expansions = Object.keys(first.byExpansion)
+    .filter((item) => !item.toLowerCase().includes("energies"))
+    .map((key) => {
+      return {
+        name: key,
+        slug: ExpansionsInSDK[key],
+      };
+    });
 
   return expansions;
 };

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+SA+Hand:wght@400..700&display=swap');
+
 .card {
   width: 313px;
   position: relative;
@@ -32,7 +33,7 @@
 }
 
 .priceText {
-    font-family: "Nunito Sans", sans-serif;
+    font-family: "Edu SA Hand", cursive;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,7 +52,7 @@
 .cardHeader {
   position: absolute;
   top: -35px;
-  left: 0;
+  left: 6px;
     transform: skew(-16deg);
   background: #D4D5DA;
   /* border: 5px solid blue; */
@@ -75,7 +76,7 @@
 .headerTexts {
   position: absolute;
   top: -35px;
-  left: 0;
+  left: 6px;
   /* border: 5px solid blue; */
   width: 310px;
   height: 38px;
@@ -87,13 +88,13 @@
   /* border: 1px solid black; */
   width: calc(310px / 2 - 2px);
   height: 100%;
-  font-size: 20px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   flex-shrink: 0;
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "Edu SA Hand", cursive;
   white-space: nowrap;
 }
 
@@ -111,6 +112,6 @@
   font-size: 25px;
   font-weight: bold;
   border-radius: 16px;
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "Edu SA Hand", cursive;
   z-index: 2;
 }

@@ -12,7 +12,7 @@ export const getExpansionImage = (expansion) => {
 
 export const ExpansionsInSDK = {
   // SV
-  "SV Black Star Promos": "svp",
+  "Scarlet & Violet Promos": "svp",
   "Scarlet & Violet": "sv1",
   "Paldea Evolved": "sv2",
   "Obsidian Flames": "sv3",
@@ -45,16 +45,63 @@ export const ExpansionsInSDK = {
   "Champion's Path": "swsh35",
   "Darkness Ablaze": "swsh3",
   "Sword & Shield": "swsh1",
-  "SWSH Black Star Promos": "swshp",
+  "SWSH Promos": "swshp",
   "Cosmic Eclipse": "sm12",
   "Crimson Invasion": "sm4",
   "Burning Shadows": "sm3",
   "Guardians Rising": "sm2",
   "Sun & Moon": "det1",
-  "SM Black Star Promos": "smp",
+  "SMr Promos": "smp",
   "Steam Siege": "xy11",
   "Roaring Skies": "xy6",
-  "XY Black Star Promos": "xyp",
+  "XY Promos": "xyp",
+};
+
+export const ExpansionsShortName = {
+  // SV
+  "Scarlet & Violet Promos": "SVP",
+  "Scarlet & Violet": "SVI",
+  "Paldea Evolved": "PAL",
+  "Obsidian Flames": "OBF",
+  "Scarlet & Violet 151": "MEW",
+  "Paradox Rift": "PAR",
+  "Temporal Forces": "TEF",
+  "Paldean Fates": "PAF",
+  "Twilight Masquerade": "TWM",
+  "Shrouded Fable": "SFA",
+  "Stellar Crown": "SCR",
+  "Prismatic Evolutions": "PRE",
+  "Surging Sparks": "SSP",
+  "Journey Together": "JTG",
+  "Destined Rivals": "DRI",
+  // // SWSH
+  "Crown Zenith": "CRZ",
+  "Rebel Clash": "RCL",
+  "Pokémon GO": "PGO",
+  Celebrations: "CEL",
+  "Vivid Voltage": "VIV",
+  "Shining Fates": "SHF",
+  "Battle Styles": "BST",
+  "Chilling Reign": "CRE",
+  "Evolving Skies": "EVS",
+  "Fusion Strike": "FST",
+  "Brilliant Stars": "BRS",
+  "Astral Radiance": "ASR",
+  "Lost Origin": "LOR",
+  "Silver Tempest": "SIT",
+  "Champion's Path": "CPA",
+  "Darkness Ablaze": "DAA",
+  "Sword & Shield": "SSH",
+  "SWSH Promos": "SSP",
+  "Cosmic Eclipse": "CES",
+  "Crimson Invasion": "CIN",
+  "Burning Shadows": "BUS",
+  "Guardians Rising": "GRI",
+  "Sun & Moon": "SUM",
+  "SM Black Star Promos": "SMP",
+  "Steam Siege": "STS",
+  "Roaring Skies": "ROS",
+  "XY Promos": "XYP",
 };
 
 export const parseCSV = (csv) => {
@@ -68,9 +115,10 @@ export const parseCSV = (csv) => {
 
     const [, expansion, number, , name, rarity, variant, , , , count] =
       row.split(",");
-
+    const exp = expansion.replaceAll('"', "");
     const card = {
-      expansion: expansion.replaceAll('"', ""),
+      expansion: exp,
+      short_expansion: ExpansionsShortName[exp],
       number,
       name: name.replaceAll('"', ""),
       rarity: rarity.replaceAll('"', ""),

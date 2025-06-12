@@ -27,14 +27,15 @@ export const getSaleCards = async () => {
 
 export const getCard = (slug, number) => {
   const { first } = getParsedContent();
+
   const expansion = Object.entries(ExpansionsInSDK).find((item) =>
     item.includes(slug)
   )[0];
   if (!expansion || !first.byExpansion[expansion]) return null;
 
-  const cardCountInExpansion = Object.keys(
-    first.byExpansion[expansion]
-  )[0].split("/")[1];
+  const cardCountInExpansion = Object.keys(first.byExpansion[expansion])
+    .find((i) => i.includes("/"))
+    .split("/")[1];
 
   const fNumber = number.includes("/")
     ? number
@@ -49,7 +50,7 @@ export const getCard = (slug, number) => {
     expansion: card.expansion,
     price: "",
     rarity: card.rarity,
-    description: card.number,
+    description: `${card.short_expansion} ${card.number}`,
     image: card.images.card,
   };
 };
