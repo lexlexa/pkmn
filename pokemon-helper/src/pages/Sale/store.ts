@@ -17,6 +17,8 @@ export type TItem = {
   rarity: string;
   description: string;
   image: string;
+  isNew: boolean;
+  isReserved: boolean;
   sold: false;
   id: ReturnType<typeof generateUUID>;
 };

@@ -10,7 +10,7 @@ type CardProps = {
 export const Card = ({ item }: CardProps) => {
   const selectedPage = useUnit($selectedPage);
   const theme = Themes[selectedPage.theme];
-
+  console.log(item);
   return (
     <div
       style={{
@@ -19,7 +19,11 @@ export const Card = ({ item }: CardProps) => {
       }}
       className={styles.card}
     >
-      {item.sold && <div className={styles.sold}>Продано</div>}
+      {item.sold && !item.isReserved && (
+        <div className={styles.sold}>Продано</div>
+      )}
+      {item.isReserved && <div className={styles.sold}>Бронь</div>}
+      {item.isNew && <div className={styles.new}>NEW</div>}
       <div
         style={{ background: theme.headerBackground }}
         className={styles.cardHeader}

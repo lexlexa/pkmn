@@ -115,3 +115,21 @@
   font-family: "Edu SA Hand", cursive;
   z-index: 2;
 }
+
+.new {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: -15px;
+  background-color: #ff0066;
+  color: white;
+  padding: 8px;
+  /* border-radius: 8px; */
+  font-size: 14px;
+  font-weight: 700;
+  width: 80px;
+  justify-content: center;
+  display: flex;
+  height: 30px;
+  line-height: 18px;
+  font-family: "Edu SA Hand", cursive;
+}

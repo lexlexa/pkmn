@@ -131,12 +131,13 @@ export const checkNotExistCards = (cards) => {
     .filter((item) => {
       if (!byExpansion[item.expansion]) return true;
 
-      const exCardsCount = Object.keys(byExpansion[item.expansion])[0].split(
-        "/"
-      )[1];
-      const itemNumber = item.number.includes("/")
-        ? item.number
-        : `${item.number.padStart(3, "0")}/${exCardsCount}`;
+      const expansion = byExpansion[item.expansion];
+
+      const cardsNumbers = Object.keys(expansion);
+
+      const itemNumber = cardsNumbers.find((i) =>
+        i.startsWith(item.number.padStart(3, "0"))
+      );
 
       if (!byExpansion[item.expansion][itemNumber]) return true;
       const card = byExpansion[item.expansion][itemNumber];

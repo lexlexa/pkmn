@@ -31,6 +31,19 @@ export const Item = ({ item, page, index }: ItemProps) => {
     changeItem({ field: "sold", page, id: item.id, value: !item.sold });
   };
 
+  const onIsNewChange = () => {
+    changeItem({ field: "isNew", page, id: item.id, value: !item.isNew });
+  };
+
+  const onIsReservedChange = () => {
+    changeItem({
+      field: "isReserved",
+      page,
+      id: item.id,
+      value: !item.isReserved,
+    });
+  };
+
   const handleChangePosition = () => {
     if (position !== index) {
       setCardPosition({
@@ -111,6 +124,12 @@ export const Item = ({ item, page, index }: ItemProps) => {
       <div className={styles.itemRow}>
         <Checkbox checked={item.sold} onChange={onSoldChange}>
           Продано
+        </Checkbox>
+        <Checkbox checked={item.isNew} onChange={onIsNewChange}>
+          Новая
+        </Checkbox>
+        <Checkbox checked={item.isReserved} onChange={onIsReservedChange}>
+          Резерв
         </Checkbox>
         <div style={{ flexGrow: 1 }} />
         <Dropdown menu={{ items: menuItems }}>
