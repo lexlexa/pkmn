@@ -134,3 +134,12 @@ export const $selectedPage = combine(
       theme: "GOLD",
     } as TPage)
 );
+
+export const loadSuggestionsFx = createEffect(async (data: TPage[]) => {
+  const response = await ApiInstance.post("/api/sale/suggestions", data);
+  return response.data as { expansion: string; number: string; slug: string }[];
+});
+
+export const $suggestions = createStore<
+  { expansion: string; number: string; slug: string }[]
+>([]).on(loadSuggestionsFx.doneData, (_, payload) => payload);

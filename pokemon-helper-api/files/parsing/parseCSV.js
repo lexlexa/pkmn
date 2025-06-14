@@ -119,6 +119,7 @@ export const parseCSV = (csv) => {
     const card = {
       expansion: exp,
       short_expansion: ExpansionsShortName[exp],
+      expansion_slug: ExpansionsInSDK[exp],
       number,
       name: name.replaceAll('"', ""),
       rarity: rarity.replaceAll('"', ""),

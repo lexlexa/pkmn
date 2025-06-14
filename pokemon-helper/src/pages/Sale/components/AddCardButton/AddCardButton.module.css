@@ -2,6 +2,7 @@
 .container {
   display: flex;
   gap: 4px;
+  flex-direction: column;
 }
 
 .exp {
@@ -10,4 +11,18 @@
 
 .number {
   width: 50px;
+}
+
+.item {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.title {
+  flex-grow: 1;
+}
+
+.number {
+  width: 60px;
 }

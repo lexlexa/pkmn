@@ -62,3 +62,39 @@ export const getCard = (slug, number) => {
     image: card.images.card,
   };
 };
+
+export const getCardsSuggestions = (pages = []) => {
+  const { first } = getParsedContent();
+
+  const cards = Object.values(first.byExpansion)
+    .map((item) => Object.values(item).flat())
+    .flat();
+
+  const rareCards = cards.filter((card) => {
+    return (
+      card.rarity !== "Common" &&
+      card.rarity !== "Uncommon" &&
+      card.rarity !== "Rare" &&
+      card.count >= 2 &&
+      card.variant !== "Jumbo Size" &&
+      !card.variant.includes("Trick or Trade") &&
+      (card.expansion_slug || "").includes("sv")
+    );
+  });
+
+  const cardsInPages = pages
+    .map((item) => item.cards)
+    .flat()
+    .map((item) => `${item.expansion}-${item.number}`);
+
+  return rareCards
+    .filter(
+      (item) => !cardsInPages.includes(`${item.expansion}-${item.number}`)
+    )
+    .slice(0, 10)
+    .map(({ expansion, expansion_slug, number }) => ({
+      expansion,
+      slug: expansion_slug,
+      number,
+    }));
+};

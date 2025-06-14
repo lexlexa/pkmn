@@ -1,5 +1,6 @@
 import {
   getCard,
+  getCardsSuggestions,
   getSale,
   getSaleCards,
   saveSale,
@@ -15,17 +16,16 @@ export const SaleRoute = (app) => {
     res.send("Ok");
   });
 
-  app.get("/api/sale/cards", async (req, res) => {
-    res.send(await getSaleCards());
-  });
-
   app.get("/api/card/find", async (req, res) => {
     console.log(req.query);
     const card = getCard(req.query.exp, req.query.number);
     if (!card) {
       return res.status(404).send("");
     }
-    // res.send(await getSaleCards());
     res.send(card);
+  });
+
+  app.post("/api/sale/suggestions", async (req, res) => {
+    res.send(getCardsSuggestions(req.body));
   });
 };
