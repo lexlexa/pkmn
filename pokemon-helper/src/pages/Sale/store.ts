@@ -20,6 +20,7 @@ export type TItem = {
   isNew: boolean;
   isReserved: boolean;
   sold: false;
+  count: number;
   id: ReturnType<typeof generateUUID>;
 };
 

@@ -8,8 +8,18 @@ export const saveSale = async (data) => {
 };
 
 export const getSale = async () => {
+  const { first } = getParsedContent();
   const data = (await readFile(SALE_CARDS_PATH)).toString();
-  return JSON.parse(data);
+  return JSON.parse(data).map((item) => {
+    return {
+      ...item,
+      cards: item.cards.map((card) => {
+        const cardData = first.byExpansion[card.expansion][card.number][0];
+
+        return { ...card, count: cardData.count - 1 };
+      }),
+    };
+  });
 };
 
 export const getSaleCards = async () => {
@@ -21,7 +31,7 @@ export const getSaleCards = async () => {
 
     if (!card) return { image: "error", price: "error" };
     console.log(card);
-    return { image: card.images.card, ...item };
+    return { image: card.images.card, count: card.count - 1, ...item };
   });
 };
 

@@ -1,4 +1,11 @@
-import { Checkbox, Dropdown, Input, Popover, type MenuProps } from "antd";
+import {
+  Checkbox,
+  Dropdown,
+  Input,
+  Popover,
+  Tooltip,
+  type MenuProps,
+} from "antd";
 import styles from "./Item.module.css";
 import {
   $items,
@@ -85,6 +92,15 @@ export const Item = ({ item, page, index }: ItemProps) => {
   return (
     <div className={styles.item}>
       <div className={styles.itemRow}>
+        <Tooltip title={item.count >= 1 ? "" : "Таких карт не осталось"}>
+          <Input
+            className={styles.itemCount}
+            value={item.count}
+            status={item.count < 1 ? "error" : ""}
+            disabled
+            placeholder={"Количество"}
+          />
+        </Tooltip>
         <Input
           className={styles.itemNumber}
           value={item.number}
