@@ -12,12 +12,17 @@ import {
   changeItem,
   deleteItem,
   setCardPosition,
+  swapCards,
   transferItem,
   type TItem,
 } from "../../store";
-import { MenuOutlined, PictureOutlined } from "@ant-design/icons";
+import {
+  MenuOutlined,
+  PictureOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
 import { useUnit } from "effector-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type ItemProps = {
   item: TItem;
@@ -66,6 +71,18 @@ export const Item = ({ item, page, index }: ItemProps) => {
     setPosition(index);
   }, [index]);
 
+  const sameCardError = useMemo(() => {
+    const findedPage = items.findIndex((p) => {
+      if (p.id === page) return false;
+      return p.cards.some(
+        (i) =>
+          `${item.expansion}-${item.number}` === `${i.expansion}-${i.number}`
+      );
+    });
+    if (findedPage === -1) return false;
+    return `Эта карта уже есть на странице ${findedPage}`;
+  }, [items]);
+
   const menuItems: MenuProps["items"] = [
     {
       key: "1",
@@ -77,6 +94,22 @@ export const Item = ({ item, page, index }: ItemProps) => {
         onClick: () => {
           transferItem({ fromPage: page, toPage: i.id, id: item.id });
         },
+      })),
+    },
+    {
+      key: "3",
+      label: "Поменять местами с",
+      children: items.map((i1, index) => ({
+        key: i1.id,
+        label: `Страница ${index}`,
+        children: i1.cards.map((i2) => ({
+          key: i2.id,
+          disabled: i2.id === item.id,
+          label: i2.description,
+          onClick: () => {
+            swapCards({ cardToId: i2.id, cardFromId: item.id });
+          },
+        })),
       })),
     },
     {
@@ -148,6 +181,11 @@ export const Item = ({ item, page, index }: ItemProps) => {
           Резерв
         </Checkbox>
         <div style={{ flexGrow: 1 }} />
+        {sameCardError && (
+          <Tooltip title={sameCardError}>
+            <WarningOutlined style={{ color: "red" }} />
+          </Tooltip>
+        )}
         <Dropdown menu={{ items: menuItems }}>
           <MenuOutlined />
         </Dropdown>

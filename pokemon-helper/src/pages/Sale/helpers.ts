@@ -67,9 +67,49 @@ export const setCardPositionOnPage = (
 };
 
 export function generateUUID(): string {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
+
+export const swapCardsInPages = (
+  data: TPage[],
+  cardId1: string,
+  cardId2: string
+): TPage[] => {
+  let card1: TItem | null = null;
+  let card2: TItem | null = null;
+  let page1Index: number = -1;
+  let page2Index: number = -1;
+  let card1Index: number = -1;
+  let card2Index: number = -1;
+
+  const newData = data.map((page, pageIndex) => {
+    const newCards = page.cards.map((card, cardIndex) => {
+      if (card.id === cardId1) {
+        card1 = { ...card };
+        page1Index = pageIndex;
+        card1Index = cardIndex;
+        return null;
+      }
+      if (card.id === cardId2) {
+        card2 = { ...card };
+        page2Index = pageIndex;
+        card2Index = cardIndex;
+        return null;
+      }
+      return card;
+    }).filter((card): card is TItem => card !== null);
+
+    return { ...page, cards: newCards };
+  });
+
+  if (card1 && card2 && page1Index !== -1 && page2Index !== -1) {
+    newData[page1Index].cards.splice(card1Index, 0, card2);
+    newData[page2Index].cards.splice(card2Index, 0, card1);
+  }
+
+  return newData;
+};

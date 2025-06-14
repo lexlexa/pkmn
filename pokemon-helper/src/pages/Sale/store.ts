@@ -6,6 +6,7 @@ import {
   deleteItemFromPage,
   generateUUID,
   setCardPositionOnPage,
+  swapCardsInPages,
   transferItemFromToPage,
 } from "./helpers";
 import type { Themes } from "./theme";
@@ -59,6 +60,11 @@ export const setCardPosition = createEvent<{
   page: string;
   position: number;
 }>("set position");
+
+export const swapCards = createEvent<{
+  cardFromId: string;
+  cardToId: string;
+}>();
 
 export const saveSaleFx = createEffect(async (data: TPage[]) => {
   await ApiInstance.post("/api/sale/form", data);
@@ -116,6 +122,9 @@ export const $items = createStore<TPage[]>([
   )
   .on(setCardPosition, (state, payload) =>
     setCardPositionOnPage(state, payload.page, payload.id, payload.position)
+  )
+  .on(swapCards, (state, payload) =>
+    swapCardsInPages(state, payload.cardFromId, payload.cardToId)
   );
 
 export const setPage = createEvent<string>("set page");
