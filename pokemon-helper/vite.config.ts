@@ -7,6 +7,11 @@ export default defineConfig({
   build: {
     outDir: "../pokemon-helper-api/public",
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        assetFileNames: `assets/[name].[ext]`,
+      },
+    },
   },
   server: {
     proxy: {
