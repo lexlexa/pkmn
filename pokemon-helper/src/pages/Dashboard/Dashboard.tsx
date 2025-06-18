@@ -14,7 +14,7 @@ export const Dashboard = withLayout(() => {
   return (
     <div className={styles.container}>
       {dashboardData.map((item) => (
-        <DashBoardItem {...item} />
+        <DashBoardItem key={item.slug} {...item} />
       ))}
     </div>
   );

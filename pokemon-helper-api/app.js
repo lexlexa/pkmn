@@ -43,6 +43,7 @@ const whilelist = [
 
 app.use((req, res, next) => {
   if (whilelist.includes(req.path)) return next();
+  if (req.path.includes("external")) return next();
   if (!req.path.includes("api")) return next();
 
   if (!req.headers.token) {

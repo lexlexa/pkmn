@@ -1,0 +1,6 @@
+POST http://localhost:3001/api/external/utils/prices
+content-type: application/json
+
+{
+  "data": ",Scarlet & Violet,Gogoat,012/198,Reverse Holo,Common,2,50,"
+}

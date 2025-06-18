@@ -27,6 +27,13 @@ export const UtilsRoute = (app) => {
     res.send("");
   });
 
+  app.post("/api/external/utils/prices", async (req, res) => {
+    const data = req.body.data;
+    console.log(data);
+    const filtered = addCardsPrices(data);
+    res.send(filtered);
+  });
+
   app.get("/api/utils/prices.csv", async (req, res) => {
     const file = (await readFile(PRICES_CARDS_PATH)).toString();
     res.type("text/csv");

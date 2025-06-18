@@ -39,6 +39,11 @@ type TProps = {
   normalHolo: { count: number; max: number };
 };
 
+type Item = {
+  name: string;
+  item: { count: number; max: number };
+};
+
 export const DashBoardItem = ({
   all,
   normal,
@@ -48,11 +53,35 @@ export const DashBoardItem = ({
 }: TProps) => {
   const precentCompleted = Math.floor((all.count / all.max) * 100);
 
-  const order = [
+  const order: Item[] = [
     { name: "Normal", item: normal },
     { name: "Reverse Holo", item: reverse },
     { name: "Normal Holo", item: normalHolo },
   ];
+
+  const allItem: Item[] = [{ name: ``, item: all }];
+
+  const renderStatistics = (items: Item[]) => {
+    return items.map(({ name, item }) => {
+      const percent = Math.floor((item.count / item.max) * 100);
+      return (
+        <div key={name} className={styles.statisticsItem}>
+          <div className={styles.statisticsTitle}>{name}</div>
+          <div className={styles.statisticsProgress}>
+            <div
+              className={`${styles.statisticsProgressInner} ${
+                item.count === item.max ? styles.full : ""
+              }`}
+              style={{ width: `${percent}%` }}
+            ></div>
+          </div>
+          <div className={styles.statisticsCount}>
+            {item.count}/{item.max}
+          </div>
+        </div>
+      );
+    });
+  };
 
   return (
     <div className={styles.card}>
@@ -68,27 +97,8 @@ export const DashBoardItem = ({
       >
         <div className={styles.percent}>{precentCompleted}%</div>
       </div>
-      <div className={styles.statistics}>
-        {order.map(({ name, item }) => {
-          const percent = Math.floor((item.count / item.max) * 100);
-          return (
-            <div className={styles.statisticsItem}>
-              <div className={styles.statisticsTitle}>{name}</div>
-              <div className={styles.statisticsProgress}>
-                <div
-                  className={`${styles.statisticsProgressInner} ${
-                    item.count === item.max ? styles.full : ""
-                  }`}
-                  style={{ width: `${percent}%` }}
-                ></div>
-              </div>
-              <div className={styles.statisticsCount}>
-                {item.count}/{item.max}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <div className={styles.statistics}>{renderStatistics(order)}</div>
+      <div className={styles.statistics}>{renderStatistics(allItem)}</div>
     </div>
   );
 };
