@@ -35,7 +35,7 @@ export const addCardsPrices = (data) => {
   const [, expansion] = pricesData[0].split(",");
 
   const haveCardsByExpansion = haveCards[expansion];
-
+  console.log(">>>", expansion, haveCards);
   const values = Object.values(haveCardsByExpansion).flat();
 
   // Обновление данных по уже существующим картам

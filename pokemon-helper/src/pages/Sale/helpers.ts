@@ -6,6 +6,18 @@ export const getItemFromPage = (data: TPage[], page: string, id: string) =>
 export const addItemToPage = (data: TPage[], page: string, item: TItem) =>
   data.map((p) => (p.id === page ? { ...p, cards: [...p.cards, item] } : p));
 
+export const addItemToPageByIndex = (
+  data: TPage[],
+  page: string,
+  item: TItem,
+  index: number
+) =>
+  data.map((p) => {
+    const data = [...p.cards];
+    data.splice(index, 0, item);
+    return p.id === page ? { ...p, cards: data } : p;
+  });
+
 export const deleteItemFromPage = (data: TPage[], page: string, id: string) =>
   data.map((p) =>
     p.id === page ? { ...p, cards: p.cards.filter((c) => c.id !== id) } : p
@@ -87,21 +99,23 @@ export const swapCardsInPages = (
   let card2Index: number = -1;
 
   const newData = data.map((page, pageIndex) => {
-    const newCards = page.cards.map((card, cardIndex) => {
-      if (card.id === cardId1) {
-        card1 = { ...card };
-        page1Index = pageIndex;
-        card1Index = cardIndex;
-        return null;
-      }
-      if (card.id === cardId2) {
-        card2 = { ...card };
-        page2Index = pageIndex;
-        card2Index = cardIndex;
-        return null;
-      }
-      return card;
-    }).filter((card): card is TItem => card !== null);
+    const newCards = page.cards
+      .map((card, cardIndex) => {
+        if (card.id === cardId1) {
+          card1 = { ...card };
+          page1Index = pageIndex;
+          card1Index = cardIndex;
+          return null;
+        }
+        if (card.id === cardId2) {
+          card2 = { ...card };
+          page2Index = pageIndex;
+          card2Index = cardIndex;
+          return null;
+        }
+        return card;
+      })
+      .filter((card): card is TItem => card !== null);
 
     return { ...page, cards: newCards };
   });
@@ -112,4 +126,24 @@ export const swapCardsInPages = (
   }
 
   return newData;
+};
+
+export const transferItemFromToPageToIndex = (
+  data: TPage[],
+  fromPage: string,
+  toPage: string,
+  id: string,
+  index: number
+) => {
+  console.log(fromPage, toPage, id, index);
+  const item = getItemFromPage(data, fromPage, id);
+  const dataWithoutDeleted = deleteItemFromPage(data, fromPage, id);
+  const dataWithAdded = addItemToPageByIndex(
+    dataWithoutDeleted,
+    toPage,
+    item!,
+    index
+  );
+  console.log(dataWithAdded);
+  return dataWithAdded;
 };

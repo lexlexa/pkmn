@@ -8,6 +8,7 @@ import {
   setCardPositionOnPage,
   swapCardsInPages,
   transferItemFromToPage,
+  transferItemFromToPageToIndex,
 } from "./helpers";
 import type { Themes } from "./theme";
 
@@ -50,6 +51,12 @@ export const transferItem = createEvent<{
   toPage: string;
   id: string;
 }>("transfer");
+export const transferItemToIndex = createEvent<{
+  fromPage: string;
+  toPage: string;
+  id: string;
+  index: number;
+}>("transfer index");
 export const setPageTheme = createEvent<{
   page: string;
   theme: keyof typeof Themes;
@@ -125,6 +132,15 @@ export const $items = createStore<TPage[]>([
   )
   .on(swapCards, (state, payload) =>
     swapCardsInPages(state, payload.cardFromId, payload.cardToId)
+  )
+  .on(transferItemToIndex, (state, payload) =>
+    transferItemFromToPageToIndex(
+      state,
+      payload.fromPage,
+      payload.toPage,
+      payload.id,
+      payload.index
+    )
   );
 
 export const setPage = createEvent<string>("set page");

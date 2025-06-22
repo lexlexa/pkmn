@@ -4,13 +4,15 @@ import { Button, Tabs, type TabsProps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useUnit } from "effector-react";
 import { $items, addPage, getSaleFx, saveSaleFx, setPage } from "./store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ItemsTab } from "./components/ItemsTab/ItemsTab";
 import { SaleContent } from "./components/SaleContent/SaleContent";
+import { Dnd } from "./components/Dnd/Dnd";
 
 export const Sale = withLayout(
   () => {
     const items = useUnit($items);
+    const [dragMode, setIsDragMode] = useState(false);
 
     useEffect(() => {
       getSaleFx();
@@ -32,30 +34,42 @@ export const Sale = withLayout(
 
     return (
       <div className={styles.container}>
-        <div className={styles.aside}>
-          <Tabs
-            defaultActiveKey={`${items?.[0]?.id || "1"}`}
-            items={tabs}
-            size="small"
-            onChange={handleTabChange}
-            tabBarExtraContent={{
-              right: (
-                <Button onClick={() => addPage()} icon={<PlusOutlined />} />
-              ),
-            }}
-          />
-          <div className={styles.actions}>
-            <Button color="primary" onClick={handleSave} variant="filled">
-              Сохранить
-            </Button>
-            <Button color="primary" variant="filled">
-              Сформировать
-            </Button>
-          </div>
-        </div>
-        <div className={styles.content}>
-          <SaleContent />
-        </div>
+        <Button
+          onClick={() => setIsDragMode(!dragMode)}
+          style={{ position: "fixed", bottom: 8, right: 8 }}
+        >
+          Режим
+        </Button>
+        {dragMode ? (
+          <Dnd />
+        ) : (
+          <>
+            <div className={styles.aside}>
+              <Tabs
+                defaultActiveKey={`${items?.[0]?.id || "1"}`}
+                items={tabs}
+                size="small"
+                onChange={handleTabChange}
+                tabBarExtraContent={{
+                  right: (
+                    <Button onClick={() => addPage()} icon={<PlusOutlined />} />
+                  ),
+                }}
+              />
+              <div className={styles.actions}>
+                <Button color="primary" onClick={handleSave} variant="filled">
+                  Сохранить
+                </Button>
+                <Button color="primary" variant="filled">
+                  Сформировать
+                </Button>
+              </div>
+            </div>
+            <div className={styles.content}>
+              <SaleContent />
+            </div>
+          </>
+        )}
       </div>
     );
   },
