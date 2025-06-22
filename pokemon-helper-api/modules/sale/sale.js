@@ -14,7 +14,8 @@ export const getSale = async () => {
     return {
       ...item,
       cards: item.cards.map((card) => {
-        const cardData = first.byExpansion[card.expansion][card.number][0];
+        const cardData =
+          first.byExpansion[card.expansion]?.[card.number]?.[0] || {};
 
         return { ...card, count: cardData.count - 1 };
       }),
