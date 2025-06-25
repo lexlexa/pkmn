@@ -135,7 +135,6 @@ export const transferItemFromToPageToIndex = (
   id: string,
   index: number
 ) => {
-  console.log(fromPage, toPage, id, index);
   const item = getItemFromPage(data, fromPage, id);
   const dataWithoutDeleted = deleteItemFromPage(data, fromPage, id);
   const dataWithAdded = addItemToPageByIndex(
@@ -144,6 +143,5 @@ export const transferItemFromToPageToIndex = (
     item!,
     index
   );
-  console.log(dataWithAdded);
   return dataWithAdded;
 };

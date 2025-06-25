@@ -1,10 +1,17 @@
 .item {
   display: flex;
-  flex-direction: column;
   gap: 4px;
   box-shadow: 0 0 5px 0 rgb(203, 203, 203);
   padding: 8px;
   border-radius: 8px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-grow: 1;
+  flex-shrink: 0;
 }
 
 .itemRow {
@@ -49,4 +56,10 @@
 
 .itemCount {
   width: 60px;
+}
+
+.switchItem {
+  display: flex;
+  gap: 6px;
+  margin-right: 16px;
 }

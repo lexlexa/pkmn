@@ -41,8 +41,6 @@ export const AddCardButton = ({ page }: AddCardButtonProps) => {
     });
   };
 
-  console.log(suggestions);
-
   return (
     <Popover
       onOpenChange={() => {

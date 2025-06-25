@@ -1,7 +1,7 @@
 import { withLayout } from "../../hocs/withLayout";
 import styles from "./Sale.module.css";
 import { Button, Tabs, type TabsProps } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, WarningOutlined } from "@ant-design/icons";
 import { useUnit } from "effector-react";
 import { $items, addPage, getSaleFx, saveSaleFx, setPage } from "./store";
 import { useEffect, useState } from "react";
@@ -30,6 +30,7 @@ export const Sale = withLayout(
       key: `${item.id}`,
       label: index,
       children: <ItemsTab tab={item} />,
+      icon: item.cards.some((c) => c.count < 1) ? <WarningOutlined /> : null,
     }));
 
     return (
@@ -48,6 +49,7 @@ export const Sale = withLayout(
               <Tabs
                 defaultActiveKey={`${items?.[0]?.id || "1"}`}
                 items={tabs}
+                tabPosition="left"
                 size="small"
                 onChange={handleTabChange}
                 tabBarExtraContent={{

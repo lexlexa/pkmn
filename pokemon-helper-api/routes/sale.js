@@ -17,7 +17,6 @@ export const SaleRoute = (app) => {
   });
 
   app.get("/api/card/find", async (req, res) => {
-    console.log(req.query);
     const card = getCard(req.query.exp, req.query.number);
     if (!card) {
       return res.status(404).send("");

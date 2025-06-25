@@ -35,7 +35,6 @@ export const addCardsPrices = (data) => {
   const [, expansion] = pricesData[0].split(",");
 
   const haveCardsByExpansion = haveCards[expansion];
-  console.log(">>>", expansion, haveCards);
   const values = Object.values(haveCardsByExpansion).flat();
 
   // Обновление данных по уже существующим картам
@@ -141,10 +140,7 @@ export const checkNotExistCards = (cards) => {
 
       if (!byExpansion[item.expansion][itemNumber]) return true;
       const card = byExpansion[item.expansion][itemNumber];
-      console.log(
-        card,
-        card.some((i) => item.variant == i.variant)
-      );
+
       return !card.some((i) => item.variant == i.variant);
     })
     .map((item) => [item.expansion, item.number, item.variant].join(","))

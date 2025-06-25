@@ -10,7 +10,6 @@ type CardProps = {
 export const Card = ({ item }: CardProps) => {
   const selectedPage = useUnit($selectedPage);
   const theme = Themes[selectedPage.theme];
-  console.log(item);
   return (
     <div
       style={{
@@ -44,7 +43,7 @@ export const Card = ({ item }: CardProps) => {
       <img
         className={styles.image}
         style={{ opacity: item.sold ? "0.6" : "" }}
-        src={item.image}
+        src={`/api/image-proxy?url=${encodeURIComponent(item.image)}`}
       />
       <div
         style={{ background: theme.priceBackground }}

@@ -1,4 +1,10 @@
-import { combine, createEffect, createEvent, createStore } from "effector";
+import {
+  combine,
+  createEffect,
+  createEvent,
+  createStore,
+  sample,
+} from "effector";
 import { ApiInstance } from "../../helpers/api";
 import {
   addItemToPage,
@@ -73,6 +79,8 @@ export const swapCards = createEvent<{
   cardToId: string;
 }>();
 
+export const deletePage = createEvent<{ pageId: string }>();
+
 export const saveSaleFx = createEffect(async (data: TPage[]) => {
   await ApiInstance.post("/api/sale/form", data);
 });
@@ -110,6 +118,7 @@ export const $items = createStore<TPage[]>([
   .on(deleteItem, (state, payload) => {
     return deleteItemFromPage(state, payload.page, payload.id);
   })
+  .on(deletePage, (state, { pageId }) => state.filter((p) => p.id !== pageId))
   .on(transferItem, (state, payload) =>
     transferItemFromToPage(state, payload.fromPage, payload.toPage, payload.id)
   )
@@ -148,6 +157,13 @@ export const setPage = createEvent<string>("set page");
 export const $page = createStore<string>("")
   .on(getSaleFx.doneData, (_, payload) => payload[0].id)
   .on(setPage, (_, payload) => payload);
+
+sample({
+  clock: deletePage,
+  source: $items,
+  fn: (items) => items?.[0].id,
+  target: setPage,
+});
 
 export const $selectedPage = combine(
   { page: $page, items: $items },

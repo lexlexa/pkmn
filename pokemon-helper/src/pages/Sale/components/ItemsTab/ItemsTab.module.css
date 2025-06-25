@@ -5,3 +5,25 @@
   flex-direction: column;
   gap: 8px;
 }
+
+.pageSettings {
+  background-color: rgb(245, 245, 245);
+  padding: 8px;
+  border: 2px solid rgb(215, 215, 215);
+  border-radius: 8px;
+}
+
+.title {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+}
+
+.item {
+  margin-bottom: 16px;
+  background-color: #fff;
+  width: 100%;
+}

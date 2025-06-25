@@ -31,7 +31,7 @@ export const getSaleCards = async () => {
     const card = first.byExpansion[item.expansion][item.number][0];
 
     if (!card) return { image: "error", price: "error" };
-    console.log(card);
+
     return { image: card.images.card, count: card.count - 1, ...item };
   });
 };

@@ -29,7 +29,7 @@ export const UtilsRoute = (app) => {
 
   app.post("/api/external/utils/prices", async (req, res) => {
     const data = req.body.data;
-    console.log(data);
+
     const filtered = addCardsPrices(data);
     res.send(filtered);
   });

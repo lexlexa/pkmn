@@ -3,6 +3,7 @@ import {
   Dropdown,
   Input,
   Popover,
+  Switch,
   Tooltip,
   type MenuProps,
 } from "antd";
@@ -35,7 +36,6 @@ export const Item = ({ item, page, index }: ItemProps) => {
   const [position, setPosition] = useState(index);
   const onChange =
     (field: keyof TItem) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(field, page, item.id, e.target.value);
       changeItem({ field, page, id: item.id, value: e.target.value });
     };
 
@@ -63,7 +63,6 @@ export const Item = ({ item, page, index }: ItemProps) => {
         page: page,
         position: position,
       });
-      console.log(position);
     }
   };
 
@@ -85,34 +84,6 @@ export const Item = ({ item, page, index }: ItemProps) => {
 
   const menuItems: MenuProps["items"] = [
     {
-      key: "1",
-      label: "Перенести в",
-      children: items.map((i, index) => ({
-        key: i.id,
-        disabled: i.id === page,
-        label: `Страница ${index}`,
-        onClick: () => {
-          transferItem({ fromPage: page, toPage: i.id, id: item.id });
-        },
-      })),
-    },
-    {
-      key: "3",
-      label: "Поменять местами с",
-      children: items.map((i1, index) => ({
-        key: i1.id,
-        label: `Страница ${index}`,
-        children: i1.cards.map((i2) => ({
-          key: i2.id,
-          disabled: i2.id === item.id,
-          label: i2.description,
-          onClick: () => {
-            swapCards({ cardToId: i2.id, cardFromId: item.id });
-          },
-        })),
-      })),
-    },
-    {
       key: "2",
       label: "Удалить",
       danger: true,
@@ -124,76 +95,77 @@ export const Item = ({ item, page, index }: ItemProps) => {
 
   return (
     <div className={styles.item}>
-      <div className={styles.itemRow}>
-        <Tooltip title={item.count >= 1 ? "" : "Таких карт не осталось"}>
-          <Input
-            className={styles.itemCount}
-            value={item.count}
-            status={item.count < 1 ? "error" : ""}
-            disabled
-            placeholder={"Количество"}
-          />
-        </Tooltip>
-        <Input
-          className={styles.itemNumber}
-          value={item.number}
-          disabled
-          placeholder={"Номер"}
-        />
-
-        <Input placeholder={"Доп"} disabled value={item.expansion} />
-        <Input
-          className={styles.itemPrice}
-          placeholder={"Цена"}
-          onChange={onChange("price")}
-          value={item.price}
-        />
+      <div>
+        <MenuOutlined />
       </div>
-      <div className={styles.itemRow}>
-        <Input
-          className={styles.itemDescription}
-          value={item.description}
-          onChange={onChange("description")}
-          placeholder={"Описание"}
-        />
-        <Input
-          className={styles.itemRarity}
-          value={item.rarity}
-          onChange={onChange("rarity")}
-          placeholder={"Редкость"}
-        />
-        <Input
-          className={styles.itemPosition}
-          value={position}
-          onChange={(e) => setPosition(Number(e.target.value))}
-          onBlur={handleChangePosition}
-          placeholder={"Позиция"}
-        />
-      </div>
-      <div className={styles.itemRow}>
-        <Checkbox checked={item.sold} onChange={onSoldChange}>
-          Продано
-        </Checkbox>
-        <Checkbox checked={item.isNew} onChange={onIsNewChange}>
-          Новая
-        </Checkbox>
-        <Checkbox checked={item.isReserved} onChange={onIsReservedChange}>
-          Резерв
-        </Checkbox>
-        <div style={{ flexGrow: 1 }} />
-        {sameCardError && (
-          <Tooltip title={sameCardError}>
-            <WarningOutlined style={{ color: "red" }} />
+      <div className={styles.col}>
+        <div className={styles.itemRow}>
+          <Tooltip title={item.count >= 1 ? "" : "Таких карт не осталось"}>
+            <Input
+              className={styles.itemCount}
+              value={item.count}
+              status={item.count < 1 ? "error" : ""}
+              disabled
+              placeholder={"Количество"}
+            />
           </Tooltip>
-        )}
-        <Dropdown menu={{ items: menuItems }}>
-          <MenuOutlined />
-        </Dropdown>
-        <Popover
-          content={<img className={styles.cardImage} src={item.image} />}
-        >
-          <PictureOutlined />
-        </Popover>
+          <Input
+            className={styles.itemNumber}
+            value={item.number}
+            disabled
+            placeholder={"Номер"}
+          />
+
+          <Input placeholder={"Доп"} disabled value={item.expansion} />
+          <Input
+            className={styles.itemPrice}
+            placeholder={"Цена"}
+            onChange={onChange("price")}
+            value={item.price}
+          />
+        </div>
+        <div className={styles.itemRow}>
+          <Input
+            className={styles.itemDescription}
+            value={item.description}
+            onChange={onChange("description")}
+            placeholder={"Описание"}
+          />
+          <Input
+            className={styles.itemRarity}
+            value={item.rarity}
+            onChange={onChange("rarity")}
+            placeholder={"Редкость"}
+          />
+        </div>
+        <div className={styles.itemRow}>
+          <div className={styles.switchItem}>
+            <div>Продано</div>
+            <Switch checked={item.sold} onChange={onSoldChange} />
+          </div>
+          <div className={styles.switchItem}>
+            <div>Новая</div>
+            <Switch checked={item.isNew} onChange={onIsNewChange} />
+          </div>
+          <div className={styles.switchItem}>
+            <div>Резерв</div>
+            <Switch checked={item.isReserved} onChange={onIsReservedChange} />
+          </div>
+          <div style={{ flexGrow: 1 }} />
+          {sameCardError && (
+            <Tooltip title={sameCardError}>
+              <WarningOutlined style={{ color: "red" }} />
+            </Tooltip>
+          )}
+          <Popover
+            content={<img className={styles.cardImage} src={item.image} />}
+          >
+            <PictureOutlined style={{ fontSize: 20, marginRight: 8 }} />
+          </Popover>
+          <Dropdown menu={{ items: menuItems }}>
+            <MenuOutlined style={{ fontSize: 20 }} />
+          </Dropdown>
+        </div>
       </div>
     </div>
   );
