@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   Dropdown,
   Input,
   Popover,
@@ -8,22 +7,14 @@ import {
   type MenuProps,
 } from "antd";
 import styles from "./Item.module.css";
-import {
-  $items,
-  changeItem,
-  deleteItem,
-  setCardPosition,
-  swapCards,
-  transferItem,
-  type TItem,
-} from "../../store";
+import { $items, changeItem, deleteItem, type TItem } from "../../store";
 import {
   MenuOutlined,
   PictureOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
 import { useUnit } from "effector-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 type ItemProps = {
   item: TItem;
@@ -31,9 +22,8 @@ type ItemProps = {
   index: number;
 };
 
-export const Item = ({ item, page, index }: ItemProps) => {
+export const Item = ({ item, page }: ItemProps) => {
   const items = useUnit($items);
-  const [position, setPosition] = useState(index);
   const onChange =
     (field: keyof TItem) => (e: React.ChangeEvent<HTMLInputElement>) => {
       changeItem({ field, page, id: item.id, value: e.target.value });
@@ -55,20 +45,6 @@ export const Item = ({ item, page, index }: ItemProps) => {
       value: !item.isReserved,
     });
   };
-
-  const handleChangePosition = () => {
-    if (position !== index) {
-      setCardPosition({
-        id: item.id,
-        page: page,
-        position: position,
-      });
-    }
-  };
-
-  useEffect(() => {
-    setPosition(index);
-  }, [index]);
 
   const sameCardError = useMemo(() => {
     const findedPage = items.findIndex((p) => {
