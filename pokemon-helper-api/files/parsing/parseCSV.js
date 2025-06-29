@@ -45,13 +45,13 @@ export const ExpansionsInSDK = {
   "Champion's Path": "swsh35",
   "Darkness Ablaze": "swsh3",
   "Sword & Shield": "swsh1",
-  "SWSH Promos": "swshp",
+  "Sword & Shield Promos": "swshp",
   "Cosmic Eclipse": "sm12",
   "Crimson Invasion": "sm4",
   "Burning Shadows": "sm3",
   "Guardians Rising": "sm2",
   "Sun & Moon": "det1",
-  "SMr Promos": "smp",
+  "Sun & Moon Promos": "smp",
   "Steam Siege": "xy11",
   "Roaring Skies": "xy6",
   "XY Promos": "xyp",
@@ -92,13 +92,13 @@ export const ExpansionsShortName = {
   "Champion's Path": "CPA",
   "Darkness Ablaze": "DAA",
   "Sword & Shield": "SSH",
-  "SWSH Promos": "SSP",
+  "Sword & Shield Promos": "SSP",
   "Cosmic Eclipse": "CES",
   "Crimson Invasion": "CIN",
   "Burning Shadows": "BUS",
   "Guardians Rising": "GRI",
   "Sun & Moon": "SUM",
-  "SM Black Star Promos": "SMP",
+  "Sun & Moon Promos": "SMP",
   "Steam Siege": "STS",
   "Roaring Skies": "ROS",
   "XY Promos": "XYP",
@@ -129,7 +129,9 @@ export const parseCSV = (csv) => {
 
     const cardImage = getCardImage(
       ExpansionsInSDK[card.expansion],
-      Number(card.number.split("/")[0])
+      card.number.includes("/")
+        ? Number(card.number.split("/")[0])
+        : card.number
     );
     const expansionImage = getExpansionImage(ExpansionsInSDK[card.expansion]);
     card.images = {
