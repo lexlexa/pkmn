@@ -9,12 +9,11 @@ type CardProps = {
 
 export const Card = ({ item }: CardProps) => {
   const selectedPage = useUnit($selectedPage);
-  const theme = Themes[selectedPage.theme];
+  const theme = Themes[item.theme || selectedPage.theme];
   return (
     <div
       style={{
         background: theme.cardBackground,
-        // filter: item.sold ? "opacity(0.3)" : "",
       }}
       className={styles.card}
     >

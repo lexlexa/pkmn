@@ -88,14 +88,16 @@ export const getCardsSuggestions = (pages = []) => {
     .flat()
     .map((item) => `${item.expansion}-${item.number}`);
 
-  return rareCards
-    .filter(
-      (item) => !cardsInPages.includes(`${item.expansion}-${item.number}`)
-    )
-    .slice(0, 10)
-    .map(({ expansion, expansion_slug, number }) => ({
-      expansion,
-      slug: expansion_slug,
-      number,
-    }));
+  return (
+    rareCards
+      .filter(
+        (item) => !cardsInPages.includes(`${item.expansion}-${item.number}`)
+      )
+      // .slice(0, 10)
+      .map(({ expansion, expansion_slug, number }) => ({
+        expansion,
+        slug: expansion_slug,
+        number,
+      }))
+  );
 };

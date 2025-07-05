@@ -21,6 +21,7 @@ export const AddCardButton = ({ page }: AddCardButtonProps) => {
   const dicts = useUnit($dicts);
   const pages = useUnit($items);
   const suggestions = useUnit($suggestions);
+  const [expansion, setExpansion] = useState<string | null>(null);
   const [exp, setExp] = useState("");
   const [number, setNumber] = useState("");
 
@@ -41,30 +42,52 @@ export const AddCardButton = ({ page }: AddCardButtonProps) => {
     });
   };
 
+  const onChangeExpansion = (value: string | undefined) => {
+    setExpansion(value || null);
+  };
+
+  const filteredSuggestions = expansion
+    ? suggestions.filter((item) => item.expansion === expansion)
+    : suggestions;
+
   return (
     <Popover
       onOpenChange={() => {
         loadSuggestionsFx(pages);
       }}
       content={
-        <div className={styles.container}>
-          {suggestions.map((item) => {
-            return (
-              <div className={styles.item}>
-                <div className={styles.title}>{item.expansion}</div>
-                <div className={styles.number}>{item.number}</div>
-                <div>
-                  <Button
-                    size="small"
-                    color="green"
-                    variant="solid"
-                    onClick={() => addItemByData(item.slug, item.number)}
-                    icon={<PlusOutlined />}
-                  />
+        <div className={styles.content}>
+          <div className={styles.item}>
+            <Select
+              placeholder="Все дополнения"
+              allowClear
+              style={{ width: "100%" }}
+              onChange={onChangeExpansion}
+              value={expansion}
+              options={[
+                ...new Set(suggestions.map((item) => item.expansion)),
+              ].map((key) => ({ value: key, label: key }))}
+            />
+          </div>
+          <div className={styles.container}>
+            {filteredSuggestions.map((item) => {
+              return (
+                <div className={styles.item}>
+                  <div className={styles.title}>{item.expansion}</div>
+                  <div className={styles.number}>{item.number}</div>
+                  <div>
+                    <Button
+                      size="small"
+                      color="green"
+                      variant="solid"
+                      onClick={() => addItemByData(item.slug, item.number)}
+                      icon={<PlusOutlined />}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
           <div className={styles.item}>
             <Select
               value={exp}

@@ -29,6 +29,7 @@ export type TItem = {
   isReserved: boolean;
   sold: false;
   count: number;
+  theme: keyof typeof Themes;
   id: ReturnType<typeof generateUUID>;
 };
 
@@ -50,7 +51,7 @@ export const changeItem = createEvent<{
   field: keyof TItem;
   id: string;
   page: string;
-  value: string | boolean;
+  value: string | boolean | undefined;
 }>("change item");
 export const transferItem = createEvent<{
   fromPage: string;

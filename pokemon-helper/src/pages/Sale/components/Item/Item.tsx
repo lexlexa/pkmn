@@ -2,6 +2,7 @@ import {
   Dropdown,
   Input,
   Popover,
+  Select,
   Switch,
   Tooltip,
   type MenuProps,
@@ -15,6 +16,7 @@ import {
 } from "@ant-design/icons";
 import { useUnit } from "effector-react";
 import { useMemo } from "react";
+import { Themes } from "../../theme";
 
 type ItemProps = {
   item: TItem;
@@ -35,6 +37,10 @@ export const Item = ({ item, page }: ItemProps) => {
 
   const onIsNewChange = () => {
     changeItem({ field: "isNew", page, id: item.id, value: !item.isNew });
+  };
+
+  const onChangeTheme = (e: string | undefined) => {
+    changeItem({ field: "theme", page, id: item.id, value: e });
   };
 
   const onIsReservedChange = () => {
@@ -112,6 +118,16 @@ export const Item = ({ item, page }: ItemProps) => {
             value={item.rarity}
             onChange={onChange("rarity")}
             placeholder={"Редкость"}
+          />
+          <Select
+            options={Object.keys(Themes).map((item) => ({
+              value: item,
+              label: item,
+            }))}
+            value={item.theme}
+            allowClear
+            onChange={onChangeTheme}
+            placeholder="Стиль"
           />
         </div>
         <div className={styles.itemRow}>

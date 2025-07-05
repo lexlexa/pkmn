@@ -28,7 +28,7 @@ export const changeItemOnPage = (
   page: string,
   id: string,
   field: keyof TItem,
-  value: string | boolean
+  value: string | boolean | undefined
 ) => {
   return data.map((p) =>
     p.id === page
