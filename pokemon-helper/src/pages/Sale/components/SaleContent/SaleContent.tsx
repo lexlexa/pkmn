@@ -1,7 +1,7 @@
 import { useUnit } from "effector-react";
 import { Themes } from "../../theme";
 import styles from "./SaleContent.module.css";
-import { $selectedPage } from "../../store";
+import { $selectedPage, SalesPageSizes } from "../../store";
 import { Card } from "../Card/Card";
 import { useRef } from "react";
 import { Button } from "antd";
@@ -26,6 +26,20 @@ export const SaleContent = () => {
     }
   };
 
+  const [x, y] = SalesPageSizes[selectedPage.size || "2x3"];
+  const maxCards = x * y;
+
+  const cardsSize = maxCards > 8 ? "small" : "default";
+
+  const getPadding = () => {
+    const count = selectedPage.cards.length;
+    const maxCount = maxCards;
+
+    if (count === 4) return "115px 300px";
+    if (maxCount <= 6) return "115px 150px";
+    return "";
+  };
+
   return (
     <>
       <Button
@@ -37,14 +51,16 @@ export const SaleContent = () => {
       <div
         style={{
           background: theme.background,
-          padding:
-            selectedPage.cards.length === 4 ? "115px 300px" : "115px 261px",
+          padding: getPadding(),
+          gap: cardsSize === "small" ? "0px" : "",
+
+          // selectedPage.cards.length === 4 ? "115px 300px" : "115px 261px",
         }}
         ref={contentRef}
         className={styles.saleContent}
       >
-        {selectedPage?.cards.slice(0, 6).map((item) => {
-          return <Card key={item.id} item={item} />;
+        {selectedPage?.cards.slice(0, maxCards).map((item) => {
+          return <Card size={cardsSize} key={item.id} item={item} />;
         })}
       </div>
     </>

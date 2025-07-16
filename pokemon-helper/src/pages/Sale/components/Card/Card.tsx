@@ -5,15 +5,17 @@ import styles from "./Card.module.css";
 
 type CardProps = {
   item: TItem;
+  size?: "small" | "default";
 };
 
-export const Card = ({ item }: CardProps) => {
+export const Card = ({ item, size = "default" }: CardProps) => {
   const selectedPage = useUnit($selectedPage);
   const theme = Themes[item.theme || selectedPage.theme];
   return (
     <div
       style={{
         background: theme.cardBackground,
+        transform: size === "small" ? "scale(0.85)" : "",
       }}
       className={styles.card}
     >

@@ -27,3 +27,8 @@
   background-color: #fff;
   width: 100%;
 }
+
+.row {
+  display: flex;
+  gap: 6px;
+}

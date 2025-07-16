@@ -33,10 +33,17 @@ export type TItem = {
   id: ReturnType<typeof generateUUID>;
 };
 
+export const SalesPageSizes = {
+  "2x3": [2, 3],
+  "2x4": [2, 4],
+  "2x5": [2, 5],
+};
+
 export type TPage = {
   id: ReturnType<typeof generateUUID>;
   cards: TItem[];
   theme: keyof typeof Themes;
+  size: keyof typeof SalesPageSizes;
 };
 
 export const addPage = createEvent("add page");
@@ -69,6 +76,11 @@ export const setPageTheme = createEvent<{
   theme: keyof typeof Themes;
 }>("set theme");
 
+export const setPageSize = createEvent<{
+  page: string;
+  size: keyof typeof SalesPageSizes;
+}>("set theme");
+
 export const setCardPosition = createEvent<{
   id: string;
   page: string;
@@ -96,6 +108,7 @@ export const $items = createStore<TPage[]>([
     id: generateUUID(),
     cards: [],
     theme: "GOLD",
+    size: "2x3",
   },
 ])
   .on(addPage, (state) => {
@@ -105,6 +118,7 @@ export const $items = createStore<TPage[]>([
         id: generateUUID(),
         cards: [],
         theme: "GOLD",
+        size: "2x3",
       },
     ];
   })
@@ -151,6 +165,11 @@ export const $items = createStore<TPage[]>([
       payload.id,
       payload.index
     )
+  )
+  .on(setPageSize, (state, payload) =>
+    state.map((item) =>
+      item.id === payload.page ? { ...item, size: payload.size } : item
+    )
   );
 
 export const setPage = createEvent<string>("set page");
@@ -174,6 +193,7 @@ export const $selectedPage = combine(
       id: generateUUID(),
       cards: [],
       theme: "GOLD",
+      size: "2x3",
     } as TPage)
 );
 

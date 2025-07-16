@@ -1,5 +1,7 @@
 import {
   deletePage,
+  SalesPageSizes,
+  setPageSize,
   setPageTheme,
   transferItemToIndex,
   type TPage,
@@ -16,8 +18,12 @@ type ItemsTabProps = {
 };
 
 export const ItemsTab = ({ tab }: ItemsTabProps) => {
-  const handleChaneTheme = (theme: string) => {
+  const handleChangeTheme = (theme: string) => {
     setPageTheme({ page: tab.id, theme: theme as keyof typeof Themes });
+  };
+
+  const handleChangeSize = (size: string) => {
+    setPageSize({ page: tab.id, size: size as keyof typeof SalesPageSizes });
   };
 
   const handleDragEnd = (event: any) => {
@@ -48,15 +54,26 @@ export const ItemsTab = ({ tab }: ItemsTabProps) => {
             <DeleteOutlined style={{ color: "red", fontSize: 20 }} />
           </Popconfirm>
         </div>
-        <Select
-          onChange={handleChaneTheme}
-          value={tab.theme || "GOLD"}
-          style={{ width: "200px" }}
-          options={Object.keys(Themes).map((item) => ({
-            label: item,
-            value: item,
-          }))}
-        />
+        <div className={styles.row}>
+          <Select
+            onChange={handleChangeTheme}
+            value={tab.theme || "GOLD"}
+            style={{ width: "200px" }}
+            options={Object.keys(Themes).map((item) => ({
+              label: item,
+              value: item,
+            }))}
+          />
+          <Select
+            onChange={handleChangeSize}
+            value={tab.size || "2x3"}
+            style={{ width: "200px" }}
+            options={Object.keys(SalesPageSizes).map((item) => ({
+              label: item,
+              value: item,
+            }))}
+          />
+        </div>
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable direction="vertical" droppableId={tab.id}>
