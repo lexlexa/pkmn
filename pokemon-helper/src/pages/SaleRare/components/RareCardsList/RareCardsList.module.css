@@ -1,0 +1,39 @@
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 100px;
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.expansion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #e1e1e1;
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.titleText {
+  flex-grow: 1;
+}
+
+.list {
+  padding: 0px 8px;
+}

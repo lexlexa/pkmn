@@ -73,7 +73,17 @@ export const addCardsPrices = (data) => {
   // Добавляем карты которых нет в списке
   const notExistPrices = values
     .filter((item) => {
-      if (!["Normal", "Reverse Holo", "Normal Holo"].includes(item.variant)) {
+      if (
+        ![
+          "Normal",
+          "Reverse Holo",
+          "Normal Holo",
+          "Cosmos Holo",
+          "Trick or Trade 2024",
+          "Trick or Trade 2023",
+          "Non-holo",
+        ].includes(item.variant)
+      ) {
         return false;
       }
       if (!["Common", "Uncommon", "Rare"].includes(item.rarity)) {

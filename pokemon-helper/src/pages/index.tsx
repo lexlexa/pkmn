@@ -12,6 +12,7 @@ import { Auth } from "./Auth/Auth";
 import { Sale } from "./Sale/Sale";
 import { useEffect } from "react";
 import { loadDictsFx } from "./store";
+import { SaleRare } from "./SaleRare/SaleRare";
 
 const AppRoutes = [
   {
@@ -45,6 +46,10 @@ const AppRoutes = [
   {
     path: "/sale",
     Component: Sale,
+  },
+  {
+    path: "/salerare",
+    Component: SaleRare,
   },
 ];
 

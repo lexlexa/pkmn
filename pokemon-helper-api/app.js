@@ -14,6 +14,7 @@ import { fileURLToPath } from "url";
 import { writeFile, readFile } from "fs/promises";
 import { SaleRoute } from "./routes/sale.js";
 import { DictsRoute } from "./routes/dicts.js";
+import { SaleRareRoute } from "./routes/sale-rare.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -111,6 +112,7 @@ UtilsRoute(app);
 SyncRoute(app);
 SaleRoute(app);
 DictsRoute(app);
+SaleRareRoute(app);
 
 app.get("/{*splat}", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));

@@ -10,6 +10,7 @@ const MenuItems = [
   { key: "/load", label: "Загрузка" },
   { key: "/utils", label: "Утилиты" },
   { key: "/sale", label: "Витрина" },
+  { key: "/salerare", label: "Витрина Редких" },
 ];
 
 export const HeaderMenu = () => {

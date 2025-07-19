@@ -127,11 +127,26 @@ export const parseCSV = (csv) => {
       count: parseInt(count),
     };
 
+    const normalizeNumber = (number) => {
+      if (number.includes("/")) return Number(card.number.split("/")[0]);
+      if (!Number.isNaN(Number(number))) return Number(card.number);
+      if (number.includes("SWSH")) {
+        return `SWSH${number.replace("SWSH", "").padStart(3, "0")}`;
+      }
+      if (number.includes("SWSH")) {
+        return `SWSH${number.replace("SWSH", "").padStart(3, "0")}`;
+      }
+      if (number.includes("SM")) {
+        return `SM${number.replace("SM", "").padStart(2, "0")}`;
+      }
+      if (number.includes("XY")) {
+        return `XY${number.replace("XY", "").padStart(2, "0")}`;
+      }
+    };
+
     const cardImage = getCardImage(
       ExpansionsInSDK[card.expansion],
-      card.number.includes("/")
-        ? Number(card.number.split("/")[0])
-        : card.number
+      normalizeNumber(card.number)
     );
     const expansionImage = getExpansionImage(ExpansionsInSDK[card.expansion]);
     card.images = {

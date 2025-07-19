@@ -1,0 +1,67 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Edu+SA+Hand:wght@400..700&display=swap');
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.exp {
+
+}
+
+.expTitle {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.list {
+  display: flex;
+  gap: 16px;
+}
+
+.card {
+  position: relative;
+}
+
+.cardTitle {
+  font-size: 13px;
+  margin-bottom: 8px;
+  max-width: 200px;
+  font-family: "Edu SA Hand", cursive;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cardImage {
+  max-width: 200px;
+}
+
+.price {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: #fafafa;
+  width: 80px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  font-family: "Edu SA Hand", cursive;
+  padding: 6px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.rent {
+  position: absolute;
+  background: #ffffffc0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%) rotate(-15deg);
+  padding: 16px;
+  font-size: 18px;
+  font-family: "Edu SA Hand", cursive;
+  border-radius: 16px;
+}
