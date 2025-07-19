@@ -10,3 +10,12 @@ export const readFilesFromStorage = async () => {
     return { first: "", second: "" };
   }
 };
+
+export const readFilesWithFallback = async (path, fallback) => {
+  try {
+    const content = (await readFile(path)).toString();
+    return content;
+  } catch {
+    return fallback;
+  }
+};
