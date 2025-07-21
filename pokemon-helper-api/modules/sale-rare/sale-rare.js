@@ -14,8 +14,12 @@ export const getSaleRareCards = async () => {
     const allCards = Object.values(expansion).flat();
 
     const filteredCards = allCards.filter((card) => {
-      if (card.count < 2) return false;
       if (["Common", "Uncommon", "Rare"].includes(card.rarity)) return false;
+      if (card?.expansion?.includes("Energies")) return false;
+      if (card?.variant?.includes("Jumbo")) return false;
+      // if (card?.short_expansion?.includes("sv")) {
+      if (card.count < 2 && card?.expansion_slug?.includes("sv")) return false;
+      // }
       return true;
     });
 
@@ -44,4 +48,15 @@ export const getSaleRareCards = async () => {
   }, []);
 
   return data;
+};
+
+export const getSaleRareCardsForExternal = async () => {
+  const cards = await getSaleRareCards();
+
+  return cards
+    .filter((item) => !item.isHidden)
+    .map((item) => ({
+      ...item,
+      cards: item.cards.filter((card) => !card.isHidden),
+    }));
 };
