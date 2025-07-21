@@ -101,3 +101,25 @@ export const getCardsSuggestions = (pages = []) => {
       }))
   );
 };
+
+export const syncSalePrices = (saleRare, sale) => {
+  console.log(saleRare);
+  return sale.map((item) => {
+    return {
+      ...item,
+      cards: item.cards.map((card) => {
+        console.log(saleRare?.[card.expansion], card.expansion);
+        const cardInSaleRare = saleRare?.[card.expansion]?.cards.find(
+          (i) => i.number === card.number
+        );
+
+        if (!cardInSaleRare) return card;
+
+        return {
+          ...card,
+          price: cardInSaleRare.price || "",
+        };
+      }),
+    };
+  });
+};

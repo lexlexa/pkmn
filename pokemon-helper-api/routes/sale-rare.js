@@ -4,6 +4,7 @@ import {
   getSaleRareCardsForExternal,
 } from "../modules/sale-rare/sale-rare.js";
 import { writeFile } from "fs/promises";
+import { getSale, saveSale, syncSalePrices } from "../modules/sale/sale.js";
 export const SaleRareRoute = (app) => {
   app.get("/api/salerare/list", async (req, res) => {
     res.send(await getSaleRareCards());
@@ -15,6 +16,12 @@ export const SaleRareRoute = (app) => {
 
   app.post("/api/salerare/change", async (req, res) => {
     await writeFile(SALERARE_CARDS_PATH, JSON.stringify(req.body));
+
+    const sale = await getSale();
+    const newSale = syncSalePrices(req.body, sale);
+    console.log(newSale);
+    await saveSale(newSale);
+
     res.send("Ok");
   });
 };

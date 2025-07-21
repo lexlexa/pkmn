@@ -14,7 +14,8 @@ export const getSaleRareCards = async () => {
     const allCards = Object.values(expansion).flat();
 
     const filteredCards = allCards.filter((card) => {
-      if (["Common", "Uncommon", "Rare"].includes(card.rarity)) return false;
+      if (["Common", "Uncommon", "Rare", "Rare Holo"].includes(card.rarity))
+        return false;
       if (card?.expansion?.includes("Energies")) return false;
       if (card?.variant?.includes("Jumbo")) return false;
       // if (card?.short_expansion?.includes("sv")) {
