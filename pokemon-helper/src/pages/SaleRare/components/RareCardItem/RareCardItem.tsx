@@ -34,7 +34,11 @@ export const RareCardItem = ({ item }: Props) => {
   };
 
   return (
-    <div className={styles.item}>
+    <div
+      className={`${styles.item} ${item.isHidden ? styles.hidden : ""} ${
+        item.isRented ? styles.rented : ""
+      }`}
+    >
       <div className={styles.title}>
         {item.number} {item.name}
       </div>

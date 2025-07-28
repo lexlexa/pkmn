@@ -15,7 +15,7 @@ export const RareCardsContent = () => {
   return (
     <div className={styles.container}>
       {list.map((exp) => {
-        if (exp.isHidden) return null;
+        if (exp.cards.every((c) => c.isHidden)) return null;
         return (
           <div key={exp.expansion} className={styles.exp}>
             <div className={styles.expTitle}>{exp.expansion}</div>

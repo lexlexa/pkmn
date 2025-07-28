@@ -14,7 +14,6 @@ export type TRareSaleCard = {
 export type TRareSaleCards = {
   expansion: string;
   cards: TRareSaleCard[];
-  isHidden: boolean;
 };
 
 export const loadSaleRareCardsFx = createEffect(async () => {
@@ -77,7 +76,6 @@ sample({
       return {
         ...acc,
         [curr.expansion]: {
-          isHidden: curr.isHidden,
           cards: curr.cards.map(({ price, isHidden, isRented, number }) => ({
             price,
             isHidden,

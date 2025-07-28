@@ -27,6 +27,8 @@ export const ExpansionsInSDK = {
   "Surging Sparks": "sv8",
   "Journey Together": "sv9",
   "Destined Rivals": "sv10",
+  "White Flare": "rsv10pt5",
+  "Black Bolt": "zsv10pt5",
   // // SWSH
   "Crown Zenith": "swsh12pt5",
   "Rebel Clash": "swsh2",
@@ -74,6 +76,8 @@ export const ExpansionsShortName = {
   "Surging Sparks": "SSP",
   "Journey Together": "JTG",
   "Destined Rivals": "DRI",
+  "White Flare": "WHT",
+  "Black Bolt": "BLK",
   // // SWSH
   "Crown Zenith": "CRZ",
   "Rebel Clash": "RCL",

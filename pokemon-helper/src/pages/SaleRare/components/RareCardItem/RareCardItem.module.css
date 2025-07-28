@@ -11,3 +11,11 @@
 .title {
   flex-grow: 1;
 }
+
+.hidden {
+  background: #fff1f1;
+}
+
+.rented {
+  background-color: #b7edff;
+}
