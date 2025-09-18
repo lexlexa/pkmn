@@ -14,13 +14,14 @@ export const getSaleRareCards = async () => {
     const allCards = Object.values(expansion).flat();
 
     const filteredCards = allCards.filter((card) => {
-      if (["Common", "Uncommon", "Rare", "Rare Holo"].includes(card.rarity))
+      if (
+        ["Common", "Uncommon", "Rare", "Rare Holo"].includes(card.rarity) &&
+        !["Poké Ball Holo", "Master Ball Holo"].includes(card.variant)
+      )
         return false;
       if (card?.expansion?.includes("Energies")) return false;
       if (card?.variant?.includes("Jumbo")) return false;
-      // if (card?.short_expansion?.includes("sv")) {
       if (card.count < 2 && card?.expansion_slug?.includes("sv")) return false;
-      // }
       return true;
     });
 
