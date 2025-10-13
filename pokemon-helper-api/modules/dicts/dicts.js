@@ -1,5 +1,5 @@
-import { ExpansionsInSDK } from "../../files/parsing/parseCSV.js";
-import { getParsedContent } from "../../files/parsing/sync.js";
+import { ExpansionsInSDK } from "../../constants/expansions.ts";
+import { getParsedContent } from "../../files/parsing/sync.ts";
 
 export const getExpansionsDicts = () => {
   const { first } = getParsedContent();

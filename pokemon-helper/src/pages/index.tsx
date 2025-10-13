@@ -13,6 +13,8 @@ import { Sale } from "./Sale/Sale";
 import { useEffect } from "react";
 import { loadDictsFx } from "./store";
 import { SaleRare } from "./SaleRare/SaleRare";
+import { Filament } from "./Filament/Filament";
+import { Pokeballs } from "./Pokeballs/Pokeballs";
 
 const AppRoutes = [
   {
@@ -50,6 +52,14 @@ const AppRoutes = [
   {
     path: "/salerare",
     Component: SaleRare,
+  },
+  {
+    path: "/filament",
+    Component: Filament,
+  },
+  {
+    path: "/pokeballs",
+    Component: Pokeballs,
   },
 ];
 

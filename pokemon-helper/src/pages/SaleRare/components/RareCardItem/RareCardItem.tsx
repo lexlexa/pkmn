@@ -7,12 +7,17 @@ import {
   LockOutlined,
   UnlockOutlined,
 } from "@ant-design/icons";
+import { useState } from "react";
 
 type Props = {
   item: TRareSaleCard;
 };
 
 export const RareCardItem = ({ item }: Props) => {
+  const [isSalePriceExpanded, setIsSalePriceExpanded] = useState(
+    !!item.salePrice
+  );
+
   const handleHide = () => {
     changeCard({ ...item, isHidden: true });
   };
@@ -23,6 +28,12 @@ export const RareCardItem = ({ item }: Props) => {
 
   const handleChangePrice = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeCard({ ...item, price: event.target.value });
+  };
+
+  const handleChangeSalePrice = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    changeCard({ ...item, salePrice: event.target.value });
   };
 
   const handleRent = () => {
@@ -48,6 +59,14 @@ export const RareCardItem = ({ item }: Props) => {
         size="small"
         value={item.price}
         onChange={handleChangePrice}
+      />
+      <Input
+        style={{ width: isSalePriceExpanded ? 60 : 5 }}
+        size="small"
+        value={item.salePrice}
+        onChange={handleChangeSalePrice}
+        onFocus={() => setIsSalePriceExpanded(true)}
+        onBlur={() => setIsSalePriceExpanded(!!item.salePrice)}
       />
       {item.isHidden ? (
         <EyeOutlined onClick={handleShow} />

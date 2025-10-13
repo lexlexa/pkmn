@@ -13,3 +13,5 @@ export const PRICES_CARDS_PATH = path.join(storagePath, "prices.csv");
 
 export const SALE_CARDS_PATH = path.join(storagePath, "sale.json");
 export const SALERARE_CARDS_PATH = path.join(storagePath, "salerare.json");
+export const FILAMENT_PATH = path.join(storagePath, "filament.json");
+export const IMAGES_PATH = path.join(storagePath, "images");

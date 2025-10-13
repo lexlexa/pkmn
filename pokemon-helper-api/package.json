@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon -x \"node --import=tsx app.ts\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
+  "type": "module",
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",
     "axios": "^1.10.0",
@@ -19,5 +20,14 @@
     "googleapis": "^105.0.0",
     "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/express": "^5.0.3",
+    "@types/express-fileupload": "^1.5.1",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.5.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.5"
   }
 }

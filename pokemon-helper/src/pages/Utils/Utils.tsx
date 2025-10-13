@@ -67,6 +67,25 @@ export const Utils = withLayout(() => {
         </div>
         <Button onClick={handleCheckNotExist}>Сверить</Button>
       </Card>
+      <Card hoverable>
+        <Card.Meta
+          title="Фильтрация карт по наличию"
+          description="Поддерживает .csv файл"
+        />
+        <div className={styles.actions}>
+          <Upload
+            headers={{ token: localStorage.getItem("token") || "" }}
+            name="need"
+            action="/api/utils/cardsForSale"
+          >
+            <Button>Загрузить</Button>
+          </Upload>
+
+          <Button href="/api/utils/cardsForSale.csv" download>
+            Скачать результат
+          </Button>
+        </div>
+      </Card>
     </div>
   );
 });

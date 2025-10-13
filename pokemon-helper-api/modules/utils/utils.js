@@ -1,4 +1,4 @@
-import { getParsedContent } from "../../files/parsing/sync.js";
+import { getParsedContent } from "../../files/parsing/sync.ts";
 
 export const filterNeedCards = (data) => {
   const {

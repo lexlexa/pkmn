@@ -1,4 +1,4 @@
-import { ExpansionsInSDK } from "../../files/parsing/parseCSV.js";
+import { ExpansionsInSDK } from "../../constants/expansions.ts";
 
 export const ExpansionsData = {
   [ExpansionsInSDK["Scarlet & Violet"]]: {

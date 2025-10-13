@@ -7,6 +7,7 @@ export type TRareSaleCard = {
   name: string;
   image: string;
   price: string;
+  salePrice: string;
   isRented: boolean;
   isHidden: boolean;
 };
@@ -76,12 +77,15 @@ sample({
       return {
         ...acc,
         [curr.expansion]: {
-          cards: curr.cards.map(({ price, isHidden, isRented, number }) => ({
-            price,
-            isHidden,
-            isRented,
-            number,
-          })),
+          cards: curr.cards.map(
+            ({ price, isHidden, isRented, number, salePrice }) => ({
+              price,
+              salePrice,
+              isHidden,
+              isRented,
+              number,
+            })
+          ),
         },
       };
     }, {});

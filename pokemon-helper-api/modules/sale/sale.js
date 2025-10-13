@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "fs/promises";
 import { SALE_CARDS_PATH } from "../../files/constants.js";
-import { getParsedContent } from "../../files/parsing/sync.js";
-import { ExpansionsInSDK } from "../../files/parsing/parseCSV.js";
+import { getParsedContent } from "../../files/parsing/sync.ts";
+import { ExpansionsInSDK } from "../../constants/expansions.ts";
 
 export const saveSale = async (data) => {
   await writeFile(SALE_CARDS_PATH, JSON.stringify(data));
@@ -103,12 +103,10 @@ export const getCardsSuggestions = (pages = []) => {
 };
 
 export const syncSalePrices = (saleRare, sale) => {
-  console.log(saleRare);
   return sale.map((item) => {
     return {
       ...item,
       cards: item.cards.map((card) => {
-        console.log(saleRare?.[card.expansion], card.expansion);
         const cardInSaleRare = saleRare?.[card.expansion]?.cards.find(
           (i) => i.number === card.number
         );

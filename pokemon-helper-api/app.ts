@@ -1,6 +1,6 @@
 import express from "express";
 import axios from "axios";
-import { init } from "./files/sync.js";
+import { init } from "./files/sync.ts";
 import { ErrorRoute } from "./routes/errors.js";
 import { DuplicatesRoute } from "./routes/duplicates.js";
 import { DashboardRoute } from "./routes/dashboard.js";
@@ -8,14 +8,17 @@ import { UtilsRoute } from "./routes/utils.js";
 import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
 import jwt from "jsonwebtoken";
-import { SyncRoute } from "./routes/sync.js";
+import { SyncRoute } from "./routes/sync.ts";
 import path from "path";
 import { fileURLToPath } from "url";
 import { writeFile, readFile } from "fs/promises";
 import { SaleRoute } from "./routes/sale.js";
 import { DictsRoute } from "./routes/dicts.js";
 import { SaleRareRoute } from "./routes/sale-rare.js";
+import { FilamentRoute } from "./routes/filament.js";
+import { ImagesRoute } from "./routes/images.ts";
 
+// @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -52,6 +55,7 @@ app.use((req, res, next) => {
   if (!req.headers.token) {
     return res.status(403).send({ error: "Not authorized" });
   }
+  // @ts-ignore
   const data = jwt.verify(req.headers.token, secret);
 
   if (data.user === login) {
@@ -61,7 +65,7 @@ app.use((req, res, next) => {
   res.status(403).send({ error: "Not authorized" });
 });
 
-const setupImageProxy = (app) => {
+const setupImageProxy = (app: express.Application) => {
   app.get("/api/image-proxy", async (req, res) => {
     const imageUrl = req.query.url;
 
@@ -72,7 +76,7 @@ const setupImageProxy = (app) => {
     try {
       const response = await axios({
         method: "get",
-        url: imageUrl,
+        url: imageUrl as string,
         responseType: "stream",
       });
 
@@ -81,14 +85,16 @@ const setupImageProxy = (app) => {
       res.set("Cache-Control", "public, max-age=31536000"); // Кэширование на 1 год
 
       // Передайте поток изображения клиенту
+      // @ts-ignore
       response.data.pipe(res);
     } catch (error) {
-      console.error("Error proxying image:", error);
+      // console.error("Error proxying image:", error);
       res.status(500).send("Error proxying image");
     }
   });
 };
 
+// @ts-ignore
 await init();
 
 setupImageProxy(app);
@@ -113,7 +119,8 @@ SyncRoute(app);
 SaleRoute(app);
 DictsRoute(app);
 SaleRareRoute(app);
-
+FilamentRoute(app);
+ImagesRoute(app);
 app.get("/{*splat}", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });

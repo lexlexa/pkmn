@@ -1,5 +1,6 @@
-import { syncParsed } from "./parsing/sync.js";
+import { syncParsed } from "./parsing/sync.ts";
 import { readFilesFromStorage } from "./read.js";
+import { writeFilesToStorage } from "./write.js";
 
 const FileStorage = {
   first: "",
@@ -13,7 +14,7 @@ export const sync = async () => {
   FileStorage.second = second;
 };
 
-export const resync = async (first, second) => {
+export const resync = async (first: string, second: string) => {
   await writeFilesToStorage(first, second);
   await sync();
   await syncParsed();

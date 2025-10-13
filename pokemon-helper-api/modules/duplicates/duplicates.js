@@ -1,5 +1,5 @@
-import { ExpansionsShortName } from "../../files/parsing/parseCSV.js";
-import { getParsedContent } from "../../files/parsing/sync.js";
+import { ExpansionsShortName } from "../../constants/expansions.ts";
+import { getParsedContent } from "../../files/parsing/sync.ts";
 
 const getDuplicatesCount = (expansion) => {
   return expansion.reduce((acc, curr) => {
@@ -49,7 +49,6 @@ const getSwordAndShieldCards = () => {
       ].includes(short)
     )
     .map(([name]) => name);
-  console.log(expansions);
 
   const cards = expansions
     .map((item) => Object.values(first.byExpansion[item] || {}).flat())

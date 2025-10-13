@@ -19,7 +19,7 @@ export const SaleRareRoute = (app) => {
 
     const sale = await getSale();
     const newSale = syncSalePrices(req.body, sale);
-    console.log(newSale);
+
     await saveSale(newSale);
 
     res.send("Ok");
