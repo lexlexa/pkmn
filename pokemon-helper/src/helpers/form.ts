@@ -14,7 +14,11 @@ export const useForm = <T extends {}>({
     onInputChange:
       (key: keyof T) => (event: React.ChangeEvent<HTMLInputElement>) =>
         setValues({ ...values, [key]: event.target.value }),
+    onCheckboxChange: (key: keyof T) => () => {
+      setValues({ ...values, [key]: !values[key] });
+    },
 
     handleSubmit: () => onSubmit(values),
+    updateValues: (data: T) => setValues(data),
   };
 };

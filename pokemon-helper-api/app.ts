@@ -11,12 +11,11 @@ import jwt from "jsonwebtoken";
 import { SyncRoute } from "./routes/sync.ts";
 import path from "path";
 import { fileURLToPath } from "url";
-import { writeFile, readFile } from "fs/promises";
 import { SaleRoute } from "./routes/sale.js";
 import { DictsRoute } from "./routes/dicts.js";
 import { SaleRareRoute } from "./routes/sale-rare.js";
-import { FilamentRoute } from "./routes/filament.js";
 import { ImagesRoute } from "./routes/images.ts";
+import { pokeballsRouter } from "./module/pokeballs/router.ts";
 
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
@@ -47,8 +46,11 @@ const whilelist = [
 ];
 
 app.use((req, res, next) => {
+  console.log(req.path);
   if (whilelist.includes(req.path)) return next();
   if (req.path.includes("external")) return next();
+  console.log(req.method);
+  if (req.path.includes("images") && req.method === "GET") return next();
   if (!req.path.includes("api")) return next();
   if (req.path.includes("image-proxy")) return next();
 
@@ -111,6 +113,8 @@ app.post("/api/auth", async (req, res) => {
   res.status(403).send({ error: "Not correct" });
 });
 
+app.use("/api", pokeballsRouter);
+
 ErrorRoute(app);
 DuplicatesRoute(app);
 DashboardRoute(app);
@@ -119,8 +123,8 @@ SyncRoute(app);
 SaleRoute(app);
 DictsRoute(app);
 SaleRareRoute(app);
-FilamentRoute(app);
-ImagesRoute(app);
+
+// ImagesRoute(app);
 app.get("/{*splat}", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });

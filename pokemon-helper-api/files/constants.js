@@ -15,3 +15,8 @@ export const SALE_CARDS_PATH = path.join(storagePath, "sale.json");
 export const SALERARE_CARDS_PATH = path.join(storagePath, "salerare.json");
 export const FILAMENT_PATH = path.join(storagePath, "filament.json");
 export const IMAGES_PATH = path.join(storagePath, "images");
+export const POKEBALLS_CONFIGS = path.join(
+  storagePath,
+  "pokeball_configs.json"
+);
+export const POKEBALLS_PATH = path.join(storagePath, "pokeballs.json");

@@ -1,0 +1,44 @@
+
+
+.item {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 4px 0 black;
+  border-radius: 8px;
+  padding: 8px;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+}
+
+.texts {
+  flex-grow: 1;
+}
+
+.subtitle {
+  color: rgb(110, 110, 110);
+  font-size: 12px;
+}
+
+.marker {
+  aspect-ratio: 1 / 1;
+  height:150px;
+  top: -80px;
+  right: -95px;
+  transform: rotate(45deg);
+  border-radius: 8px;
+  box-shadow: 0 0 4px 0 black;
+  position: absolute;
+}
+
+.bottom {
+  display: flex;
+}
+
+.inStock {
+  flex-grow: 1;
+}

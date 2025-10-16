@@ -11,7 +11,6 @@ const MenuItems = [
   { key: "/utils", label: "Утилиты" },
   { key: "/sale", label: "Витрина" },
   { key: "/salerare", label: "Витрина Редких" },
-  { key: "/filament", label: "Филамент" },
   { key: "/pokeballs", label: "Покеболы" },
 ];
 

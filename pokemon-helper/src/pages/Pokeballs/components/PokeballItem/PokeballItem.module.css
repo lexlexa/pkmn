@@ -4,9 +4,11 @@
   display: flex;
   padding: 16px;
   flex-direction: column;
+  gap: 8px;
   min-width: 300px;
   box-shadow: 0 0 10px 0 rgb(185, 185, 185);
   border-radius: 16px;
+  max-width: 300px;
 }
 
 .header {
@@ -33,6 +35,6 @@
   padding: 6px 0;
 }
 
-.tag {
-
+.price {
+  font-size: 20px;
 }

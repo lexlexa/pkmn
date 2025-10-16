@@ -6,13 +6,11 @@
   gap: 8px;
 }
 
-.filamentList {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.filamentItem {
-  display: flex;
-  gap: 8px;
+.deleteImage {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: rgb(255, 164, 164);
+  border-radius: 50%;
+  cursor: pointer;
 }
