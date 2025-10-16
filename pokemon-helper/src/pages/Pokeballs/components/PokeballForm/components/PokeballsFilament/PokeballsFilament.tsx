@@ -2,8 +2,10 @@ import type { FC } from "react";
 import { $filaments, type TPokeballFilament } from "../../../../store";
 import { useUnit } from "effector-react";
 import styles from "./PokeballsFilament.module.css";
-import { Button, Input, Select } from "antd";
+import { Button, Flex } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import { FormInput } from "../../../../../../components/Form/components/Input/Input";
+import { FormSelect } from "../../../../../../components/Form/components/Select/Select";
 
 type Props = {
   items: Partial<TPokeballFilament>[];
@@ -21,19 +23,18 @@ export const PokeballFilaments: FC<Props> = ({ items, onChange }) => {
     onChange(items.map((item, i) => (index === i ? { ...item, id } : item)));
   };
 
-  const handleChangeFilamentCount =
-    (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(
-        items.map((item, i) =>
-          index === i
-            ? {
-                ...item,
-                count: e.target.value ? Number(e.target.value) : undefined,
-              }
-            : item
-        )
-      );
-    };
+  const handleChangeFilamentCount = (index: number) => (value: string) => {
+    onChange(
+      items.map((item, i) =>
+        index === i
+          ? {
+              ...item,
+              count: value ? Number(value) : undefined,
+            }
+          : item
+      )
+    );
+  };
 
   const handleRemoveFilament = (index: number) => () => {
     onChange(items.filter((_, i) => index !== i));
@@ -41,35 +42,34 @@ export const PokeballFilaments: FC<Props> = ({ items, onChange }) => {
 
   return (
     <div className={styles.filamentList}>
-      <h3>Филамент</h3>
       {items.map((item, index) => (
-        <div key={index} className={styles.filamentItem}>
-          <Select
-            style={{ width: 180, flexShrink: 0 }}
-            showSearch
-            optionFilterProp="label"
+        <Flex align="flex-end" key={index} className={styles.filamentItem}>
+          <FormSelect
             options={filaments.map((item) => ({
               label: item.title,
               value: item.id,
             }))}
-            value={item.id || null}
+            label="Филамент"
+            value={item.id}
             onChange={handleChangeFilament(index)}
             placeholder="Выберите значение"
+            fixedWidth={200}
           />
-          <Input
+          <FormInput
             value={item.count}
             onChange={handleChangeFilamentCount(index)}
-            placeholder="Количество"
+            label="Кол-во (г.)"
+            placeholder="0"
           />
           <Button
             color="red"
-            variant="solid"
-            style={{ width: 100 }}
+            variant="outlined"
+            style={{ width: 90 }}
             onClick={handleRemoveFilament(index)}
             icon={<DeleteOutlined />}
             block
           />
-        </div>
+        </Flex>
       ))}
       <div className={styles.filamentItem}>
         <Button onClick={handleAddFilament} block>

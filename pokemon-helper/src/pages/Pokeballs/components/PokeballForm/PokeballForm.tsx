@@ -1,6 +1,5 @@
-import { Button, Drawer, Flex, Input, Upload } from "antd";
+import { Button, Drawer } from "antd";
 import styles from "./PokeballForm.module.css";
-import { CloseCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import { useState, type FC } from "react";
 import {
   pokeballsFxs,
@@ -10,6 +9,8 @@ import {
 import { PokeballFilaments } from "./components/PokeballsFilament/PokeballsFilament";
 import { PokeballsPrice } from "./components/PokeballsPrice/PokeballsPrice";
 import { generateUUID } from "../../../Sale/helpers";
+import { FormInput } from "../../../../components/Form/components/Input/Input";
+import { PokeballsImages } from "./components/PokeballsImages/PokeballsImages";
 
 type Props = {
   open: boolean;
@@ -22,20 +23,9 @@ export const PokeballForm: FC<Props> = ({ open, onClose, item }) => {
   const [number, setNumber] = useState(item?.pokedexIndex || "");
   const [files, setFiles] = useState<string[]>(item?.images || []);
   const [filament, setFilament] = useState<Partial<TPokeballFilament>[]>(
-    item?.filament || []
+    item?.filament || [{}]
   );
   const [price, setPrice] = useState<number | null>(item?.price || null);
-
-  const onDownloadedFile = (event: any) => {
-    console.log(event);
-    const file = event.fileList[0];
-    const status = file.status;
-
-    if (status === "done") {
-      const fileName = file.response.name;
-      setFiles([...files, fileName]);
-    }
-  };
 
   const filamentTotal = filament.reduce(
     (acc, curr) => acc + (curr.count || 0),
@@ -69,58 +59,22 @@ export const PokeballForm: FC<Props> = ({ open, onClose, item }) => {
     onClose();
   };
 
-  const handleDeleteImage = (index: number) => () => {
-    setFiles(files.filter((_, i) => index !== i));
-  };
-
   return (
     <Drawer open={open} onClose={onClose}>
       <div className={styles.form}>
-        <h3 style={{ marginTop: 0 }}>Основная информация</h3>
-        <Input
+        <FormInput
+          label="Название"
+          onChange={setName}
+          placeholder="Bulbasaur"
           value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Название"
         />
-        <Input
+        <FormInput
+          label="Номер в Pokedex"
+          onChange={setNumber}
           value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          placeholder="Номер"
         />
         <PokeballFilaments items={filament} onChange={setFilament} />
-        <div>
-          <h3>Изображения</h3>
-          <Upload
-            action={"/api/images"}
-            headers={{ token: localStorage.getItem("token") || "" }}
-            name="pokeball-image"
-            onDownload={onDownloadedFile}
-            onChange={onDownloadedFile}
-          >
-            <Button type="primary" icon={<UploadOutlined />}>
-              Загрузить изображения
-            </Button>
-          </Upload>
-        </div>
-        <Flex gap={8}>
-          {files.map((item, index) => (
-            <Flex style={{ position: "relative" }}>
-              <img
-                style={{
-                  width: 80,
-                  height: 80,
-                  objectFit: "cover",
-                  borderRadius: 8,
-                }}
-                src={`/api/images?name=${item}`}
-              />
-              <CloseCircleOutlined
-                onClick={handleDeleteImage(index)}
-                className={styles.deleteImage}
-              />
-            </Flex>
-          ))}
-        </Flex>
+        <PokeballsImages files={files} setFiles={setFiles} />
         <PokeballsPrice
           filamentTotal={filamentTotal}
           price={price}

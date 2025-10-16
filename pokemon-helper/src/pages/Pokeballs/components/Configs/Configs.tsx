@@ -21,6 +21,7 @@ export const Configs: FC<Props> = ({ open, onClose }) => {
         packingPrice: Number(data.packingPrice),
         defaultStandPrice: Number(data.defaultStandPrice),
         verticalStandPrice: Number(data.verticalStandPrice),
+        electricityPrice: Number(data.electricityPrice),
       });
     },
   });
@@ -48,6 +49,14 @@ export const Configs: FC<Props> = ({ open, onClose }) => {
           <Input
             value={values.packingPrice}
             onChange={onInputChange("packingPrice")}
+            placeholder="0"
+          />
+        </Flex>
+        <Flex vertical gap={8}>
+          <div>Средняя стоимость электричества на один покеболл</div>
+          <Input
+            value={values.electricityPrice}
+            onChange={onInputChange("electricityPrice")}
             placeholder="0"
           />
         </Flex>

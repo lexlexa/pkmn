@@ -29,6 +29,7 @@ export type TConfigs = {
   followersDiscount: number;
   defaultStandPrice: number;
   verticalStandPrice: number;
+  electricityPrice: number;
 };
 
 export const filamentsFxs = getEffectorCrud<TFilament, TFilament[]>({
@@ -54,6 +55,7 @@ export const $configs = createStore<TConfigs>({
   followersDiscount: 0,
   defaultStandPrice: 0,
   verticalStandPrice: 0,
+  electricityPrice: 0,
 })
   .on(configsFxs.readFx.doneData, (_, payload) => payload)
   .on(configsFxs.updateFx.doneData, (_, payload) => payload);
