@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -x \"node --import=tsx app.ts\""
+    "start": "nodemon -x \"node --import=tsx app.ts\"",
+    "start:prod": "node --import=tsx app.ts"
   },
   "keywords": [],
   "author": "",
