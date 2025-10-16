@@ -2,7 +2,7 @@ export default {
   apps: [
     {
       name: "ts-app",
-      script: "./app.ts",
+      script: "/var/www/pkmn/pokemon-helper-api/app.ts",
       interpreter: "node",
       interpreter_args: "--import=tsx",
       instances: 1,
