@@ -6,11 +6,3 @@
   gap: 8px;
 }
 
-.deleteImage {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background-color: rgb(255, 164, 164);
-  border-radius: 50%;
-  cursor: pointer;
-}
