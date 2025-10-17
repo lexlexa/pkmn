@@ -62,4 +62,5 @@ export const $configs = createStore<TConfigs>({
 
 export const $pokeballs = createStore<TPokeball[]>([])
   .on(pokeballsFxs.readFx.doneData, (_, payload) => payload)
-  .on(pokeballsFxs.updateFx.doneData, (_, payload) => payload);
+  .on(pokeballsFxs.updateFx.doneData, (_, payload) => payload)
+  .on(pokeballsFxs.createFx.doneData, (_, payload) => payload);

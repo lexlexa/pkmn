@@ -13,7 +13,9 @@ export const PokeballItem: FC<Props> = ({ item, onEdit }) => {
   return (
     <div className={styles.item}>
       <div className={styles.header}>
-        <div className={styles.index}>#{item.pokedexIndex}</div>
+        <div className={styles.index}>
+          #{item.pokedexIndex.padStart(4, "0")}
+        </div>
         <div style={{ flexGrow: 1 }}>{item.name}</div>
         <Button
           size="small"
@@ -22,9 +24,14 @@ export const PokeballItem: FC<Props> = ({ item, onEdit }) => {
         />
       </div>
       <div className={styles.images}>
-        {item.images.map((item) => (
+        {item.images.map((item, index) => (
           <img
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: index > 0 ? "none" : "",
+            }}
             src={`/api/images?name=${item}`}
           />
         ))}

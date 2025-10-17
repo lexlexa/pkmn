@@ -71,9 +71,11 @@ export const Pokeballs = withLayout(() => {
           <Button onClick={openConfigs} icon={<SettingOutlined />} />
         </Flex>
       </div>
-      {filteredPokeballs.map((item) => (
-        <PokeballItem item={item} onEdit={handleEditPokeball} />
-      ))}
+      <Flex wrap gap={16}>
+        {filteredPokeballs.map((item) => (
+          <PokeballItem item={item} onEdit={handleEditPokeball} />
+        ))}
+      </Flex>
 
       <PokeballForm
         key={editingItem ? "true" : "false"}
