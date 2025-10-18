@@ -3,7 +3,7 @@ import { getEffectorCrud } from "../../helpers/effector-crud";
 
 export type TPokeballFilament = {
   id: string;
-  count: number;
+  count: number | string;
 };
 
 export type TPokeball = {
@@ -23,6 +23,11 @@ export type TFilament = {
   inStock: boolean;
 };
 
+export enum Accessories {
+  VERTICAL_STAND = 'vertical_stand',
+  HORIZONTAL_STAND = 'horizontal_stand'
+}
+
 export type TConfigs = {
   filamentCoeff: number;
   packingPrice: number;
@@ -30,6 +35,7 @@ export type TConfigs = {
   defaultStandPrice: number;
   verticalStandPrice: number;
   electricityPrice: number;
+  accessoriesPrices: Record<Accessories, number>
 };
 
 export const filamentsFxs = getEffectorCrud<TFilament, TFilament[]>({
@@ -56,6 +62,11 @@ export const $configs = createStore<TConfigs>({
   defaultStandPrice: 0,
   verticalStandPrice: 0,
   electricityPrice: 0,
+  accessoriesPrices: {
+    [Accessories.HORIZONTAL_STAND]: 0,
+    [Accessories.VERTICAL_STAND]: 0
+  }
+
 })
   .on(configsFxs.readFx.doneData, (_, payload) => payload)
   .on(configsFxs.updateFx.doneData, (_, payload) => payload);

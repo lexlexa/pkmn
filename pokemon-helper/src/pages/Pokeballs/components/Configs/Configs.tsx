@@ -2,7 +2,7 @@ import { Button, Drawer, Flex, Input, Typography } from "antd";
 import { useEffect, type FC } from "react";
 import { useForm } from "../../../../helpers/form";
 import { useUnit } from "effector-react";
-import { $configs, configsFxs } from "../../store";
+import { $configs, Accessories, configsFxs } from "../../store";
 
 type Props = {
   open: boolean;
@@ -22,7 +22,12 @@ export const Configs: FC<Props> = ({ open, onClose }) => {
         defaultStandPrice: Number(data.defaultStandPrice),
         verticalStandPrice: Number(data.verticalStandPrice),
         electricityPrice: Number(data.electricityPrice),
+        accessoriesPrices: {
+          [Accessories.HORIZONTAL_STAND]: 100,
+          [Accessories.VERTICAL_STAND]: 100
+        }
       });
+      onClose()
     },
   });
 

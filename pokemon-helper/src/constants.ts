@@ -9,14 +9,12 @@ import rare from "./assets/rare.svg";
 import ultraRare from "./assets/ultra-rare.svg";
 import uncommon from "./assets/uncommon.svg";
 
-// @ts-expect-error
 export enum CardVariants {
   NORMAL = "Normal",
   NORMAL_HOLO = "Normal Holo",
   REVERSE_HOLO = "Reverse Holo",
 }
 
-// @ts-expect-error
 export enum CardRarities {
   COMMON = "Common",
   UNCOMMON = "Uncommon",
