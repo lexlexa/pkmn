@@ -1,8 +1,10 @@
 import { Button, Drawer, Flex, Input, Typography } from "antd";
-import { useEffect, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { useForm } from "../../../../helpers/form";
 import { useUnit } from "effector-react";
 import { $configs, Accessories, configsFxs } from "../../store";
+import { FormInput } from "../../../../components/Form/components/Input/Input";
+import { AccessoriesLang } from "../../constants";
 
 type Props = {
   open: boolean;
@@ -11,6 +13,14 @@ type Props = {
 
 export const Configs: FC<Props> = ({ open, onClose }) => {
   const configs = useUnit($configs);
+
+  const [accessoriesPrices, setAccessoriesPrices] = useState(
+    configs.accessoriesPrices
+  );
+
+  useEffect(() => {
+    setAccessoriesPrices(configs.accessoriesPrices);
+  }, [configs]);
 
   const { values, onInputChange, handleSubmit, updateValues } = useForm({
     defaultValues: configs,
@@ -22,12 +32,9 @@ export const Configs: FC<Props> = ({ open, onClose }) => {
         defaultStandPrice: Number(data.defaultStandPrice),
         verticalStandPrice: Number(data.verticalStandPrice),
         electricityPrice: Number(data.electricityPrice),
-        accessoriesPrices: {
-          [Accessories.HORIZONTAL_STAND]: 100,
-          [Accessories.VERTICAL_STAND]: 100
-        }
+        accessoriesPrices: accessoriesPrices,
       });
-      onClose()
+      onClose();
     },
   });
 
@@ -74,9 +81,24 @@ export const Configs: FC<Props> = ({ open, onClose }) => {
           />
         </Flex>
         <Typography.Title level={4} style={{ marginTop: 0 }}>
-          Дополнительные товары
+          Аксесуары
         </Typography.Title>
-        <Flex vertical gap={8}>
+        {Object.keys(accessoriesPrices).map((key) => {
+          const k = key as Accessories;
+          const value = accessoriesPrices[k];
+
+          return (
+            <FormInput
+              key={k}
+              value={value}
+              label={AccessoriesLang[k]}
+              onChange={(val) =>
+                setAccessoriesPrices((state) => ({ ...state, [k]: val }))
+              }
+            />
+          );
+        })}
+        {/* <Flex vertical gap={8}>
           <div>Цена обычной подставки</div>
           <Input
             value={values.defaultStandPrice}
@@ -91,7 +113,7 @@ export const Configs: FC<Props> = ({ open, onClose }) => {
             onChange={onInputChange("verticalStandPrice")}
             placeholder="0"
           />
-        </Flex>
+        </Flex> */}
         <Button onClick={handleSubmit}>Сохранить</Button>
       </Flex>
     </Drawer>

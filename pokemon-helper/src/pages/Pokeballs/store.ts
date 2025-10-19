@@ -24,8 +24,8 @@ export type TFilament = {
 };
 
 export enum Accessories {
-  VERTICAL_STAND = 'vertical_stand',
-  HORIZONTAL_STAND = 'horizontal_stand'
+  VERTICAL_STAND = "vertical_stand",
+  HORIZONTAL_STAND = "horizontal_stand",
 }
 
 export type TConfigs = {
@@ -35,7 +35,42 @@ export type TConfigs = {
   defaultStandPrice: number;
   verticalStandPrice: number;
   electricityPrice: number;
-  accessoriesPrices: Record<Accessories, number>
+  accessoriesPrices: Record<Accessories, number>;
+};
+
+export enum OrderItemStatuses {
+  NONE = "none",
+  IN_PROGRESS = "in_progress",
+  DONE = "done",
+}
+
+export enum OrderStatues {
+  NONE = "none",
+  IN_PROGRESS = "in_progress",
+  DELIVERING = "delivering",
+  DONE = "done",
+  CANCELED = "canceled",
+}
+
+export type TOrderItem = {
+  pokeballId: string;
+  accessories: [Accessories, number][];
+  price: string;
+  discountPrice?: string;
+  comment: string;
+  id: string;
+  status: OrderItemStatuses;
+};
+
+export type TOrder = {
+  items: TOrderItem[];
+  id: string;
+  isSubscriber: boolean;
+  clientName: string;
+  clientLink: string;
+  status: OrderStatues;
+  price: string;
+  discountPrice?: string;
 };
 
 export const filamentsFxs = getEffectorCrud<TFilament, TFilament[]>({
@@ -48,6 +83,10 @@ export const configsFxs = getEffectorCrud<TConfigs, TConfigs>({
 
 export const pokeballsFxs = getEffectorCrud<TPokeball, TPokeball[]>({
   url: "/api/pokeballs/pokeballs",
+});
+
+export const ordersFxs = getEffectorCrud<TOrder, TOrder[]>({
+  url: "/api/pokeballs/orders",
 });
 
 export const $filaments = createStore<TFilament[]>([])
@@ -64,9 +103,8 @@ export const $configs = createStore<TConfigs>({
   electricityPrice: 0,
   accessoriesPrices: {
     [Accessories.HORIZONTAL_STAND]: 0,
-    [Accessories.VERTICAL_STAND]: 0
-  }
-
+    [Accessories.VERTICAL_STAND]: 0,
+  },
 })
   .on(configsFxs.readFx.doneData, (_, payload) => payload)
   .on(configsFxs.updateFx.doneData, (_, payload) => payload);
@@ -75,3 +113,8 @@ export const $pokeballs = createStore<TPokeball[]>([])
   .on(pokeballsFxs.readFx.doneData, (_, payload) => payload)
   .on(pokeballsFxs.updateFx.doneData, (_, payload) => payload)
   .on(pokeballsFxs.createFx.doneData, (_, payload) => payload);
+
+export const $orders = createStore<TOrder[]>([])
+  .on(ordersFxs.readFx.doneData, (_, payload) => payload)
+  .on(ordersFxs.updateFx.doneData, (_, payload) => payload)
+  .on(ordersFxs.createFx.doneData, (_, payload) => payload);

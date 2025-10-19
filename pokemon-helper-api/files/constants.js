@@ -20,3 +20,4 @@ export const POKEBALLS_CONFIGS = path.join(
   "pokeball_configs.json"
 );
 export const POKEBALLS_PATH = path.join(storagePath, "pokeballs.json");
+export const ORDERS_PATH = path.join(storagePath, "orders.json");
