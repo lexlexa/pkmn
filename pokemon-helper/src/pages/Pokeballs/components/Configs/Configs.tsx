@@ -29,9 +29,8 @@ export const Configs: FC<Props> = ({ open, onClose }) => {
         filamentCoeff: Number(data.filamentCoeff),
         followersDiscount: Number(data.followersDiscount),
         packingPrice: Number(data.packingPrice),
-        defaultStandPrice: Number(data.defaultStandPrice),
-        verticalStandPrice: Number(data.verticalStandPrice),
         electricityPrice: Number(data.electricityPrice),
+        defectivePercent: Number(data.defectivePercent),
         accessoriesPrices: accessoriesPrices,
       });
       onClose();
@@ -77,6 +76,14 @@ export const Configs: FC<Props> = ({ open, onClose }) => {
           <Input
             value={values.followersDiscount}
             onChange={onInputChange("followersDiscount")}
+            placeholder="0"
+          />
+        </Flex>
+        <Flex vertical gap={8}>
+          <div>Процент брака (%)</div>
+          <Input
+            value={values.defectivePercent}
+            onChange={onInputChange('defectivePercent')}
             placeholder="0"
           />
         </Flex>

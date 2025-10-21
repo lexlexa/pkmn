@@ -32,9 +32,8 @@ export type TConfigs = {
   filamentCoeff: number;
   packingPrice: number;
   followersDiscount: number;
-  defaultStandPrice: number;
-  verticalStandPrice: number;
   electricityPrice: number;
+  defectivePercent: number;
   accessoriesPrices: Record<Accessories, number>;
 };
 
@@ -98,9 +97,8 @@ export const $configs = createStore<TConfigs>({
   filamentCoeff: 0,
   packingPrice: 0,
   followersDiscount: 0,
-  defaultStandPrice: 0,
-  verticalStandPrice: 0,
   electricityPrice: 0,
+  defectivePercent: 0,
   accessoriesPrices: {
     [Accessories.HORIZONTAL_STAND]: 0,
     [Accessories.VERTICAL_STAND]: 0,
