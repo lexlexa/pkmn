@@ -108,7 +108,7 @@ export const OrderItem: FC<Props> = ({ order }) => {
       </Flex>
       <Flex vertical>
         <h3 style={{ marginTop: 8 }}>Позиции</h3>
-        <Flex>
+        <Flex vertical gap={8}>
           {order.items.map((item, index) => {
             const pokeball = pokeballs.find((i) => item.pokeballId === i.id);
             return (
@@ -135,7 +135,11 @@ export const OrderItem: FC<Props> = ({ order }) => {
                     style={{ marginRight: 0 }}
                     color={OrderItemStatusesColor[item.status]}
                   >
-                    {OrderItemStatusesLang[item.status]}
+                    {
+                      OrderItemStatusesLang[
+                        item.status || OrderItemStatuses.NONE
+                      ]
+                    }
                   </Tag>
                   <Flex gap={6}>
                     <Button

@@ -16,7 +16,7 @@ export const usePrice = (
   const discount = (rawPrice / 100) * configs.followersDiscount;
 
   const income = Number(price || 0) - rawPrice;
-  const incomeFollower = income - discount;
+  const incomeFollower = Number(price || 0) - discount - rawPrice;
 
   console.log(defectivePrice);
   return [
