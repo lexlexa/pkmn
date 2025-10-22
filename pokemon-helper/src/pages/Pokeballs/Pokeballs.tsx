@@ -88,7 +88,11 @@ export const Pokeballs = withLayout(() => {
       />
 
       <PokeballForm
-        key={editingItem ? "pokeball-true" : "pokeball-false"}
+        key={
+          editingItem
+            ? `pokeball-edit-${isOpenEditForm}`
+            : `pokeball-${isOpenEditForm}`
+        }
         item={editingItem}
         open={isOpenEditForm}
         onClose={handleCancelEditPokeball}
