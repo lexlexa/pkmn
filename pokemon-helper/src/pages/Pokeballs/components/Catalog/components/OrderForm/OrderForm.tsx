@@ -26,6 +26,7 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
   const [isSubscriber, setIsSubscriber] = useState(false);
   const [clientName, setClientName] = useState("");
   const [clientLink, setClientLink] = useState("");
+  const [additionalDiscount, setAdditionalDiscount] = useState("");
   const configs = useUnit($configs);
 
   const handleAddItem = () => {
@@ -56,17 +57,24 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
     finalPrice,
     configs.followersDiscount
   );
+  const finalPriceWithDiscount2 = additionalDiscount
+    ? getDiscountedPrice(finalPrice, Number(additionalDiscount))
+    : finalPriceWithDiscount;
 
   const handleSave = () => {
     const data: TOrder = {
       items: items as TOrderItem[],
       price: finalPrice.toString(),
-      discountPrice: isSubscriber ? finalPriceWithDiscount : undefined,
+      discountPrice:
+        isSubscriber || additionalDiscount
+          ? finalPriceWithDiscount2
+          : undefined,
       clientLink,
       clientName,
       id: generateUUID(),
       isSubscriber,
       status: OrderStatues.NONE,
+      additionalDiscountPercent: additionalDiscount,
     };
 
     ordersFxs.createFx(data);
@@ -81,7 +89,11 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
           <PriceLine title="Суммараная стоимость" price={finalPrice} />
           <PriceLine
             title="Суммараная стоимость (скидка)"
-            price={isSubscriber ? finalPriceWithDiscount : undefined}
+            price={
+              isSubscriber || additionalDiscount
+                ? finalPriceWithDiscount2
+                : undefined
+            }
           />
         </Flex>
         <FormInput
@@ -100,6 +112,12 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
           checked={isSubscriber}
           onChange={setIsSubscriber}
           label="Клиент-подписчик"
+        />
+        <FormInput
+          value={additionalDiscount}
+          onChange={setAdditionalDiscount}
+          label="Дополнительная скидка"
+          placeholder="%"
         />
         {items.map((item, index) => (
           <OrderItem

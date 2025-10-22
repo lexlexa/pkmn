@@ -56,8 +56,9 @@ export const Pokeballs = withLayout(() => {
   }, []);
 
   return (
-    <Flex>
+    <Flex style={{ width: "100%" }}>
       <Tabs
+        style={{ width: "100%" }}
         items={[
           {
             key: "catalog",

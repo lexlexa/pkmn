@@ -69,6 +69,7 @@ export type TOrder = {
   status: OrderStatues;
   price: string;
   discountPrice?: string;
+  additionalDiscountPercent?: string;
 };
 
 export const filamentsFxs = getEffectorCrud<TFilament, TFilament[]>({
