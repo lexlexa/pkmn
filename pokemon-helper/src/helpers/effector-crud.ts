@@ -14,8 +14,8 @@ export const getEffectorCrud = <T extends {}, K>({ url }: TArguments) => {
     return response.data as K;
   });
 
-  const deleteEffectFx = createEffect(async (data: T) => {
-    const response = await ApiInstance.delete(url, data);
+  const deleteEffectFx = createEffect(async (id: string) => {
+    const response = await ApiInstance.delete(url + "?id=" + id);
     return response.data as K;
   });
 

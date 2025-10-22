@@ -115,4 +115,5 @@ export const $pokeballs = createStore<TPokeball[]>([])
 export const $orders = createStore<TOrder[]>([])
   .on(ordersFxs.readFx.doneData, (_, payload) => payload)
   .on(ordersFxs.updateFx.doneData, (_, payload) => payload)
-  .on(ordersFxs.createFx.doneData, (_, payload) => payload);
+  .on(ordersFxs.createFx.doneData, (_, payload) => payload)
+  .on(ordersFxs.deleteFx.doneData, (_, payload) => payload);

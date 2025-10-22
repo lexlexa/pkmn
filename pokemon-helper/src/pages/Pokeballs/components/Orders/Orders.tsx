@@ -7,7 +7,7 @@ export const Orders = () => {
   const orders = useUnit($orders);
   return (
     <Flex vertical gap={16}>
-      {orders.map((item) => (
+      {orders.reverse().map((item) => (
         <OrderItem order={item} key={item.id} />
       ))}
     </Flex>

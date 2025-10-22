@@ -68,6 +68,16 @@ export const OrderItem: FC<Props> = ({ order }) => {
           <Typography.Text>
             Ссылка: <a href={order.clientLink}>{order.clientLink}</a>
           </Typography.Text>
+          <div>
+            <Button
+              color="red"
+              variant="filled"
+              disabled={!sessionStorage.getItem("allowDelete")}
+              onClick={() => ordersFxs.deleteFx(order.id)}
+            >
+              Удалить заказ
+            </Button>
+          </div>
         </Flex>
         <Flex vertical>
           <Price {...order} />

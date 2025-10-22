@@ -59,6 +59,15 @@ ordersRouter.post("/orders", async (req, res) => {
   res.send(await ordersFileStorage.getData());
 });
 
+ordersRouter.delete("/orders", async (req, res) => {
+  const data = await ordersFileStorage.getData();
+  if (!data) return res.status(500).send();
+  const newData = data.filter((item) => item.id !== req.query.id);
+  await ordersFileStorage.updateWithSync(newData);
+
+  res.send(await ordersFileStorage.getData());
+});
+
 ordersRouter.put("/orders", async (req, res) => {
   const data = await ordersFileStorage.getData();
   if (!data) return res.status(500).send();
