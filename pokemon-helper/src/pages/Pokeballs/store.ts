@@ -55,7 +55,6 @@ export type TOrderItem = {
   pokeballId: string;
   accessories: [Accessories, number][];
   price: string;
-  discountPrice?: string;
   comment: string;
   id: string;
   status: OrderItemStatuses;

@@ -62,7 +62,10 @@ ordersRouter.post("/orders", async (req, res) => {
 ordersRouter.put("/orders", async (req, res) => {
   const data = await ordersFileStorage.getData();
   if (!data) return res.status(500).send();
-  await ordersFileStorage.updateWithSync(req.body);
+  const newData = data.map((item) =>
+    item.id === req.body.id ? req.body : item
+  );
+  await ordersFileStorage.updateWithSync(newData);
 
   res.send(await ordersFileStorage.getData());
 });

@@ -1,7 +1,5 @@
 import { Flex } from "antd";
-import { useUnit } from "effector-react";
 import type { FC } from "react";
-import { $configs } from "../../../../../../store";
 import { FormInput } from "../../../../../../../../components/Form/components/Input/Input";
 import { PriceLine } from "../../../../../../../../components/PriceLine/PriceLine";
 import { usePrice } from "../../helpers/use-price";
@@ -17,7 +15,7 @@ export const PokeballsPrice: FC<Props> = ({
   setPrice,
   filamentTotal,
 }) => {
-  const priceItems = usePrice(price, filamentTotal)
+  const priceItems = usePrice(price, filamentTotal);
 
   return (
     <>
@@ -32,7 +30,9 @@ export const PokeballsPrice: FC<Props> = ({
           value={price || ""}
         />
         <Flex vertical>
-          {priceItems.map(item => <PriceLine title={item.label} price={item.value} />)}
+          {priceItems.map((item) => (
+            <PriceLine title={item.label} price={item.value} />
+          ))}
         </Flex>
       </Flex>
     </>

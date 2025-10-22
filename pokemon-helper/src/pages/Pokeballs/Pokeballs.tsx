@@ -3,7 +3,13 @@ import { withLayout } from "../../hocs/withLayout";
 // import { PokeballForm } from "./components/PokeballForm/PokeballForm";
 // import { PokeballItem } from "./components/PokeballItem/PokeballItem";
 import { useEffect, useState } from "react";
-import { $pokeballs, configsFxs, filamentsFxs, pokeballsFxs } from "./store";
+import {
+  $pokeballs,
+  configsFxs,
+  filamentsFxs,
+  ordersFxs,
+  pokeballsFxs,
+} from "./store";
 import { Catalog } from "./components/Catalog/Catalog";
 import {
   DatabaseOutlined,
@@ -46,6 +52,7 @@ export const Pokeballs = withLayout(() => {
     filamentsFxs.readFx();
     configsFxs.readFx();
     pokeballsFxs.readFx();
+    ordersFxs.readFx();
   }, []);
 
   return (
@@ -80,7 +87,7 @@ export const Pokeballs = withLayout(() => {
       />
 
       <PokeballForm
-        key={editingItem ? "true" : "false"}
+        key={editingItem ? "pokeball-true" : "pokeball-false"}
         item={editingItem}
         open={isOpenEditForm}
         onClose={handleCancelEditPokeball}
@@ -88,7 +95,7 @@ export const Pokeballs = withLayout(() => {
       <Filaments open={isOpenFilaments} onClose={closeFilaments} />
       <Configs open={isOpenConfigs} onClose={closeConfigs} />
       <OrderForm
-        key={isOpenOrderForm ? "true" : "false"}
+        key={isOpenOrderForm ? "order-true" : "order-false"}
         open={isOpenOrderForm}
         onClose={closeCreatingOrder}
       />

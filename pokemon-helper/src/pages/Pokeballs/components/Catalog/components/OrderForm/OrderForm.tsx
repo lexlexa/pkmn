@@ -79,12 +79,10 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
         <Button onClick={handleSave}>Сохранить</Button>
         <Flex vertical gap={4}>
           <PriceLine title="Суммараная стоимость" price={finalPrice} />
-          {isSubscriber && (
-            <PriceLine
-              title="Суммараная стоимость (скидка)"
-              price={finalPriceWithDiscount}
-            />
-          )}
+          <PriceLine
+            title="Суммараная стоимость (скидка)"
+            price={isSubscriber ? finalPriceWithDiscount : undefined}
+          />
         </Flex>
         <FormInput
           value={clientName}
@@ -109,7 +107,6 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
             index={index}
             onChange={handleChangeItem}
             onDelete={handleDeleteItem}
-            isSubscriber={isSubscriber}
             item={item}
           />
         ))}

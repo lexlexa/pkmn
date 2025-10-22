@@ -3,7 +3,7 @@ import type { FC } from "react";
 
 type Props = {
   title: string;
-  price: string | number;
+  price?: string | number;
   discountedPrice?: string | number;
 };
 
@@ -16,7 +16,7 @@ export const PriceLine: FC<Props> = ({ title, price, discountedPrice }) => {
           type={discountedPrice ? "secondary" : undefined}
           delete={!!discountedPrice}
         >
-          {Number(price).toFixed(2)}р
+          {price ? `${Number(price).toFixed(2)}р` : "-"}
         </Typography.Text>
         {discountedPrice && <Typography>{discountedPrice}р</Typography>}
       </Flex>

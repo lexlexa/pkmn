@@ -7,34 +7,22 @@ import {
   Accessories,
   type TOrderItem,
 } from "../../../../../../store";
-import { useEffect, useState, type FC } from "react";
-import {
-  CaretDownOutlined,
-  CaretUpOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { useState, type FC } from "react";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { FormInput } from "../../../../../../../../components/Form/components/Input/Input";
 import { AccessoriesLang } from "../../../../../../constants";
 import { FormTextarea } from "../../../../../../../../components/Form/components/Textarea/Textarea";
 import { PriceLine } from "../../../../../../../../components/PriceLine/PriceLine";
-import { getDiscountedPrice } from "../../../../../../helpers/discount";
+import { DeleteButton, ExpandButton } from "./mini-components";
 
 type Props = {
   item: Partial<TOrderItem>;
   index: number;
-  isSubscriber: boolean;
   onChange: (item: Partial<TOrderItem>) => void;
   onDelete: (id: string) => void;
 };
 
-export const OrderItem: FC<Props> = ({
-  item,
-  onChange,
-  onDelete,
-  index,
-  isSubscriber,
-}) => {
+export const OrderItem: FC<Props> = ({ item, onChange, onDelete, index }) => {
   const [showLess, setShowLess] = useState(Boolean(item.pokeballId));
   const pokeballs = useUnit($pokeballs);
   const configs = useUnit($configs);
@@ -78,15 +66,6 @@ export const OrderItem: FC<Props> = ({
     });
   };
 
-  useEffect(() => {
-    onChange({
-      ...item,
-      discountPrice: isSubscriber
-        ? getDiscountedPrice(item.price || 0, configs.followersDiscount)
-        : undefined,
-    });
-  }, [item.price]);
-
   return (
     <Flex
       vertical
@@ -96,19 +75,11 @@ export const OrderItem: FC<Props> = ({
       <Flex justify="space-between">
         <Typography.Text strong>Позиция {index + 1}</Typography.Text>
         <Flex gap={8}>
-          <Button
-            onClick={() => onDelete(item.id!)}
-            color="red"
-            size="small"
-            variant="outlined"
-          >
-            Удалить
-          </Button>
+          <DeleteButton onClick={() => onDelete(item.id!)} />
           {item.pokeballId && (
-            <Button
-              size="small"
+            <ExpandButton
               onClick={() => setShowLess(!showLess)}
-              icon={!showLess ? <CaretUpOutlined /> : <CaretDownOutlined />}
+              hidden={showLess}
             />
           )}
         </Flex>
@@ -118,7 +89,6 @@ export const OrderItem: FC<Props> = ({
           <PriceLine
             title={selectedPokeball?.name || ""}
             price={item.price || ""}
-            discountedPrice={item.discountPrice}
           />
           {item.accessories?.map(([name, price]) => (
             <PriceLine title={AccessoriesLang[name]} price={price} />
@@ -154,11 +124,7 @@ export const OrderItem: FC<Props> = ({
           <Flex style={{ width: "100%" }}>
             <FormInput
               fullWidth
-              label={`Цена${
-                isSubscriber && item.pokeballId
-                  ? ` (${Number(item.discountPrice).toFixed(2)}р)`
-                  : ""
-              }`}
+              label="Цена"
               value={item.price}
               onChange={handleChangePrice}
             />
