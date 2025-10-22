@@ -123,7 +123,7 @@ export const OrderItem: FC<Props> = ({ order }) => {
 
                 <Flex vertical>
                   <Typography.Text strong>Аксесуары</Typography.Text>
-                  {item.accessories.map((i) => (
+                  {item.accessories?.map((i) => (
                     <div>{AccessoriesLang[i[0]]}</div>
                   ))}
                   <Typography.Text italic>
