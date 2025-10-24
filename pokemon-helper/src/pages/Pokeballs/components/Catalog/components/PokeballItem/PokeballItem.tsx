@@ -31,6 +31,7 @@ export const PokeballItem: FC<Props> = ({ item, onEdit }) => {
               height: "100%",
               objectFit: "cover",
               display: index > 0 ? "none" : "",
+              borderRadius: 16
             }}
             src={`/api/images?name=${item}`}
           />

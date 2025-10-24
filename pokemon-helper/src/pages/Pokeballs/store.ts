@@ -10,9 +10,10 @@ export type TPokeball = {
   id: string;
   pokedexIndex: string;
   name: string;
-  price: number;
+  price: string;
   filament: TPokeballFilament[];
   images: string[];
+  createdAt: string;
 };
 
 export type TFilament = {
@@ -70,6 +71,7 @@ export type TOrder = {
   price: string;
   discountPrice?: string;
   additionalDiscountPercent?: string;
+  createdAt: string;
 };
 
 export const filamentsFxs = getEffectorCrud<TFilament, TFilament[]>({

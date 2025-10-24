@@ -77,7 +77,7 @@ export const Pokeballs = withLayout(() => {
               Создать
             </Button>
             <Button onClick={openCreatingOrder} icon={<PlusOutlined />}>
-              Создать
+              Создать заказ
             </Button>
             <Button onClick={openFilaments} icon={<DatabaseOutlined />}>
               Филамент
@@ -88,11 +88,6 @@ export const Pokeballs = withLayout(() => {
       />
 
       <PokeballForm
-        key={
-          editingItem
-            ? `pokeball-edit-${isOpenEditForm}`
-            : `pokeball-${isOpenEditForm}`
-        }
         item={editingItem}
         open={isOpenEditForm}
         onClose={handleCancelEditPokeball}
@@ -100,7 +95,6 @@ export const Pokeballs = withLayout(() => {
       <Filaments open={isOpenFilaments} onClose={closeFilaments} />
       <Configs open={isOpenConfigs} onClose={closeConfigs} />
       <OrderForm
-        key={isOpenOrderForm ? "order-true" : "order-false"}
         open={isOpenOrderForm}
         onClose={closeCreatingOrder}
       />

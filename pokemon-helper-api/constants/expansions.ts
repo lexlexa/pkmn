@@ -1,4 +1,7 @@
 export enum Expansions {
+  MEGA_EVOLUTION = 'Mega Evolution',
+  MEGA_EVOLUTION_PROMOS = 'Mega Evolution Promos',
+
   SCARLET_AND_VIOLET_PROMOS = "Scarlet & Violet Promos",
   SCARLET_AND_VIOLET = "Scarlet & Violet",
   PALDEA_EVOLVED = "Paldea Evolved",
@@ -49,6 +52,9 @@ export enum Expansions {
 }
 
 export const ExpansionsInSDK = {
+  [Expansions.MEGA_EVOLUTION]: 'me1',
+  [Expansions.MEGA_EVOLUTION_PROMOS]: 'mep',
+
   // SV
   [Expansions.SCARLET_AND_VIOLET_PROMOS]: "svp",
   [Expansions.SCARLET_AND_VIOLET]: "sv1",
@@ -98,6 +104,9 @@ export const ExpansionsInSDK = {
 };
 
 export const ExpansionsShortName = {
+  [Expansions.MEGA_EVOLUTION]: 'MEG',
+  [Expansions.MEGA_EVOLUTION_PROMOS]: 'MEP',
+  
   [Expansions.SCARLET_AND_VIOLET_PROMOS]: "SVP",
   [Expansions.SCARLET_AND_VIOLET]: "SVI",
   [Expansions.PALDEA_EVOLVED]: "PAL",

@@ -68,16 +68,17 @@ export const OrderItem: FC<Props> = ({ order }) => {
           <Typography.Text>
             Ссылка: <a href={order.clientLink}>{order.clientLink}</a>
           </Typography.Text>
-          <div>
-            <Button
-              color="red"
-              variant="filled"
-              disabled={!sessionStorage.getItem("allowDelete")}
-              onClick={() => ordersFxs.deleteFx(order.id)}
-            >
-              Удалить заказ
-            </Button>
-          </div>
+          {sessionStorage.getItem("allowDelete") && (
+            <div>
+              <Button
+                color="red"
+                variant="filled"
+                onClick={() => ordersFxs.deleteFx(order.id)}
+              >
+                Удалить заказ
+              </Button>
+            </div>
+          )}
         </Flex>
         <Flex vertical>
           <Price {...order} />
@@ -147,7 +148,7 @@ export const OrderItem: FC<Props> = ({ order }) => {
                   >
                     {
                       OrderItemStatusesLang[
-                        item.status || OrderItemStatuses.NONE
+                      item.status || OrderItemStatuses.NONE
                       ]
                     }
                   </Tag>

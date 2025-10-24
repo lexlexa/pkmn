@@ -8,6 +8,7 @@ type Props = {
   onChange: (value: string) => void;
   placeholder?: string;
   fixedWidth?: number | string;
+  required?: boolean
 };
 
 export const FormSelect: FC<Props> = ({
@@ -17,10 +18,14 @@ export const FormSelect: FC<Props> = ({
   placeholder,
   options,
   fixedWidth,
+  required
 }) => {
   return (
     <Flex vertical gap={4} style={{ width: fixedWidth }}>
-      <Typography.Text strong>{label}</Typography.Text>
+      <Typography.Text strong>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </Typography.Text>
       <Select
         style={{ width: fixedWidth, flexShrink: 0 }}
         options={options}

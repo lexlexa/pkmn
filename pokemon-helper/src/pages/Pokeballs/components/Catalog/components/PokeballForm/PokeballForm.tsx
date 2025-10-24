@@ -1,83 +1,47 @@
-import { Button, Drawer } from "antd";
-import styles from "./PokeballForm.module.css";
-import { useState, type FC } from "react";
-import { PokeballFilaments } from "./components/PokeballsFilament/PokeballsFilament";
-import { PokeballsPrice } from "./components/PokeballsPrice/PokeballsPrice";
-import { PokeballsImages } from "./components/PokeballsImages/PokeballsImages";
-import { pokeballsFxs, type TPokeball, type TPokeballFilament } from "../../../../store";
+import { Button, Drawer, Flex } from "antd";
+import { type FC } from "react";
+import { pokeballsFxs, type TPokeball } from "../../../../store";
 import { generateUUID } from "../../../../../Sale/helpers";
-import { FormInput } from "../../../../../../components/Form/components/Input/Input";
+import { usePokeballForm, withPokeballFormProvider } from "./form";
+import { PokeballsGeneral } from "./components/PokeballsGeneral/PokeballsGeneral";
+import { PokeballFilaments } from "./components/PokeballsFilament/PokeballsFilaments";
+import { PokeballsImages } from "./components/PokeballsImages/PokeballsImages";
+import { PokeballsPrice } from "./components/PokeballsPrice/PokeballsPrice";
 
-type Props = {
+export type TPokebalFormProps = {
   open: boolean;
   onClose: () => void;
   item?: TPokeball;
 };
 
-export const PokeballForm: FC<Props> = ({ open, onClose, item }) => {
-  const [name, setName] = useState(item?.name || "");
-  const [number, setNumber] = useState(item?.pokedexIndex || "");
-  const [files, setFiles] = useState<string[]>(item?.images || []);
-  const [filament, setFilament] = useState<Partial<TPokeballFilament>[]>(
-    item?.filament || [{}]
-  );
-  const [price, setPrice] = useState<number | string | null>(item?.price || null);
+export const PokeballForm: FC<TPokebalFormProps> = withPokeballFormProvider(({ open, onClose, item }) => {
+  const { values, isValidForm } = usePokeballForm()
 
-  const filamentTotal = filament.reduce(
-    (acc, curr) => acc + Number(curr.count || 0),
-    0
-  );
 
-  const handleCreate = async () => {
+  const handleSubmit = async () => {
     const data: TPokeball = {
-      name,
-      pokedexIndex: number,
-      filament: filament as TPokeballFilament[],
-      images: files,
-      price: Number(price || 0),
-      id: generateUUID(),
+      ...values,
+      id: item?.id ? item.id : generateUUID(),
+      createdAt: item?.createdAt || new Date().toISOString(),
     };
 
-    await pokeballsFxs.createFx(data);
-    onClose();
-  };
-  const handleEdit = async () => {
-    const data: TPokeball = {
-      id: item!.id,
-      name,
-      pokedexIndex: number,
-      filament: filament as TPokeballFilament[],
-      images: files,
-      price: Number(price || 0),
-    };
+    const action = item?.id ? pokeballsFxs.updateFx : pokeballsFxs.createFx
 
-    await pokeballsFxs.updateFx(data);
-    onClose();
-  };
+    await action(data)
+    onClose()
+  }
 
   return (
     <Drawer open={open} onClose={onClose}>
-      <div className={styles.form}>
-        <FormInput
-          label="Название"
-          onChange={setName}
-          placeholder="Bulbasaur"
-          value={name}
-        />
-        <FormInput
-          label="Номер в Pokedex"
-          onChange={setNumber}
-          value={number}
-        />
-        <PokeballFilaments items={filament} onChange={setFilament} />
-        <PokeballsImages files={files} setFiles={setFiles} />
-        <PokeballsPrice
-          filamentTotal={filamentTotal}
-          price={price}
-          setPrice={setPrice}
-        />
-        <Button onClick={item ? handleEdit : handleCreate}>Сохранить</Button>
-      </div>
+      <Flex vertical gap={8}>
+        <PokeballsGeneral />
+        <PokeballFilaments />
+        <PokeballsImages />
+        <PokeballsPrice />
+        <Button disabled={!isValidForm} onClick={handleSubmit}>
+          Сохранить
+        </Button>
+      </Flex>
     </Drawer>
   );
-};
+});

@@ -6,7 +6,8 @@ type Props = {
   label: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  fullWidth?: boolean
+  fullWidth?: boolean;
+  required?: boolean;
 };
 
 export const FormInput: FC<Props> = ({
@@ -14,11 +15,15 @@ export const FormInput: FC<Props> = ({
   label,
   onChange,
   placeholder,
-  fullWidth
+  fullWidth,
+  required
 }) => {
   return (
     <Flex style={{ width: fullWidth ? '100%' : '' }} vertical gap={4}>
-      <Typography.Text strong>{label}</Typography.Text>
+      <Typography.Text strong>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </Typography.Text>
       <Input
         value={value}
         placeholder={placeholder}

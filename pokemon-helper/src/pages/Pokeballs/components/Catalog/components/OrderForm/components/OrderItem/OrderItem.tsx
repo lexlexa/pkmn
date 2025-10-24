@@ -1,70 +1,38 @@
-import { Button, Dropdown, Flex, Typography } from "antd";
+import { Flex, Typography } from "antd";
 import { FormSelect } from "../../../../../../../../components/Form/components/Select/Select";
 import { useUnit } from "effector-react";
 import {
-  $configs,
   $pokeballs,
-  Accessories,
   type TOrderItem,
 } from "../../../../../../store";
-import { useState, type FC } from "react";
-import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { useEffect, useState, type FC } from "react";
 import { FormInput } from "../../../../../../../../components/Form/components/Input/Input";
 import { AccessoriesLang } from "../../../../../../constants";
 import { FormTextarea } from "../../../../../../../../components/Form/components/Textarea/Textarea";
 import { PriceLine } from "../../../../../../../../components/PriceLine/PriceLine";
 import { DeleteButton, ExpandButton } from "./mini-components";
+import { useOrderForm } from "../../form";
+import { OrderItemAccessories } from "./OrderItemAccessories";
 
 type Props = {
-  item: Partial<TOrderItem>;
+  item: TOrderItem;
   index: number;
-  onChange: (item: Partial<TOrderItem>) => void;
-  onDelete: (id: string) => void;
 };
 
-export const OrderItem: FC<Props> = ({ item, onChange, onDelete, index }) => {
+export const OrderItem: FC<Props> = ({ item, index }) => {
+  const {
+    handlers: { setItemPokeballId, setItemComment, setItemPrice, deleteItem }
+  } = useOrderForm()
   const [showLess, setShowLess] = useState(Boolean(item.pokeballId));
   const pokeballs = useUnit($pokeballs);
-  const configs = useUnit($configs);
 
   const selectedPokeball = pokeballs.find((poc) => poc.id === item.pokeballId);
 
-  const handleChangePokeball = (value: string) => {
-    onChange({
-      ...item,
-      pokeballId: value,
-      price: pokeballs.find((i) => i.id === value)?.price.toString() || "",
-    });
-  };
-
-  const handleChangePrice = (value: string) => {
-    onChange({ ...item, price: value });
-  };
-
-  const handleAddAccessory = (value: Accessories) => {
-    const acc = [
-      value,
-      configs.accessoriesPrices[value],
-    ] as TOrderItem["accessories"][0];
-    onChange({
-      ...item,
-      accessories: item.accessories ? [...item.accessories, acc] : [acc],
-    });
-  };
-
-  const handleRemoveAccesory = (index: number) => {
-    onChange({
-      ...item,
-      accessories: item.accessories?.filter((_, i) => i !== index) || [],
-    });
-  };
-
-  const handleChangeComment = (value: string) => {
-    onChange({
-      ...item,
-      comment: value,
-    });
-  };
+  useEffect(() => {
+    if (selectedPokeball) {
+      setItemPrice(item.id)(selectedPokeball.price)
+    }
+  }, [selectedPokeball])
 
   return (
     <Flex
@@ -75,7 +43,7 @@ export const OrderItem: FC<Props> = ({ item, onChange, onDelete, index }) => {
       <Flex justify="space-between">
         <Typography.Text strong>Позиция {index + 1}</Typography.Text>
         <Flex gap={8}>
-          <DeleteButton onClick={() => onDelete(item.id!)} />
+          <DeleteButton onClick={deleteItem(item.id!)} />
           {item.pokeballId && (
             <ExpandButton
               onClick={() => setShowLess(!showLess)}
@@ -100,7 +68,7 @@ export const OrderItem: FC<Props> = ({ item, onChange, onDelete, index }) => {
             <div style={{ flexGrow: 1 }}>
               <FormSelect
                 value={item.pokeballId}
-                onChange={handleChangePokeball}
+                onChange={setItemPokeballId(item.id)}
                 label={`Покебол`}
                 fixedWidth="100%"
                 options={pokeballs.map((item) => ({
@@ -126,52 +94,21 @@ export const OrderItem: FC<Props> = ({ item, onChange, onDelete, index }) => {
               fullWidth
               label="Цена"
               value={item.price}
-              onChange={handleChangePrice}
+              onChange={setItemPrice(item.id)}
             />
           </Flex>
           <Flex vertical>
-            <Flex gap={16}>
-              <Typography.Text strong>Аксесуары</Typography.Text>
-              <Dropdown
-                trigger={["click"]}
-                getPopupContainer={() => document.body}
-                menu={{
-                  items: Object.keys(configs.accessoriesPrices).map((key) => ({
-                    key,
-                    label: AccessoriesLang[key as Accessories],
-                    onClick: () => handleAddAccessory(key as Accessories),
-                  })),
-                }}
-              >
-                <Button size="small" icon={<PlusOutlined />} />
-              </Dropdown>
-            </Flex>
-            <Flex vertical>
-              {item.accessories?.map(([key, price], index) => (
-                <Flex align="center" justify="space-between">
-                  <Flex>{AccessoriesLang[key]}</Flex>
-                  <Flex gap={8} align="center">
-                    <span>{price}р</span>
-                    <Button
-                      color="red"
-                      variant="outlined"
-                      size="small"
-                      onClick={() => handleRemoveAccesory(index)}
-                      icon={<DeleteOutlined />}
-                    />
-                  </Flex>
-                </Flex>
-              ))}
-            </Flex>
+            <OrderItemAccessories accessories={item.accessories} itemId={item.id} />
             <FormTextarea
               label="Комментарий"
               value={item.comment}
-              onChange={handleChangeComment}
+              onChange={setItemComment(item.id)}
               placeholder="Примечание к товару"
             />
           </Flex>
         </>
-      )}
-    </Flex>
+      )
+      }
+    </Flex >
   );
 };

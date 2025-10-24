@@ -29,8 +29,13 @@ export const getSaleRareCards = async () => {
       // Не берем большие карты
       if (card?.variant?.includes("Jumbo")) return false;
 
-      // Для SV берем только дубли, для остальных всё
+      if (!card.expansion_slug) {
+        console.log(card)
+      }
+        // Для SV берем только дубли, для остальных всё
       if (card.count < 2 && card.expansion_slug.includes("sv")) return false;
+      if (card.count < 2 && card.expansion_slug.includes("me")) return false;
+
 
       return true;
     });
@@ -60,14 +65,14 @@ export const getSaleRareCards = async () => {
     .flat();
 
   return [
-    {
-      expansion: "Специальные цены",
-      cards: specialPriceCards.map((card) => ({
-        ...card,
-        price: card.salePrice,
-      })),
-      isHidden: !specialPriceCards.length,
-    },
+    // {
+    //   expansion: "Специальные цены",
+    //   cards: specialPriceCards.map((card) => ({
+    //     ...card,
+    //     price: card.salePrice,
+    //   })),
+    //   isHidden: !specialPriceCards.length,
+    // },
     ...data,
   ];
 };

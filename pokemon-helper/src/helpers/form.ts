@@ -1,12 +1,14 @@
 import { useState } from "react";
 
+export type TuseFormArguments<T extends {}> = {
+  defaultValues: T;
+  onSubmit: (data: T) => void;
+};
+
 export const useForm = <T extends {}>({
   defaultValues,
   onSubmit,
-}: {
-  defaultValues: T;
-  onSubmit: (values: T) => void;
-}) => {
+}: TuseFormArguments<T>) => {
   const [values, setValues] = useState(defaultValues);
 
   return {

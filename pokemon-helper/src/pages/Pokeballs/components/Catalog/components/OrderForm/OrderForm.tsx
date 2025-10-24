@@ -1,7 +1,7 @@
 import { Button, Drawer, Flex } from "antd";
 import { OrderItem } from "./components/OrderItem/OrderItem";
 import { PlusOutlined } from "@ant-design/icons";
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import {
   $configs,
   ordersFxs,
@@ -15,36 +15,23 @@ import { FormInput } from "../../../../../../components/Form/components/Input/In
 import { PriceLine } from "../../../../../../components/PriceLine/PriceLine";
 import { useUnit } from "effector-react";
 import { getDiscountedPrice } from "../../../../helpers/discount";
+import { useOrderForm, withOrderFormProvider } from "./form";
 
-type Props = {
+export type TOrderFormProps = {
   open: boolean;
   onClose: () => void;
 };
 
-export const OrderForm: FC<Props> = ({ open, onClose }) => {
-  const [items, setItems] = useState<Partial<TOrderItem>[]>([]);
-  const [isSubscriber, setIsSubscriber] = useState(false);
-  const [clientName, setClientName] = useState("");
-  const [clientLink, setClientLink] = useState("");
-  const [additionalDiscount, setAdditionalDiscount] = useState("");
+export const OrderForm: FC<TOrderFormProps> = withOrderFormProvider(({ open, onClose }) => {
+  const {
+    isValidForm,
+    values: { items, additionalDiscountPercent, clientLink, clientName, isSubscriber },
+    handlers: { addItem, setClientLink, setClientName, setAdditionalDiscountPercent, setIsSubscriber } } = useOrderForm()
+
   const configs = useUnit($configs);
 
-  const handleAddItem = () => {
-    setItems([
-      ...items,
-      {
-        id: generateUUID(),
-      },
-    ]);
-  };
 
-  const handleDeleteItem = (id: string) => {
-    setItems(items.filter((item) => item.id !== id));
-  };
 
-  const handleChangeItem = (item: Partial<TOrderItem>) => {
-    setItems(items.map((saved) => (saved.id === item.id ? item : saved)));
-  };
 
   const finalPrice = items.reduce((acc, curr) => {
     const accessoriesPrice =
@@ -57,8 +44,8 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
     finalPrice,
     configs.followersDiscount
   );
-  const finalPriceWithDiscount2 = additionalDiscount
-    ? getDiscountedPrice(finalPrice, Number(additionalDiscount))
+  const finalPriceWithDiscount2 = additionalDiscountPercent
+    ? getDiscountedPrice(finalPrice, Number(additionalDiscountPercent))
     : finalPriceWithDiscount;
 
   const handleSave = () => {
@@ -66,7 +53,7 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
       items: items as TOrderItem[],
       price: finalPrice.toString(),
       discountPrice:
-        isSubscriber || additionalDiscount
+        isSubscriber || additionalDiscountPercent
           ? finalPriceWithDiscount2
           : undefined,
       clientLink,
@@ -74,7 +61,8 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
       id: generateUUID(),
       isSubscriber,
       status: OrderStatues.NONE,
-      additionalDiscountPercent: additionalDiscount,
+      additionalDiscountPercent: additionalDiscountPercent,
+      createdAt: new Date().toISOString(),
     };
 
     ordersFxs.createFx(data);
@@ -84,13 +72,15 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
   return (
     <Drawer open={open} onClose={onClose}>
       <Flex vertical gap={16}>
-        <Button onClick={handleSave}>Сохранить</Button>
+        <Button disabled={!isValidForm} onClick={handleSave}>
+          Сохранить
+        </Button>
         <Flex vertical gap={4}>
           <PriceLine title="Суммараная стоимость" price={finalPrice} />
           <PriceLine
             title="Суммараная стоимость (скидка)"
             price={
-              isSubscriber || additionalDiscount
+              isSubscriber || additionalDiscountPercent
                 ? finalPriceWithDiscount2
                 : undefined
             }
@@ -114,8 +104,8 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
           label="Клиент-подписчик"
         />
         <FormInput
-          value={additionalDiscount}
-          onChange={setAdditionalDiscount}
+          value={additionalDiscountPercent}
+          onChange={setAdditionalDiscountPercent}
           label="Дополнительная скидка"
           placeholder="%"
         />
@@ -123,15 +113,13 @@ export const OrderForm: FC<Props> = ({ open, onClose }) => {
           <OrderItem
             key={item.id}
             index={index}
-            onChange={handleChangeItem}
-            onDelete={handleDeleteItem}
             item={item}
           />
         ))}
-        <Button onClick={handleAddItem} icon={<PlusOutlined />}>
+        <Button onClick={addItem} icon={<PlusOutlined />}>
           Добавить
         </Button>
       </Flex>
     </Drawer>
   );
-};
+});
