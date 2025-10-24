@@ -59,7 +59,7 @@ export const getSaleRareCards = async () => {
       cards: fullfilledCards,
       isHidden: savedData?.[key]?.isHidden || false,
     };
-  });
+  }).filter(item => item.cards.length);
   const specialPriceCards = data
     .map(({ cards }) => cards.filter(({ salePrice }) => !!salePrice))
     .flat();
