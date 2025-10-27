@@ -88,6 +88,7 @@ export const Pokeballs = withLayout(() => {
       />
 
       <PokeballForm
+        key={`${editId}-${isOpenEditForm}`}
         item={editingItem}
         open={isOpenEditForm}
         onClose={handleCancelEditPokeball}
@@ -97,6 +98,7 @@ export const Pokeballs = withLayout(() => {
       <OrderForm
         open={isOpenOrderForm}
         onClose={closeCreatingOrder}
+        key={`${isOpenOrderForm}`}
       />
     </Flex>
   );
