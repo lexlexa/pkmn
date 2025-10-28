@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, type FC, type PropsWithChildren } from "react"
-import { type TPokeball } from "../../../../store"
+import { $pokeballs, type TPokeball } from "../../../../store"
 import type { TPokebalFormProps } from "./PokeballForm"
+import { useStoreMap } from "effector-react"
 
 
 type FormValues = Omit<TPokeball, 'id'>
@@ -15,6 +16,7 @@ const defaultFormValue: FormValues = {
 }
 
 const usePokeballFormValues = (defaultValues: FormValues) => {
+    const pokeballsNames = useStoreMap($pokeballs, (state) => state.map(item => item.name))
     const [values, setValues] = useState(defaultValues)
 
     const handleChangeTextField = (key: keyof FormValues) => (value: string) => {
@@ -46,9 +48,15 @@ const usePokeballFormValues = (defaultValues: FormValues) => {
         Boolean(values.price) &&
         values.filament.every(({ count, id }) => count && id);
 
+    console.log(defaultValues, values.name)
+    const errors: Partial<Record<keyof FormValues, string>> = {
+        name: pokeballsNames.includes(values.name) && values.name !== defaultValues.name ? 'Такой покебол уже есть' : undefined
+    }
+
     return {
         values,
         isValidForm,
+        errors,
         handlers: {
             setName: handleChangeTextField('name'),
             setPokedexIndex: handleChangeTextField("pokedexIndex"),

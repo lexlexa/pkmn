@@ -8,6 +8,7 @@ type Props = {
   placeholder?: string;
   fullWidth?: boolean;
   required?: boolean;
+  error?: string;
 };
 
 export const FormInput: FC<Props> = ({
@@ -16,7 +17,8 @@ export const FormInput: FC<Props> = ({
   onChange,
   placeholder,
   fullWidth,
-  required
+  required,
+  error
 }) => {
   return (
     <Flex style={{ width: fullWidth ? '100%' : '' }} vertical gap={4}>
@@ -29,6 +31,9 @@ export const FormInput: FC<Props> = ({
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
       />
+      {error && <Typography.Text type="danger">
+        {error}
+      </Typography.Text>}
     </Flex>
   );
 };

@@ -5,6 +5,7 @@ import { FormInput } from "../../../../../../../../components/Form/components/In
 
 export const PokeballsGeneral = () => {
     const {
+        errors,
         values: { name, pokedexIndex },
         handlers: { setName, setPokedexIndex } } = usePokeballForm()
 
@@ -15,6 +16,7 @@ export const PokeballsGeneral = () => {
             placeholder="Bulbasaur"
             value={name}
             required
+            error={errors.name}
         />
         <FormInput
             label="Номер в Pokedex"
