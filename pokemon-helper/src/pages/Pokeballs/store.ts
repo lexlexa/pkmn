@@ -74,21 +74,51 @@ export type TOrder = {
   createdAt: string;
 };
 
-export const filamentsFxs = getEffectorCrud<TFilament, TFilament[]>({
+export type FilamentsBrand = {
+  id: number;
+  name: string;
+}
+
+
+export type FilamentsTypes = {
+  id: number;
+  name: string;
+  brand_id: number 
+}
+
+export const filamentsFxs = getEffectorCrud<TFilament,TFilament, TFilament[]>({
   url: "/api/pokeballs/filaments",
 });
 
-export const configsFxs = getEffectorCrud<TConfigs, TConfigs>({
+export const configsFxs = getEffectorCrud<TConfigs,TConfigs, TConfigs>({
   url: "/api/pokeballs/configs",
 });
 
-export const pokeballsFxs = getEffectorCrud<TPokeball, TPokeball[]>({
+export const pokeballsFxs = getEffectorCrud<TPokeball,TPokeball, TPokeball[]>({
   url: "/api/pokeballs/pokeballs",
 });
 
-export const ordersFxs = getEffectorCrud<TOrder, TOrder[]>({
+export const ordersFxs = getEffectorCrud<TOrder,TOrder,  TOrder[]>({
   url: "/api/pokeballs/orders",
 });
+
+export const filamentBrandsFxs = getEffectorCrud<FilamentsBrand,FilamentsBrand, FilamentsBrand[]>({
+  url: '/api/pokeprints/filaments/brands'
+})
+
+export const filamentTypesFxs = getEffectorCrud<FilamentsTypes,FilamentsTypes, FilamentsTypes[]>({
+  url: '/api/pokeprints/filaments/types'
+})
+
+export const $filamentsBrands = createStore<FilamentsBrand[]>([])
+  .on(filamentBrandsFxs.readFx.doneData, (_, payload) => payload)
+  .on(filamentBrandsFxs.updateFx.doneData, (_, payload) => payload)
+  .on(filamentBrandsFxs.createFx.doneData, (_, payload) => payload);
+
+export const $filamentsTypes = createStore<FilamentsTypes[]>([])
+  .on(filamentTypesFxs.readFx.doneData, (_, payload) => payload)
+  .on(filamentTypesFxs.updateFx.doneData, (_, payload) => payload)
+  .on(filamentTypesFxs.createFx.doneData, (_, payload) => payload);
 
 export const $filaments = createStore<TFilament[]>([])
   .on(filamentsFxs.readFx.doneData, (_, payload) => payload)

@@ -22,7 +22,6 @@ export const PokeballsGeneral = () => {
             label="Номер в Pokedex"
             onChange={setPokedexIndex}
             value={pokedexIndex}
-            required
         />
     </Flex>
 }

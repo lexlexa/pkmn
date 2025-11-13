@@ -44,7 +44,6 @@ const usePokeballFormValues = (defaultValues: FormValues) => {
     }
 
     const isValidForm = Boolean(values.name) &&
-        Boolean(values.pokedexIndex) &&
         Boolean(values.price) &&
         values.filament.every(({ count, id }) => count && id);
 

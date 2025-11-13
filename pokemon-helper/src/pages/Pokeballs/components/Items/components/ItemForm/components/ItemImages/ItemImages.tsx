@@ -1,0 +1,57 @@
+import { CloseCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { Flex, Typography, Upload } from "antd";
+import styles from "./ItemImages.module.css";
+import { useItemForm } from "../../form";
+
+
+export const ItemImages = () => {
+  const {
+    values: { items_images },
+    handlers: { addImage, deleteImage } } = useItemForm()
+  const onDownloadedFile = (event: any) => {
+    const file = event.fileList[event.fileList.length - 1];
+    const status = file.status;
+
+    if (status === "done") {
+      const fileName = file.response.name.split('.').at(0);
+      addImage(fileName)
+    }
+  };
+
+  return (
+    <Flex vertical gap={8}>
+      <Typography.Text strong>Изображения</Typography.Text>
+      <Flex wrap gap={8}>
+        {items_images.map((item) => (
+          <Flex style={{ position: "relative" }}>
+            <img
+              style={{
+                width: 70,
+                height: 70,
+                objectFit: "cover",
+                borderRadius: 8,
+              }}
+              src={`/api/images?name=${item}.png`}
+            />
+            <CloseCircleOutlined
+              onClick={deleteImage(item)}
+              className={styles.deleteImage}
+            />
+          </Flex>
+        ))}
+        <Upload
+          action={"/api/images"}
+          headers={{ token: localStorage.getItem("token") || "" }}
+          name="pokeball-image"
+          onDownload={onDownloadedFile}
+          onChange={onDownloadedFile}
+          showUploadList={false}
+        >
+          <div className={styles.add}>
+            <PlusOutlined />
+          </div>
+        </Upload>
+      </Flex>
+    </Flex>
+  );
+};

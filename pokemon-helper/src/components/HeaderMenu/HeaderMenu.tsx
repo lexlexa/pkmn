@@ -11,7 +11,7 @@ const MenuItems = [
   { key: "/utils", label: "Утилиты" },
   { key: "/sale", label: "Витрина" },
   { key: "/salerare", label: "Витрина Редких" },
-  { key: "/pokeballs", label: "Покеболы" },
+  { key: "/pokeballs", label: "Pokeprints" },
 ];
 
 export const HeaderMenu = () => {

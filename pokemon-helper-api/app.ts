@@ -16,7 +16,8 @@ import { DictsRoute } from "./routes/dicts.js";
 import { SaleRareRoute } from "./routes/sale-rare.js";
 import { ImagesRoute } from "./routes/images.ts";
 import { pokeballsRouter } from "./module/pokeballs/router.ts";
-
+import { pokeprintsRouter } from "./module/pokeprints/router.ts";
+import "dotenv/config";
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -114,6 +115,7 @@ app.post("/api/auth", async (req, res) => {
 });
 
 app.use("/api", pokeballsRouter);
+app.use("/api", pokeprintsRouter);
 
 ErrorRoute(app);
 DuplicatesRoute(app);

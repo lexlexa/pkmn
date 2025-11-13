@@ -1,0 +1,73 @@
+generator client {
+  provider        = "prisma-client"
+  output          = "../generated/prisma"
+  previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model filament_brands {
+  id             Int              @id(map: "filament_brand_pkey") @default(autoincrement())
+  name           String           @unique(map: "filament_brand_name_key") @db.VarChar(50)
+  filament_types filament_types[]
+}
+
+model filament_types {
+  id              Int             @id @default(autoincrement())
+  name            String          @unique @db.VarChar(50)
+  brand_id        Int
+  filament_brands filament_brands @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "brand")
+  filaments       filaments[]
+}
+
+model filaments {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique @db.VarChar(50)
+  code           String?          @db.VarChar(20)
+  color          String?          @db.VarChar(7)
+  type_id        Int
+  in_stock       Boolean          @default(false)
+  created_at     DateTime         @default(now()) @db.Timestamp(6)
+  filament_types filament_types   @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "type")
+  items_filament items_filament[]
+}
+
+model items {
+  id               Int              @id @default(autoincrement())
+  category_id      Int
+  name             String           @db.VarChar(50)
+  created_at       DateTime?        @default(now()) @db.Timestamp(6)
+  price            Int
+  items_categories items_categories @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "type")
+  items_filament   items_filament[]
+  items_images     items_images[]
+}
+
+model items_categories {
+  id                 Int     @id @default(autoincrement())
+  slug               String  @unique @db.VarChar(50)
+  name               String  @db.VarChar(50)
+  category_parent_id Int?
+  items              items[]
+}
+
+model items_filament {
+  id          Int       @id @default(autoincrement())
+  filament_id Int
+  item_id     Int
+  count       Int
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  filaments   filaments @relation(fields: [filament_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "type_filaments")
+  items       items     @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "type_items")
+}
+
+model items_images {
+  id         Int       @id @default(autoincrement())
+  item_id    Int
+  image_id   String    @db.VarChar(50)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  items      items     @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "type")
+}
