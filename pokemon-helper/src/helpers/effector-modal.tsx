@@ -1,7 +1,7 @@
 import { Drawer } from "antd";
 import { createEvent, createStore } from "effector"
 import { useUnit } from "effector-react";
-import { useState, type FC, type PropsWithChildren } from "react";
+import { type FC } from "react";
 
 
 type ModalData = {

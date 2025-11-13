@@ -4,7 +4,7 @@ import { FormInput } from "../../../../../../../../components/Form/components/In
 import { FormTreeSelect } from "../../../../../../../../components/Form/components/TreeSelect/TreeSelect"
 import { $categories } from "../../../../../../store/items"
 import { useUnit } from "effector-react"
-import { getAllCategoriesIdsForTree, getCategoryOptionIdById, transformCategoriesToTreeDataOptions } from "../../../../helpers/categories"
+import { getCategoryOptionIdById, transformCategoriesToTreeDataOptions } from "../../../../helpers/categories"
 
 
 export const ItemGeneral = () => {

@@ -1,4 +1,4 @@
-import { Flex, Select, TreeSelect, Typography, type TreeSelectProps } from "antd";
+import { Flex, TreeSelect, Typography, type TreeSelectProps } from "antd";
 import type { FC } from "react";
 
 type Props = {

@@ -1,7 +1,7 @@
-import { Button, Drawer, Flex } from "antd"
+import { Button, Flex } from "antd"
 import { $categories, categoriesFxs, type TCategory } from "../../../../store/items";
 import { useState, type FC } from "react";
-import { getCategoryOptionIdById, transformCategoriesToTreeData, transformCategoriesToTreeDataOptions } from "../../helpers/categories";
+import { getCategoryOptionIdById, transformCategoriesToTreeDataOptions } from "../../helpers/categories";
 import { useUnit } from "effector-react";
 import { FormTreeSelect } from "../../../../../../components/Form/components/TreeSelect/TreeSelect";
 import { FormInput } from "../../../../../../components/Form/components/Input/Input";

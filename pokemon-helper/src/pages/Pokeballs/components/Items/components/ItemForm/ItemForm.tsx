@@ -1,4 +1,4 @@
-import { Button, Drawer, Flex } from "antd";
+import { Button, Flex } from "antd";
 import { type FC } from "react";
 import { useItemForm, withItemFormProvider } from "./form";
 import { ItemGeneral } from "./components/ItemGeneral/ItemGeneral";
@@ -32,6 +32,7 @@ const ItemFormInner: FC<TItemFormProps> = withItemFormProvider(({ item, onClose 
         } else {
             await itemsFxs.createFx(data)
         }
+        onClose()
     }
 
     return (

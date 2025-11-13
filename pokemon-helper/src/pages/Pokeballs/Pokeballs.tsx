@@ -9,10 +9,7 @@ import {
   ordersFxs,
   pokeballsFxs,
 } from "./store";
-import { Catalog } from "./components/Catalog/Catalog";
 import {
-  DatabaseOutlined,
-  PlusOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 import { useModal } from "../../helpers/useModal";
@@ -26,30 +23,30 @@ import { Items } from "./components/Items/Items";
 import { Filament } from "./components/Filament/Filament";
 import { filamentBrandsFxs, filamentTypesFxs, filamentsFxs } from "./store/filaments";
 export const Pokeballs = withLayout(() => {
-  const [isOpenFilaments, openFilaments, closeFilaments] = useModal();
+  const [isOpenFilaments, _openFilaments, closeFilaments] = useModal();
   const [isOpenConfigs, openConfigs, closeConfigs] = useModal();
-  const [isOpenEditForm, openEditing, closeEditing] = useModal();
-  const [isOpenOrderForm, openCreatingOrder, closeCreatingOrder] = useModal();
+  const [isOpenEditForm, _openEditing, closeEditing] = useModal();
+  const [isOpenOrderForm, _openCreatingOrder, closeCreatingOrder] = useModal();
   const [editId, setEditId] = useState<string | null>(null);
-  const [selectedTab, setSelectedTab] = useState<string>('pokeballs');
+  const [_selectedTab, setSelectedTab] = useState<string>('pokeballs');
   const pokeballs = useUnit($pokeballs);
 
   const editingItem = pokeballs.find((item) => item.id === editId);
 
-  const handleEditPokeball = (id: string) => {
-    openEditing();
-    setEditId(id);
-  };
+  // const handleEditPokeball = (id: string) => {
+  //   openEditing();
+  //   setEditId(id);
+  // };
 
   const handleCancelEditPokeball = () => {
     closeEditing();
     setEditId(null);
   };
 
-  const handleCreatePokeball = () => {
-    openEditing();
-    setEditId(null);
-  };
+  // const handleCreatePokeball = () => {
+  //   openEditing();
+  //   setEditId(null);
+  // };
 
   useEffect(() => {
     filamentBrandsFxs.readFx()
