@@ -35,7 +35,7 @@ const useItemFormValues = (defaultValues: FormValues) => {
     }
 
     const handleDeleteImage = (image: string) => () => {
-        setValues({ ...values, items_filament: values.items_filament.filter(i => i !== image) })
+        setValues({ ...values, items_images: values.items_images.filter(i => i !== image) })
     }
 
     const handleChangeFilament = (index: number, key: keyof FormValues['items_filament'][0]) => (value: number | string) => {
