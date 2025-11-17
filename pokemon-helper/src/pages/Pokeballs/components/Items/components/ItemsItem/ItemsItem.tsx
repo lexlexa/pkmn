@@ -30,7 +30,7 @@ export const ItemsItem: FC<Props> = ({ item, onEdit }) => {
                             display: index > 0 ? "none" : "",
                             borderRadius: 16
                         }}
-                        src={`/api/images?name=${item.image_id}.png`}
+                        src={`/api/images?name=${item.image_id}`}
                     />
                 ))}
             </div>

@@ -13,7 +13,7 @@ export const ItemImages = () => {
     const status = file.status;
 
     if (status === "done") {
-      const fileName = file.response.name.split('.').at(0);
+      const fileName = file.response.name
       addImage(fileName)
     }
   };
@@ -31,7 +31,7 @@ export const ItemImages = () => {
                 objectFit: "cover",
                 borderRadius: 8,
               }}
-              src={`/api/images?name=${item}.png`}
+              src={`/api/images?name=${item}`}
             />
             <CloseCircleOutlined
               onClick={deleteImage(item)}
