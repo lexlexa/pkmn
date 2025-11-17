@@ -1,7 +1,7 @@
 import { Flex } from "antd"
 import { ItemsItem } from "../ItemsItem/ItemsItem"
 import { useUnit } from "effector-react"
-import { $itemsBySelectedCategory, ItemModal } from "../../store/ui"
+import { $itemsBySelectedCategory, $selectedCategory, ItemModal } from "../../store/ui"
 import { FormInput } from "../../../../../../components/Form/components/Input/Input"
 import { useEffect, useState } from "react"
 
@@ -10,12 +10,13 @@ export const ItemsList = () => {
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
     const itemsBySelectedCategory = useUnit($itemsBySelectedCategory)
+    const selectedCategory = useUnit($selectedCategory)
 
     useEffect(() => {
         setSearch('')
         setMinPrice('')
         setMaxPrice('')
-    }, [itemsBySelectedCategory])
+    }, [selectedCategory])
 
     const filteredValues = itemsBySelectedCategory.filter(item => {
         if (!item.name.toLowerCase().includes(search.toLowerCase())) return false
