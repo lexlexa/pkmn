@@ -1,5 +1,6 @@
 import {
   Dropdown,
+  Flex,
   Input,
   Popover,
   Select,
@@ -17,6 +18,7 @@ import {
 import { useUnit } from "effector-react";
 import { useMemo } from "react";
 import { Themes } from "../../theme";
+import { FormSwitch } from "../../../../components/Form/components/Switch/Switch";
 
 type ItemProps = {
   item: TItem;
@@ -75,6 +77,81 @@ export const Item = ({ item, page }: ItemProps) => {
     },
   ];
 
+  return <Flex gap={8} style={{ width: '100%' }}>
+    <Flex><MenuOutlined /></Flex>
+    <Flex vertical gap={8}>
+      <Flex gap={8}>
+        <Tooltip title={item.count >= 1 ? "" : "Таких карт не осталось"}>
+          <Input
+            className={styles.itemCount}
+            value={item.count}
+            status={item.count < 1 ? "error" : ""}
+            disabled
+            placeholder={"Количество"}
+          />
+        </Tooltip>
+        <Input
+          className={styles.itemNumber}
+          value={item.number}
+          disabled
+          placeholder={"Номер"}
+        />
+        <Input placeholder={"Доп"} style={{ flexGrow: 1 }} disabled value={item.expansion} />
+        <Input
+          className={styles.itemPrice}
+          placeholder={"Цена"}
+          onChange={onChange("price")}
+          value={item.price}
+        />
+      </Flex >
+      <Flex gap={8}>
+        <Input
+          className={styles.itemDescription}
+          value={item.description}
+          onChange={onChange("description")}
+          placeholder={"Описание"}
+        />
+        <Input
+          className={styles.itemRarity}
+          value={item.rarity}
+          onChange={onChange("rarity")}
+          placeholder={"Редкость"}
+        />
+        <Select
+          options={Object.keys(Themes).map((item) => ({
+            value: item,
+            label: item,
+          }))}
+          value={item.theme}
+          allowClear
+          onChange={onChangeTheme}
+          placeholder="Стиль"
+        />
+      </Flex>
+      <Flex gap={16}>
+        <FormSwitch checked={item.sold} label="Продано" onChange={onSoldChange} />
+        <FormSwitch checked={item.isNew} label="Новая" onChange={onIsNewChange} />
+        <FormSwitch checked={item.isReserved} label="Резерв" onChange={onIsReservedChange} />
+        <div style={{ flexGrow: 1 }} />
+        <Flex gap={8}>
+          {sameCardError && (
+            <Tooltip title={sameCardError}>
+              <WarningOutlined style={{ color: "red" }} />
+            </Tooltip>
+          )}
+          <Popover
+            content={<img className={styles.cardImage} src={item.image} />}
+          >
+            <PictureOutlined style={{ fontSize: 20, marginRight: 8 }} />
+          </Popover>
+          <Dropdown menu={{ items: menuItems }}>
+            <MenuOutlined style={{ fontSize: 20 }} />
+          </Dropdown>
+        </Flex>
+      </Flex>
+    </Flex>
+  </Flex >
+
   return (
     <div className={styles.item}>
       <div>
@@ -98,7 +175,7 @@ export const Item = ({ item, page }: ItemProps) => {
             placeholder={"Номер"}
           />
 
-          <Input placeholder={"Доп"} disabled value={item.expansion} />
+          <Input placeholder={"Доп"} style={{ flexGrow: 1 }} disabled value={item.expansion} />
           <Input
             className={styles.itemPrice}
             placeholder={"Цена"}

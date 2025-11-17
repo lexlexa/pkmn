@@ -15,8 +15,8 @@ export const CategoryFormInner: FC<Props> = ({ onClose, item }) => {
     const categories = useUnit($categories)
 
 
-
     const selectedCategoryId = item ? getCategoryOptionIdById(categories, item.id) : undefined
+
 
     const [parentCategory, setParentCategory] = useState<string | undefined>(selectedCategoryId)
     const [name, setName] = useState(item?.name || '')
@@ -28,18 +28,17 @@ export const CategoryFormInner: FC<Props> = ({ onClose, item }) => {
         if (item) {
             await categoriesFxs.updateFx({ ...item, name, slug })
         } else {
-            if (!parentCategory) return
-            await categoriesFxs.createFx({ name, slug, category_parent_id: Number(parentCategory.split('-').at(-1)) })
+            await categoriesFxs.createFx({ name, slug, category_parent_id: parentCategory ? Number(parentCategory.split('-').at(-1)) : null })
         }
         onClose()
     }
 
-    const isValidForm = parentCategory && name && slug
+    const isValidForm = name && slug
 
-    console.log('>>>', parentCategory)
 
     return <Flex vertical gap={16}>
-        <FormTreeSelect value={parentCategory} disabled={!!item} options={treeData} onChange={setParentCategory} label="Категория" />
+
+        <FormTreeSelect allowClear value={parentCategory} disabled={!!item} options={treeData} onChange={setParentCategory} label="Категория" />
         <FormInput value={name} label="Название" placeholder="Покеболы" onChange={setName} />
         <FormInput value={slug} label="Slug" placeholder="pokeballs" onChange={setSlug} />
         <Button disabled={!isValidForm} onClick={handleSubmit}>Сохранить</Button>

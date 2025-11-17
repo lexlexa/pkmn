@@ -3,12 +3,13 @@ import type { FC } from "react";
 
 type Props = {
   value?: string | number;
-  label: string;
+  label?: string;
   onChange: (value: string) => void;
   placeholder?: string;
   fullWidth?: boolean;
   required?: boolean;
   error?: string;
+  allowClear?: boolean;
 };
 
 export const FormInput: FC<Props> = ({
@@ -18,15 +19,17 @@ export const FormInput: FC<Props> = ({
   placeholder,
   fullWidth,
   required,
-  error
+  error,
+  allowClear
 }) => {
   return (
     <Flex style={{ width: fullWidth ? '100%' : '' }} vertical gap={4}>
-      <Typography.Text strong>
+      {label && <Typography.Text strong>
         {label}
         {required && <span style={{ color: 'red' }}>*</span>}
-      </Typography.Text>
+      </Typography.Text>}
       <Input
+        allowClear={allowClear}
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}

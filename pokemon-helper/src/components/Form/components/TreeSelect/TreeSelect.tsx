@@ -10,6 +10,7 @@ type Props = {
     fixedWidth?: number | string;
     required?: boolean,
     disabled?: boolean;
+    allowClear?: boolean;
 };
 
 export const FormTreeSelect: FC<Props> = ({
@@ -20,7 +21,8 @@ export const FormTreeSelect: FC<Props> = ({
     options,
     fixedWidth,
     required,
-    disabled
+    disabled,
+    allowClear
 }) => {
     return (
         <Flex vertical gap={4} style={{ width: fixedWidth }}>
@@ -36,6 +38,7 @@ export const FormTreeSelect: FC<Props> = ({
                 disabled={disabled}
                 placeholder={placeholder}
                 onChange={onChange}
+                allowClear={allowClear}
             />
         </Flex>
     );

@@ -9,7 +9,7 @@ type Props = {
 
 export const FormSwitch: FC<Props> = ({ checked, onChange, label }) => {
   return (
-    <Flex gap={16}>
+    <Flex gap={8}>
       <Switch checked={checked} onChange={onChange} />
       <Typography.Text>{label}</Typography.Text>
     </Flex>
