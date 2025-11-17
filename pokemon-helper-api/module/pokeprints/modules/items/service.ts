@@ -72,6 +72,9 @@ export const getItemsList = async () => {
         include: {
             items_filament: true,
             items_images: true,
+        },
+        orderBy: {
+            name: 'asc'
         }
     })
 }
