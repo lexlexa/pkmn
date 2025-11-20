@@ -29,6 +29,7 @@ const password = "D9a1ztM7Csr6WE09qEj7Bn1keCfvIT";
 const secret = "pkmn_57_pkmn";
 
 const app = express();
+const pokeprints = express();
 const port = process.env.PORT || 3001;
 
 // Middleware для парсинга JSON
@@ -38,7 +39,7 @@ app.use(fileUpload({}));
 
 app.use(express.static("public"));
 app.use(express.static("public/assets"));
-
+pokeprints.use(express.static('pokeprints'))
 const whilelist = [
   "/api/auth",
   "/api/utils/prices.csv",
@@ -131,9 +132,18 @@ app.get("/{*splat}", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
+pokeprints.get('/', (req, res) => {
+  res.send('test')
+})
+
 // Запуск сервера
-app.listen(port, () => {
+app.listen(3002, () => {
+  console.log(`Сервер запущен на порту ${3002}`);
+});
+
+pokeprints.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
 });
+
 
 export default app;
