@@ -79,6 +79,20 @@ export const getItemsList = async () => {
     })
 }
 
+export const getNewItemsList = async (take: number = 8) => {
+    return await DBClient.items.findMany({
+        relationLoadStrategy: 'join',
+        include: {
+            items_filament: true,
+            items_images: true,
+        },
+        orderBy: {
+            created_at: 'desc'
+        },
+        take: take
+    })
+}
+
 
 // { 
 //     "name": "12312", 

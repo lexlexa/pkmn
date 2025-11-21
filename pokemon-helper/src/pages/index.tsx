@@ -58,7 +58,7 @@ const AppRoutes = [
   },
 ];
 
-const router = createBrowserRouter(AppRoutes);
+const router = createBrowserRouter(AppRoutes, { basename: '/admin' });
 
 export const EntryPoint = () => {
   const token = useUnit($token);

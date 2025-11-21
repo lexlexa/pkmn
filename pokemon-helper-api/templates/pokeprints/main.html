@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokeprints</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-container">
+            <a href="{{cardsUrl}}" target="_blank" rel="noopener noreferrer" class="top-bar-link">
+                Карты Pokemon TCG &rarr;
+            </a>
+            <span class="top-bar-separator">|</span>
+            <a href="{{telegramUrl}}" target="_blank" rel="noopener noreferrer" class="top-bar-link">
+                Telegram &rarr;
+            </a>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="site-title">
+                <img src="images/logo.png" alt="Pokeprints Logo" class="site-logo">
+                <span class="site-title-text">Pokeprints</span>
+            </a>
+            
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Секция карусели топ-товаров -->
+            <section class="top-products-section">
+                <!-- Slider main container -->
+                <div class="swiper top-products-swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        {{slides}}
+                    </div>
+                    <!-- Pagination -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- Navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </section>
+
+            <div class="search-form">
+                <input type="text" class="search-input" id="search-input" placeholder="Найти">
+                <div class="search-clear" onclick="getElementById('search-input').value ='';getElementById('search-button').click()">+</div>
+                <button type="submit" id="search-button" class="search-button">Найти</button>
+            </div>
+
+            <section class="catalog">
+                <h2 class="section-title">Каталог</h2>
+                <div class="product-grid">
+                    {{products}}
+                </div>
+
+                <h3 class="no-data">Ничего не найдено</h3>
+            </section>
+
+            <section class="faq-section">
+            <h2 class="section-title">FAQ</h2>
+            <div class="faq-accordion">
+                {{faq}}
+            </div>
+        </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Pokeprints.</p>
+        </div>
+    </footer>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Инициализация Swiper
+            const swiper = new Swiper('.top-products-swiper', {
+                loop: true, // Бесконечная прокрутка
+                slidesPerView: 1, // По одному слайду по умолчанию
+                spaceBetween: 10, // Отступ между слайдами
+                autoplay: true,
+                // Адаптивность
+                breakpoints: {
+                    // когда ширина экрана >= 768px
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    // когда ширина экрана >= 1024px
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 30
+                    }
+                },
+
+                // Пагинация (точки)
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+
+                // Кнопки навигации (стрелки)
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+            
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+
+        question.addEventListener('click', () => {
+            const answer = item.querySelector('.faq-answer');
+            const isOpen = item.classList.contains('active');
+
+            // Закрыть все открытые аккордеоны
+            faqItems.forEach(otherItem => {
+                if (otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                }
+            });
+
+            // Открыть/закрыть текущий
+            if (!isOpen) {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        });
+    });
+
+    const searchButton = document.getElementById('search-button')
+
+    searchButton.addEventListener('click', () => {
+        const term = document.getElementById('search-input').value;
+        let count = 0;
+        document.querySelectorAll('.product-grid .product-card').forEach(item => {
+            const search = item.dataset.search
+            if (search.includes(term.toLowerCase())) {
+                item.style.display = ''
+                count ++
+            } else {
+                item.style.display = 'none'
+            }
+        })
+
+        document.querySelector('.no-data').style.display = count === 0 ? 'block' : 'none'
+    })
+    
+
+});
+    </script>
+</body>
+</html>

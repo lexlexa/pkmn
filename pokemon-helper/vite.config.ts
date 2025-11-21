@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: "../pokemon-helper-api/public",
+    outDir: "../pokemon-helper-api/admin",
     emptyOutDir: true,
     rollupOptions: {
       output: {

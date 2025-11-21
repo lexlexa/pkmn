@@ -5,6 +5,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const storagePath = path.join(__dirname, "..", "..", "storage");
+const templatesPath = path.join(__dirname, "..", "templates");
 
 export const FIRST_FILE_PATH = path.join(storagePath, "first.csv");
 export const SECOND_FILE_PATH = path.join(storagePath, "second.csv");
@@ -21,3 +22,5 @@ export const POKEBALLS_CONFIGS = path.join(
 );
 export const POKEBALLS_PATH = path.join(storagePath, "pokeballs.json");
 export const ORDERS_PATH = path.join(storagePath, "orders.json");
+
+export const TEMPLATES_PATH = templatesPath

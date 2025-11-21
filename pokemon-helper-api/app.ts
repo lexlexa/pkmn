@@ -18,6 +18,9 @@ import { ImagesRoute } from "./routes/images.ts";
 import { pokeballsRouter } from "./module/pokeballs/router.ts";
 import { pokeprintsRouter } from "./module/pokeprints/router.ts";
 import "dotenv/config";
+import { TEMPLATES_PATH } from "./files/constants.js";
+import { readFile } from "fs/promises";
+import { getItemsList, getNewItemsList } from "./module/pokeprints/modules/items/service.ts";
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,8 +39,11 @@ app.use(express.json());
 app.use(bodyParser.urlencoded());
 app.use(fileUpload({}));
 
-app.use(express.static("public"));
-app.use(express.static("public/assets"));
+app.use(express.static("pokeprints"));
+app.use(express.static("pokeprints/css"));
+app.use(express.static("pokeprints/images"));
+app.use('/admin', express.static('admin'))
+app.use('/admin', express.static('admin/assets'))
 
 const whilelist = [
   "/api/auth",
@@ -126,8 +132,108 @@ SaleRoute(app);
 DictsRoute(app);
 SaleRareRoute(app);
 
+
+const PokePrintsTemplates = {
+  MAIN: (await readFile(path.join(TEMPLATES_PATH, 'pokeprints', 'main.html'))).toString(),
+  PRODUCT_CARD: (await readFile(path.join(TEMPLATES_PATH, 'pokeprints', 'product-card.html'))).toString(),
+  SLIDER_ITEM: (await readFile(path.join(TEMPLATES_PATH, 'pokeprints', 'slider-item.html'))).toString(),
+  FAQ_ITEM: (await readFile(path.join(TEMPLATES_PATH, 'pokeprints', 'faq-item.html'))).toString(),
+}
+
+const TELEGRAM_URL = 'https://t.me/pokeprints'
+const CARDS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWONohR5u6xJC3P_ZsfefbqS4Sbq6TxyK9Ia91iGyOBwoDmLb1p4KfGM8wwAF6RE14MWLIGoVebPjW/pubhtml'
+
 // ImagesRoute(app);
-app.get("/{*splat}", (req, res) => {
+app.get("/{*splat}", async (req, res) => {
+
+  const faqItems = [
+    {
+      question: 'Из чего сделана продукция?',
+      answer: 'Все модели печатаются на FDM-принтере с высотой слоя всего 0.08 мм, что обеспечивает высокий уровень детализации. В основном мы используем качественный PLA-пластик, а для некоторых моделей — более прочный PETG.'
+    },
+    {
+      question: 'Какие способы доставки доступны?',
+      answer: 'Доставка оплачивается покупателем. Доступны все популярными службами доставки, такие как СДЭК, Яндекс Доставка, Ozon и др. Точная стоимость и сроки рассчитываются при оформлении заказа.'
+    },
+    {
+      question: 'Как упаковываются заказы?',
+      answer: 'Мы используем прочную непрозрачную коробку с наполнителем, чтобы гарантировать сохранность вашего заказа во время перевозки. Для самовывоза доступна подарочная прозрачная упаковка.'
+    },
+    {
+      question: 'Какого размера покеболы в виде покемонов?',
+      answer: 'Основание покебола (шар) имеет диаметр 7 см. Полный размер модели (с учетом ушей, крыльев, хвоста и других деталей) является уникальным для каждого покемона.'
+    },
+    {
+      question: 'Доступны ли скидки?',
+      answer: `
+      <div style="padding: 0 24px; margin-top: -24px;">
+      <div>Да, у нас есть несколько способов получить скидку:</div>
+      <ul style="list-style: default; margin-left: 24px;">
+        <li><b>Подписка в Telegram:</b> Подпишитесь на наш <a href="${TELEGRAM_URL}" target="_blank">канал</a> и получите постоянную скидку 5% на весь ассортимент.</li>
+        <li><b>Оптовые заказы:</b> На многие позиции действуют специальные оптовые цены.</li>
+        </ul></div>`
+    },
+    {
+      question: 'Бывают ли дефекты?',
+      answer: 'Мы тщательно проверяем каждую модель перед отправкой. Однако FDM-печать — это ручная работа, и на изделиях могут быть минимальные следы поддержек или слоев, что является нормальной особенностью технологии и не считается браком.'
+    },
+    {
+      question: 'Какой срок изготовления заказа?',
+      answer: 'Стандартный срок изготовления — 1-3 рабочих дня. Срок изготовления может быть увеличен в зависимости от количества активных заказов. Если вам нужен срочный заказ, пожалуйста, уточните его возможность в Telegram перед оформлением.'
+    },
+    {
+      question: 'Что делать, если я получил поврежденный товар?',
+      answer: 'Мы тщательно упаковываем заказы, но если вы получили поврежденный товар, сделайте фото повреждений и упаковки и свяжитесь с нами в течение 24 часов. Мы решим вопрос о замене.'
+    },
+    {
+      question: 'Можно ли изменить цвет модели?',
+      answer: 'Да, для многих моделей это возможно! Укажите ваши пожелания в комментарии к заказу, и мы свяжемся с вами для уточнения деталей.'
+    },
+    {
+      question: 'Вы делаете модели на заказ по моему чертежу/рисунку?',
+      answer: 'Да, мы занимаемся 3D-печатью на заказ. Обсудите ваш проект с нами в Telegram, и мы подготовим коммерческое предложение.'
+    },
+    {
+      question: 'Как ухаживать за моделью?',
+      answer: 'Готовое изделие не любит прямых солнечных лучей (может выцветать), влаги и механических нагрузок. Для очистки используйте сухую мягкую кисть или ткань. Не используйте агрессивные химические средства.'
+    },
+    {
+      question: 'Как с вами быстро связаться?',
+      answer: `Самый быстрый способ — написать нам в <a href="${TELEGRAM_URL}" target="_blank">Telegram</a>.`
+    }
+  ];
+
+  const items = await getItemsList()
+  const itemsForCarousel = await getNewItemsList()
+
+  const products = items.map(item => PokePrintsTemplates.PRODUCT_CARD
+    .replaceAll('{{name}}', item.name)
+    .replaceAll('{{price}}', item.price.toString())
+    .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
+    .replaceAll('{{search}}', `${item.name.toLowerCase()}`)
+  ).join('')
+
+
+  const carousel = itemsForCarousel.map(item => PokePrintsTemplates.SLIDER_ITEM
+    .replaceAll('{{name}}', item.name)
+    .replaceAll('{{price}}', item.price.toString())
+    .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`))
+    .join('')
+
+  const faq = faqItems.map(item => PokePrintsTemplates.FAQ_ITEM
+    .replace('{{question}}', item.question)
+    .replace('{{answer}}', item.answer)).join('')
+
+
+  res.send(PokePrintsTemplates.MAIN
+    .replace('{{products}}', products)
+    .replace('{{slides}}', carousel)
+    .replace('{{cardsUrl}}', CARDS_URL)
+    .replace('{{telegramUrl}}', TELEGRAM_URL).replace('{{faq}}', faq))
+
+});
+
+app.get("/admin/{*splat}", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
