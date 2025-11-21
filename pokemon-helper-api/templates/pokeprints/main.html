@@ -12,7 +12,7 @@
     <style>{{css}}</style>
 </head>
 <body>
-    <div class="top-bar">
+    <div class="top-bar" id="top">
         <div class="top-container">
             <a href="{{cardsUrl}}" target="_blank" rel="noopener noreferrer" class="top-bar-link">
                 Карты Pokemon TCG &rarr;
@@ -59,6 +59,7 @@
                 <input type="text" class="search-input" id="search-input" placeholder="Найти">
                 <div class="search-clear" onclick="getElementById('search-input').value ='';getElementById('search-button').click()">+</div>
                 <button type="submit" id="search-button" class="search-button">Найти</button>
+                <a href="#faq" class="faq-link">FAQ</a>
             </div>
 
             <section class="catalog">
@@ -70,7 +71,7 @@
                 <h3 class="no-data">Ничего не найдено</h3>
             </section>
 
-            <section class="faq-section">
+            <section id="faq" class="faq-section">
             <h2 class="section-title">FAQ</h2>
             <div class="faq-accordion">
                 {{faq}}
@@ -79,11 +80,18 @@
         </div>
     </main>
 
+    <div class="to-top-button" onclick="scrollToId('top')">
+        <!-- <a href="#top"> -->
+            Наверх ↑
+        <!-- </a> -->
+    </div>
+
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2025 Pokeprints.</p>
         </div>
     </footer>
+
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
@@ -163,9 +171,19 @@
 
         document.querySelector('.no-data').style.display = count === 0 ? 'block' : 'none'
     })
+
+    window.addEventListener('scroll', (ev) => {
+        const scrollTop = window.scrollY;
+        const topButton = document.querySelector('.to-top-button')
+        topButton.style.display =  scrollTop >= window.innerHeight * 3 ? 'block' : 'none'
+    })
     
 
 });
+
+    function scrollToId(id) {
+        document.getElementById(id).scrollIntoView({behavior: 'smooth'})
+    }
     </script>
 </body>
 </html>

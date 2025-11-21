@@ -118,7 +118,7 @@ body {
 .search-form {
     display: flex;
     width: 100%;
-    max-width: 350px;
+    max-width: 450px;
     position: relative;
 }
 
@@ -441,4 +441,33 @@ body {
     .product-price {
         font-size: 1.1rem;
     }
+}
+
+
+.faq-link {
+    color: var(--text-color);
+    text-decoration:none;
+    font-size:25px;
+    padding: 0 16px;
+    font-weight: 700;
+}
+
+.to-top-button {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    background-color: var(--primary-color);
+    padding: 16px;
+    color: var(--text-color);
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 16px;
+    box-shadow: 0 0 6px 0 var(--primary-dark-color);
+    cursor: pointer;
+    display: none;
+}
+
+.to-top-button  a {
+    color: inherit;
+    text-decoration: none;
 }
