@@ -39,9 +39,6 @@ app.use(express.json());
 app.use(bodyParser.urlencoded());
 app.use(fileUpload({}));
 
-app.use(express.static("pokeprints"));
-app.use(express.static("pokeprints/css"));
-app.use(express.static("pokeprints/images"));
 app.use('/admin', express.static('admin'))
 app.use('/admin', express.static('admin/assets'))
 
