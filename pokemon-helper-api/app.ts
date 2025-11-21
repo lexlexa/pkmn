@@ -39,8 +39,13 @@ app.use(express.json());
 app.use(bodyParser.urlencoded());
 app.use(fileUpload({}));
 
-app.use('/admin', express.static('admin'))
-app.use('/admin', express.static('admin/assets'))
+app.use('/admin', express.static('public'))
+// app.use('/admin', express.static('public/assets'))
+
+app.get("/assets/{*splat}", (req, res) => {
+  console.log('test', req.path)
+  res.sendFile(path.resolve(__dirname, "public", ...req.path.split('/')));
+});
 
 const whilelist = [
   "/api/auth",
@@ -208,7 +213,7 @@ app.get("/{*splat}", async (req, res) => {
   const products = items.map(item => PokePrintsTemplates.PRODUCT_CARD
     .replaceAll('{{name}}', item.name)
     .replaceAll('{{price}}', item.price.toString())
-    .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
+    // .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
     .replaceAll('{{search}}', `${item.name.toLowerCase()}`)
   ).join('')
 
@@ -216,7 +221,8 @@ app.get("/{*splat}", async (req, res) => {
   const carousel = itemsForCarousel.map(item => PokePrintsTemplates.SLIDER_ITEM
     .replaceAll('{{name}}', item.name)
     .replaceAll('{{price}}', item.price.toString())
-    .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`))
+    // .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
+  )
     .join('')
 
   const faq = faqItems.map(item => PokePrintsTemplates.FAQ_ITEM
@@ -237,6 +243,8 @@ app.get("/{*splat}", async (req, res) => {
 app.get("/admin/{*splat}", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
+
+
 
 // Запуск сервера
 app.listen(port, () => {

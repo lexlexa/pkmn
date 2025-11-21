@@ -5,11 +5,12 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: "../pokemon-helper-api/admin",
+    outDir: "../pokemon-helper-api/public",
     emptyOutDir: true,
     rollupOptions: {
       output: {
         assetFileNames: `assets/[name].[ext]`,
+        inlineDynamicImports: true,
       },
     },
   },
