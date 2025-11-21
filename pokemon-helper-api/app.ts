@@ -213,7 +213,7 @@ app.get("/{*splat}", async (req, res) => {
   const products = items.map(item => PokePrintsTemplates.PRODUCT_CARD
     .replaceAll('{{name}}', item.name)
     .replaceAll('{{price}}', item.price.toString())
-    // .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
+    .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
     .replaceAll('{{search}}', `${item.name.toLowerCase()}`)
   ).join('')
 
@@ -221,7 +221,7 @@ app.get("/{*splat}", async (req, res) => {
   const carousel = itemsForCarousel.map(item => PokePrintsTemplates.SLIDER_ITEM
     .replaceAll('{{name}}', item.name)
     .replaceAll('{{price}}', item.price.toString())
-    // .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
+    .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
   )
     .join('')
 
