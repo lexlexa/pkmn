@@ -140,6 +140,8 @@ const PokePrintsTemplates = {
   FAQ_ITEM: (await readFile(path.join(TEMPLATES_PATH, 'pokeprints', 'faq-item.html'))).toString(),
 }
 
+const PokeprintsCss = (await readFile(path.join(__dirname, 'pokeprints', 'css', 'styles.css'))).toString()
+const PokeprintsLogo = (await readFile(path.join(__dirname, 'pokeprints', 'images', 'logo.png'))).toString('base64')
 const TELEGRAM_URL = 'https://t.me/pokeprints'
 const CARDS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWONohR5u6xJC3P_ZsfefbqS4Sbq6TxyK9Ia91iGyOBwoDmLb1p4KfGM8wwAF6RE14MWLIGoVebPjW/pubhtml'
 
@@ -229,7 +231,9 @@ app.get("/{*splat}", async (req, res) => {
     .replace('{{products}}', products)
     .replace('{{slides}}', carousel)
     .replace('{{cardsUrl}}', CARDS_URL)
-    .replace('{{telegramUrl}}', TELEGRAM_URL).replace('{{faq}}', faq))
+    .replace('{{telegramUrl}}', TELEGRAM_URL).replace('{{faq}}', faq)
+    .replace('{{css}}', PokeprintsCss)
+    .replace('{{logo}}', `data:image/png;base64,${PokeprintsLogo}`))
 
 });
 
