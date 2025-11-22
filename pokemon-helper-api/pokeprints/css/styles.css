@@ -312,10 +312,6 @@ body {
     border-radius: 8px;
 }
 
-.product-grid .product-image {
-    min-height: 180px;
-}
-
 .product-info {
     padding: 20px;
     flex-grow: 1;
