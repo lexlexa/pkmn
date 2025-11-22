@@ -23,7 +23,8 @@
     "express-fileupload": "^1.5.1",
     "googleapis": "^105.0.0",
     "jsonwebtoken": "^9.0.2",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@types/axios": "^0.9.36",
@@ -31,6 +32,7 @@
     "@types/express-fileupload": "^1.5.1",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.5.2",
+    "@types/sharp": "^0.31.1",
     "prisma": "^6.19.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.5"

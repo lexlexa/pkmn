@@ -21,9 +21,8 @@ body {
     line-height: 1.6;
     background-color: var(--light-gray-color); /* Резервный цвет для старых браузеров */
     background: linear-gradient(135deg, 
-  #0099CC 0%,    /* Левый верхний угол - синевато-бирюзовый */
-  #00BFA5 50%,   /* Центр - насыщенный бирюзовый */
-  #00E5CC 100%   /* Правый нижний угол - светлый мятный */
+  #0581d9 0%,    /* Левый верхний угол - синевато-бирюзовый */
+  #3fc 100%   /* Правый нижний угол - светлый мятный */
 );  
     /* linear-gradient(180deg, #e0f7f5 0%, #ffffff 100%); Более яркий градиент */
     background-attachment: fixed; /* Фиксирует фон при прокрутке */
@@ -79,7 +78,7 @@ body {
 .site-header {
     /* background-color: var(--card-bg); */
     color: var(--text-color);
-    padding: 1.5rem 0;
+    /* padding: 1.5rem 0; */
     /* border-bottom: 1px solid #e9ecef; */
 }
 
@@ -99,14 +98,14 @@ body {
     text-decoration: none; /* Убираем подчеркивание у ссылки */
     text-shadow: none; /* Убираем старую тень */
     position: relative;
-    padding-left: 50px;
+    /* padding-left: 100px; */
 }
 
 .site-logo {
     height: 100px; /* Задаем высоту логотипа */
     width: auto;
-    position: absolute;
-    left: -70px
+    /* position: absolute; */
+    /* left: -70px */
 }
 
 .site-title-text {
@@ -313,6 +312,10 @@ body {
     border-radius: 8px;
 }
 
+.product-grid .product-image {
+    min-height: 180px;
+}
+
 .product-info {
     padding: 20px;
     flex-grow: 1;
@@ -421,6 +424,9 @@ body {
 }
 
 @media (max-width: 480px) {
+    .main-content {
+        padding: 16px 0;
+    }
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
@@ -440,6 +446,14 @@ body {
 
     .product-price {
         font-size: 1.1rem;
+    }
+
+    .section-title {
+        margin-bottom: 24px;
+    }
+
+    .container {
+        gap: 16px;
     }
 }
 

@@ -147,17 +147,23 @@ const PokeprintsLogo = (await readFile(path.join(__dirname, 'pokeprints', 'image
 const TELEGRAM_URL = 'https://t.me/pokeprints'
 const CARDS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWONohR5u6xJC3P_ZsfefbqS4Sbq6TxyK9Ia91iGyOBwoDmLb1p4KfGM8wwAF6RE14MWLIGoVebPjW/pubhtml'
 
+const NoImageSVG = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><title>No-image SVG Icon</title><path fill="currentColor" d="M30 3.414L28.586 2L2 28.586L3.414 30l2-2H26a2.003 2.003 0 0 0 2-2V5.414zM26 26H7.414l7.793-7.793l2.379 2.379a2 2 0 0 0 2.828 0L22 19l4 3.997zm0-5.832l-2.586-2.586a2 2 0 0 0-2.828 0L19 19.168l-2.377-2.377L26 7.414zM6 22v-3l5-4.997l1.373 1.374l1.416-1.416l-1.375-1.375a2 2 0 0 0-2.828 0L6 16.172V6h16V4H6a2.002 2.002 0 0 0-2 2v16z"/></svg>'
+
 // ImagesRoute(app);
 app.get("/{*splat}", async (req, res) => {
 
   const faqItems = [
+    {
+      question: 'Как оформить заказ?',
+      answer: `Загляните к нам в <a href="${TELEGRAM_URL}" target="_blank">Telegram</a>, там есть контакты для оформления заказа.`
+    },
     {
       question: 'Из чего сделана продукция?',
       answer: 'Все модели печатаются на FDM-принтере с высотой слоя всего 0.08 мм, что обеспечивает высокий уровень детализации. В основном мы используем качественный PLA-пластик, а для некоторых моделей — более прочный PETG.'
     },
     {
       question: 'Какие способы доставки доступны?',
-      answer: 'Доставка оплачивается покупателем. Доступны все популярными службами доставки, такие как СДЭК, Яндекс Доставка, Ozon и др. Точная стоимость и сроки рассчитываются при оформлении заказа.'
+      answer: 'Доставка оплачивается покупателем. Доступны все популярные службы доставки, такие как СДЭК, Яндекс Доставка, Ozon и др. Точная стоимость и сроки рассчитываются при оформлении заказа.'
     },
     {
       question: 'Как упаковываются заказы?',
@@ -213,7 +219,7 @@ app.get("/{*splat}", async (req, res) => {
   const products = items.map(item => PokePrintsTemplates.PRODUCT_CARD
     .replaceAll('{{name}}', item.name)
     .replaceAll('{{price}}', item.price.toString())
-    .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
+    .replaceAll('{{imageUrl}}', item.items_images[0]?.image_id ? `/api/images?name=${item.items_images[0]?.image_id}&width=300` : NoImageSVG)
     .replaceAll('{{search}}', `${item.name.toLowerCase()}`)
   ).join('')
 
@@ -221,7 +227,7 @@ app.get("/{*splat}", async (req, res) => {
   const carousel = itemsForCarousel.map(item => PokePrintsTemplates.SLIDER_ITEM
     .replaceAll('{{name}}', item.name)
     .replaceAll('{{price}}', item.price.toString())
-    .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}`)
+    .replaceAll('{{imageUrl}}', `/api/images?name=${item.items_images[0]?.image_id}&width=500`)
   )
     .join('')
 
