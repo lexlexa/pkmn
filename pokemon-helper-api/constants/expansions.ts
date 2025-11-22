@@ -1,4 +1,5 @@
 export enum Expansions {
+  PHANTASMAL_FLAMES = 'Phantasmal Flames',
   MEGA_EVOLUTION = 'Mega Evolution',
   MEGA_EVOLUTION_PROMOS = 'Mega Evolution Promos',
 
@@ -52,6 +53,7 @@ export enum Expansions {
 }
 
 export const ExpansionsInSDK = {
+  [Expansions.PHANTASMAL_FLAMES]: 'me2',
   [Expansions.MEGA_EVOLUTION]: 'me1',
   [Expansions.MEGA_EVOLUTION_PROMOS]: 'mep',
 
@@ -104,9 +106,10 @@ export const ExpansionsInSDK = {
 };
 
 export const ExpansionsShortName = {
+  [Expansions.PHANTASMAL_FLAMES]: 'PFL',
   [Expansions.MEGA_EVOLUTION]: 'MEG',
   [Expansions.MEGA_EVOLUTION_PROMOS]: 'MEP',
-  
+
   [Expansions.SCARLET_AND_VIOLET_PROMOS]: "SVP",
   [Expansions.SCARLET_AND_VIOLET]: "SVI",
   [Expansions.PALDEA_EVOLVED]: "PAL",
