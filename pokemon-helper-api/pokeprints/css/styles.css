@@ -124,7 +124,7 @@ body {
 .search-clear {
     position: absolute;
     color: var(--primary-color);
-    right: 100px;
+    right:  180px;
     font-size: 30px;
     height: 100%;
     display: flex;

@@ -11,6 +11,8 @@ import { pokeballsRouter as innerPokeballsRouter } from "./modules/pokeballs/rou
 import { ordersRouter } from "./modules/orders/router.ts";
 const pokeballsRouter = express.Router();
 
+const imageCache = new Map<string, { buffer: Buffer; contentType: string }>();
+
 pokeballsRouter.use("/pokeballs", filamentsRouter);
 pokeballsRouter.use("/pokeballs", configsRouter);
 pokeballsRouter.use("/pokeballs", innerPokeballsRouter);
@@ -24,14 +26,23 @@ pokeballsRouter.get("/images", async (req, res) => {
       return res.status(400).send({ error: "Image name is required" });
     }
 
+    const parsedWidth = width ? parseInt(width as string, 10) : null;
+    const parsedHeight = height ? parseInt(height as string, 10) : null;
+
+    const cacheKey = `${name}_${parsedWidth || "auto"}x${parsedHeight || "auto"}`;
+
+    // 1. Проверяем наличие изображения в кэше
+    if (imageCache.has(cacheKey)) {
+      const cachedImage = imageCache.get(cacheKey)!;
+      res.set("Content-Type", cachedImage.contentType);
+      return res.send(cachedImage.buffer);
+    }
+
     const imagePath = join(IMAGES_PATH, `${name}`);
 
     if (!fs.existsSync(imagePath)) {
       return res.status(404).send({ error: "Image not found" });
     }
-
-    const parsedWidth = width ? parseInt(width as string, 10) : null;
-    const parsedHeight = height ? parseInt(height as string, 10) : null;
 
     let image = sharp(imagePath);
 
@@ -40,8 +51,12 @@ pokeballsRouter.get("/images", async (req, res) => {
     }
 
     const buffer = await image.toBuffer();
+    const contentType = `image/${name.toString().split(".").pop()}`;
 
-    res.set("Content-Type", `image/${name.toString().split(".").pop()}`);
+    // 2. Сохраняем результат в кэш
+    imageCache.set(cacheKey, { buffer, contentType });
+
+    res.set("Content-Type", contentType);
     res.send(buffer);
   } catch (error) {
     console.error("Error processing image:", error);
