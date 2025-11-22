@@ -307,9 +307,15 @@ body {
 .product-image {
     width: 100%;
     aspect-ratio: 1 / 1;
-    /* object-fit: cover; */
+    object-fit: cover;
     background-color: var(--light-gray-color);
     border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.product-image.loaded {
+    opacity: 1;
 }
 
 .product-info {
@@ -429,7 +435,7 @@ body {
     }
 
     .product-image {
-        height: 120px;
+        height: 180px;
     }
 
     .product-info {

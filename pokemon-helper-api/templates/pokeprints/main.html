@@ -177,6 +177,12 @@
         const topButton = document.querySelector('.to-top-button')
         topButton.style.display =  scrollTop >= window.innerHeight * 3 ? 'block' : 'none'
     })
+
+    document.querySelectorAll('.product-image').forEach(img => {
+        img.addEventListener('load', function() {
+            this.classList.add('loaded');
+        });
+    });
     
 
 });
